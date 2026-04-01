@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1775049311 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\garden rush\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"affichage.h"
+
+1775050339 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\garden rush\affichage.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+
+1775050016 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\garden rush\affichage.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"affichage.h"
+
