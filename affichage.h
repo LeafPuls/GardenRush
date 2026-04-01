@@ -4,6 +4,8 @@
 #include <time.h>
 #include <windows.h>
 
+#include "game.h"
+
 //======DEFINE HEX COULEUR=====
 // Couleurs standards
 #define NOIR          0x000000
@@ -23,14 +25,18 @@
 #define MAGENTA       0xFF00FF
 #define ROSE          0xFFC0CB
 
-
-
+//=======Position DEBUG=======
+#define DEBUG_J1_X 70
+#define DEBUG_J1_Y 0
+#define DEBUG_J2_X 70
+#define DEBUG_J2_Y 20
 
 
 
 
 
 //=======Def AFFICHAGE=======
+int debug;//variable pour activer les fonctions de debug
 void cadre_ecran();
 void afficher_plateau();
 //=======
@@ -39,12 +45,12 @@ void afficher_plateau();
 //=======Def outil affichage=======
 void dessine_pixel_hex(int x, int y, int hex_couleur);//couleur en HEX
 void dessiner_rectangle(int x, int y, int longueur, int hauteur, int hex_couleur);
+void color(int couleurDuTexte, int couleurDuFond);//couleur de base
+void affichage_caractere_speciaux();
 //=======
 
 
 //=======Def de base=======
-void affichage_caractere_speciaux();
-void color(int couleurDuTexte, int couleurDuFond);//couleur de base
 void positionner_curseur(int ligne, int colonne);
 void cacher_curseur();
 void plein_ecran(int s);
@@ -54,4 +60,5 @@ void plein_ecran(int s);
 //=======DEF DEBUG=======
 void afficher_grillage_ligne(int ligne);//aide graphique pour positioner
 void afficher_grillage_colonne(int colonne);//aide graphique pour positioner
+void debug_afficher_matrice(S_plateau* p, int x, int y);
 //=======

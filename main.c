@@ -9,15 +9,29 @@
 
 int main()
 {
+//==============================================================ATTENTION==============================================================
+
+plein_ecran(3);// mettre 3 pour de la 4k et 4 pour de la 1080p
+
+//=========================================================|
+debug = 0;//mettre à 1 pour activer les fonctions de debug |
+//=========================================================|
+
 
 //=====initialisation de base=====
-plein_ecran(3);// mettre 3 pour de la 4k et 4 pour de la 1080p
 cadre_ecran();
-afficher_plateau();
 
-//=====Tableau data=====
-char plat1[5][5];//joueur gauche
-char plat2[5][5];//joueur droit
+
+
+S_plateau J1;
+S_plateau J2;
+
+initialisation_plateau(&J1);
+initialisation_plateau(&J2);
+
+
+
+
 
 
 
@@ -28,6 +42,9 @@ afficher_grillage_ligne(0);
 afficher_grillage_colonne(0);
 
 //====Data jeu=====
+debug_afficher_matrice(&J1, DEBUG_J1_X, DEBUG_J1_Y);
+debug_afficher_matrice(&J2, DEBUG_J2_X, DEBUG_J2_Y);
 
+positionner_curseur(85, 0);
     return 0;
 }

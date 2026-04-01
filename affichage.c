@@ -9,20 +9,19 @@
 #include "game.h"
 
 
-//========================Fonction AFFICHAGE========================
+//=====================================================================================Fonction AFFICHAGE=====================================================================================
 void cadre_ecran() {
-	dessiner_rectangle(0, 0, 1, 88, GRIS);//côté
-    dessiner_rectangle(0, 313, 1, 88, GRIS);
-	dessiner_rectangle(0, 0, 314, 1, GRIS);//haut et bas
-    dessiner_rectangle(87, 0, 314, 1, GRIS);
+	dessiner_rectangle(0, 0, 88, 1, GRIS);//côté
+    dessiner_rectangle(0, 313, 88, 1, GRIS);
+	dessiner_rectangle(0, 0, 1, 314, GRIS);//haut et bas
+    dessiner_rectangle(87, 0, 1, 314, GRIS);
 }
 
 void afficher_plateau() {
 	dessiner_rectangle(10, 5, 10, 20, VERT_FONCE);
 }
 
-
-//========================Fonction outil affichage========================
+//====================================================================================Fonction base affichage====================================================================================
 
 void dessine_pixel_hex(int x, int y, int hex_couleur) {
     // extrait les composantes R, G, B du code hexadécimal
@@ -36,15 +35,32 @@ void dessine_pixel_hex(int x, int y, int hex_couleur) {
 }
 
 void dessiner_rectangle(int x, int y, int longueur, int hauteur, int hex_couleur) {
-    for (int j = 0; j < longueur; j++) {
-        for (int i = 0; i < hauteur; i++) {
+    for (int j = 0; j < hauteur; j++) {
+        for (int i = 0; i < longueur; i++) {
             dessine_pixel_hex(x + i, y + j, hex_couleur);
         }
     }
 }
 
+void affichage_caractere_speciaux()
+{
+    printf("%c\n\n", 218);
+    printf("%c\n\n", 196);
+    printf("%c\n\n", 191);
+    printf("%c\n\n", 179);
+    printf("%c\n\n", 195);
+    printf("%c\n\n", 180);
+    printf("%c\n\n", 192);
+    printf("%c\n\n", 217);
+}
 
-//========================Fonction de base========================
+void color(int couleurDuTexte, int couleurDuFond)
+{
+    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H, couleurDuFond * 16 + couleurDuTexte);
+}
+
+//=====================================================================================Fonction de base=====================================================================================
 
 
 void plein_ecran(int s)
@@ -89,26 +105,7 @@ void cacher_curseur() {
 }
 
 
-void affichage_caractere_speciaux()
-{
-    printf("%c\n\n", 218);
-    printf("%c\n\n", 196);
-    printf("%c\n\n", 191);
-    printf("%c\n\n", 179);
-    printf("%c\n\n", 195);
-    printf("%c\n\n", 180);
-    printf("%c\n\n", 192);
-    printf("%c\n\n", 217);
-}
-
-void color(int couleurDuTexte, int couleurDuFond)
-{
-    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(H, couleurDuFond * 16 + couleurDuTexte);
-}
-
-
-//========================Fonction DEBUG========================
+//=====================================================================================Fonction DEBUG=====================================================================================
 
 //aide pour positioner
 void afficher_grillage_ligne(int ligne) {
@@ -130,4 +127,28 @@ void afficher_grillage_colonne(int colonne) {
 			k++;
         }
     }
+}
+
+void debug_afficher_matrice(S_plateau* p, int x, int y)
+{
+    if (debug == 1) {
+        int i, j;
+        positionner_curseur(x, y);
+
+        // Affichage des données
+        for (i = 0; i < 5; i++)
+        {
+            positionner_curseur(x+i, y);
+
+            for (j = 0; j < 5; j++)
+            {
+                printf("%c ", p->plat[i][j]);
+            }
+        }
+
+        // Affichage du score
+        positionner_curseur(x + 7, y);
+        printf("Score : %d", p->score);
+	}
+    
 }
