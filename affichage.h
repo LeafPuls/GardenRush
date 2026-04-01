@@ -31,7 +31,7 @@
 
 
 //=======Def AFFICHAGE=======
-
+void cadre_ecran();
 //=======
 
 

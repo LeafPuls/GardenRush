@@ -3,7 +3,7 @@
 #include <time.h>
 #include <windows.h>
 
-//=====Header=====
+//=====include=====
 #include "affichage.h"
 
 int main()
@@ -11,7 +11,7 @@ int main()
 
 //=====initialisation de base=====
 plein_ecran(3);
-dessiner_rectangle(11, 11, 10, 10, ROUGE);
+cadre_ecran();
 
 
 

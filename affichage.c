@@ -10,8 +10,9 @@
 
 
 //========================Fonction AFFICHAGE========================
-void afficher_plateau() {
-
+void cadre_ecran() {
+	dessiner_rectangle(0, 0, 1, 1, GRIS); // Bordure supérieure
+	//dessiner_rectangle(0, 24, 80, 1, GRIS); // Bordure inférieure
 
 }
 
