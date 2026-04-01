@@ -32,6 +32,7 @@
 
 //=======Def AFFICHAGE=======
 void cadre_ecran();
+void afficher_plateau();
 //=======
 
 
@@ -46,7 +47,7 @@ void affichage_caractere_speciaux();
 void color(int couleurDuTexte, int couleurDuFond);//couleur de base
 void positionner_curseur(int ligne, int colonne);
 void cacher_curseur();
-void plein_ecran();
+void plein_ecran(int s);
 //=======
 
 

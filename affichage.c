@@ -1,4 +1,3 @@
-#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,16 +6,20 @@
 
 //=====Header=====
 #include "affichage.h"
+#include "game.h"
 
 
 //========================Fonction AFFICHAGE========================
 void cadre_ecran() {
-	dessiner_rectangle(0, 0, 1, 1, GRIS); // Bordure supérieure
-	//dessiner_rectangle(0, 24, 80, 1, GRIS); // Bordure inférieure
-
+	dessiner_rectangle(0, 0, 1, 88, GRIS);//côté
+    dessiner_rectangle(0, 313, 1, 88, GRIS);
+	dessiner_rectangle(0, 0, 314, 1, GRIS);//haut et bas
+    dessiner_rectangle(87, 0, 314, 1, GRIS);
 }
 
-
+void afficher_plateau() {
+	dessiner_rectangle(10, 5, 10, 20, VERT_FONCE);
+}
 
 
 //========================Fonction outil affichage========================
@@ -28,13 +31,13 @@ void dessine_pixel_hex(int x, int y, int hex_couleur) {
     int b = hex_couleur & 0xFF;
 
     positionner_curseur(x, y);
-    // Print deux espaces avec le fond coloré en RGB
-    printf("\x1b[48;2;%d;%d;%dm  \x1b[0m", r, g, b);
+    // Print espace avec le fond coloré en RGB
+    printf("\x1b[48;2;%d;%d;%dm \x1b[0m", r, g, b);
 }
 
 void dessiner_rectangle(int x, int y, int longueur, int hauteur, int hex_couleur) {
-    for (int j = 0; j < hauteur; j++) {
-        for (int i = 0; i < longueur; i++) {
+    for (int j = 0; j < longueur; j++) {
+        for (int i = 0; i < hauteur; i++) {
             dessine_pixel_hex(x + i, y + j, hex_couleur);
         }
     }

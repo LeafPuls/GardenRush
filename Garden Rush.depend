@@ -19,3 +19,23 @@
 	<windows.h>
 	"affichage.h"
 
+1775061870 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\affichage.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"affichage.h"
+
+1775061870 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\affichage.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+
+1775061974 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"affichage.h"
+
