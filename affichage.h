@@ -25,20 +25,22 @@
 #define MAGENTA       0xFF00FF
 #define ROSE          0xFFC0CB
 
+//=======Position jeux=======
+#define PLAT_L 15
+#define PLAT_C 2
+
 //=======Position DEBUG=======
-#define DEBUG_J1_X 70
+#define DEBUG_J1_X 90
 #define DEBUG_J1_Y 0
-#define DEBUG_J2_X 70
+#define DEBUG_J2_X 90
 #define DEBUG_J2_Y 20
 
 
 
-
-
 //=======Def AFFICHAGE=======
-int debug;//variable pour activer les fonctions de debug
+int debug_state;//variable globale pour activer les fonctions de debug
 void cadre_ecran();
-void afficher_plateau();
+void dessiner_plateau();
 //=======
 
 
@@ -61,4 +63,5 @@ void plein_ecran(int s);
 void afficher_grillage_ligne(int ligne);//aide graphique pour positioner
 void afficher_grillage_colonne(int colonne);//aide graphique pour positioner
 void debug_afficher_matrice(S_plateau* p, int x, int y);
+void debug_update(int* j1, int* j2);
 //=======

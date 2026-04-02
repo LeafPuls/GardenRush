@@ -17,8 +17,8 @@ void cadre_ecran() {
     dessiner_rectangle(87, 0, 1, 314, GRIS);
 }
 
-void afficher_plateau() {
-	dessiner_rectangle(10, 5, 10, 20, VERT_FONCE);
+void dessiner_plateau() {
+	dessiner_rectangle(PLAT_L, PLAT_C, 60, 310, VERT_FONCE);
 }
 
 //====================================================================================Fonction base affichage====================================================================================
@@ -74,7 +74,7 @@ void plein_ecran(int s)
     // Attendre un court instant pour que le mode plein écran s'active
     Sleep(500);
 
-    // Appliquer deux fois un dézoom (CTRL + '-')
+    // Appliquer un zoom (CTRL + '-')
     for (int i = 0; i < s; i++)
     {
         keybd_event(VK_CONTROL, 0x1D, 0, 0); // Appuie sur CTRL
@@ -131,10 +131,10 @@ void afficher_grillage_colonne(int colonne) {
 
 void debug_afficher_matrice(S_plateau* p, int x, int y)
 {
-    if (debug == 1) {
+     
         int i, j;
         positionner_curseur(x, y);
-
+		color(15, 0);
         // Affichage des données
         for (i = 0; i < 5; i++)
         {
@@ -149,6 +149,15 @@ void debug_afficher_matrice(S_plateau* p, int x, int y)
         // Affichage du score
         positionner_curseur(x + 7, y);
         printf("Score : %d", p->score);
-	}
+	
     
+}
+
+void debug_update(S_plateau*j1, S_plateau*j2)
+{
+    if (debug_state==1)
+    {
+		debug_afficher_matrice(j1, DEBUG_J1_X, DEBUG_J1_Y);
+		debug_afficher_matrice(j2, DEBUG_J2_X, DEBUG_J2_Y);
+    }
 }
