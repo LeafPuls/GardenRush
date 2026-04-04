@@ -129,35 +129,83 @@ void afficher_grillage_colonne(int colonne) {
     }
 }
 
-void debug_afficher_matrice(S_plateau* p, int x, int y)
+void debug_afficher_matrice(int p, int l, int c)
 {
      
         int i, j;
-        positionner_curseur(x, y);
+        positionner_curseur(l, c);
 		color(15, 0);
         // Affichage des données
         for (i = 0; i < 5; i++)
         {
-            positionner_curseur(x+i, y);
+            positionner_curseur(l+i, c);
 
             for (j = 0; j < 5; j++)
             {
-                printf("%c ", p->plat[i][j]);
+                printf("%c ", plateau[p].plat[i][j]);
             }
         }
 
         // Affichage du score
-        positionner_curseur(x + 7, y);
-        printf("Score : %d", p->score);
+        positionner_curseur(l + 7, c);
+        printf("Score : %d", plateau[p].score);
 	
     
 }
 
-void debug_update(S_plateau*j1, S_plateau*j2)
+void debug_afficher_pioche(int l, int c) 
+{
+    int i;
+    positionner_curseur(l, c);
+    color(15, 0);
+    printf("Pioche : ");
+    for (i = 0; i < nbr_pioches; i++) {
+        printf("%c ", pioche[i]);
+    }
+	printf("  nbr_pioches : %d   ", nbr_pioches);
+}
+
+void debug_afficher_haie(int l, int c)
+{
+    int i;
+    positionner_curseur(l, c);
+    color(15, 0);
+    for (i = 0; i < 5; i++) {
+		positionner_curseur(l+i, c);
+        printf("%c ", haie[i]);
+    }
+}
+
+void debug_update()
 {
     if (debug_state==1)
     {
-		debug_afficher_matrice(j1, DEBUG_J1_X, DEBUG_J1_Y);
-		debug_afficher_matrice(j2, DEBUG_J2_X, DEBUG_J2_Y);
+		debug_afficher_matrice(0, DEBUG_J1_L, DEBUG_J1_C);
+		debug_afficher_matrice(1, DEBUG_J2_L, DEBUG_J2_C);
+        debug_afficher_pioche(DEBUG_J1_L+9, DEBUG_J1_C);
+		debug_afficher_haie(DEBUG_J1_L, DEBUG_J1_C+14);
+    }
+}
+
+void autoriser_scroll()//permet d'avoir une console plus grande que l'écran pour pouvoir scroller et éviter les bugs d'affichage pour afficher le debug sous notre jeu
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(hConsole, &csbi);
+
+    // On sécurise la largeur pour éviter une erreur de dimension X
+    short largeurFenetre = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    short largeurBuffer = csbi.dwSize.X;
+
+    COORD nouvelleTaille;
+    nouvelleTaille.X = (largeurBuffer > largeurFenetre) ? largeurBuffer : largeurFenetre;
+    nouvelleTaille.Y = 500; // On demande 500 lignes de scroll
+
+    // Si Windows refuse la modification du scroll :
+    if (SetConsoleScreenBufferSize(hConsole, nouvelleTaille) == 0)
+    {
+        positionner_curseur(0, 0);
+        printf("ERREUR WINDOWS %lu : Impossible de creer un scroll en mode ALT+ENTREE.\n", GetLastError());
+        Sleep(5000); // Laisse 5 secondes pour que tu puisses lire
     }
 }
