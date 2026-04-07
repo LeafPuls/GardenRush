@@ -30,10 +30,10 @@
 #define PLAT_C 2
 
 //=======Position DEBUG=======
-#define DEBUG_J1_L 90
-#define DEBUG_J1_C 0
-#define DEBUG_J2_L 90
-#define DEBUG_J2_C 20
+#define DEBUG_J1_X 90
+#define DEBUG_J1_Y 0
+#define DEBUG_J2_X 90
+#define DEBUG_J2_Y 20
 
 
 
@@ -62,8 +62,14 @@ void plein_ecran(int s);
 //=======DEF DEBUG=======
 void afficher_grillage_ligne(int ligne);//aide graphique pour positioner
 void afficher_grillage_colonne(int colonne);//aide graphique pour positioner
+<<<<<<< HEAD
 void debug_afficher_matrice(int p, int x, int y);
 void debug_afficher_pioche(int x, int y);
 void debug_update();
 void autoriser_scroll();
 //=======
+=======
+void debug_afficher_matrice(S_plateau* p, int x, int y);
+void debug_update(int* j1, int* j2);
+//=======
+>>>>>>> parent of 4fbb66b (04/04 11:09 Major uptate)
