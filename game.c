@@ -11,10 +11,9 @@
 //=====Initialisation variable=====
 
 S_plateau plateau[2];
-char pioche[60];//pioche de base pour le jeu, elle contient les 60 légumes à piocher
-char haie[5];//haie de base pour le jeu, elle contient les 5 légumes à récolter au choix du joueur, elle se remplit à chaque fois qu'on pioche un légume
-int nbr_pioches;//nombre de légumes restant dans la pioche, elle diminue à chaque fois qu'on pioche un légume
-
+char pioche[60];
+char haie[5];
+int nbr_pioches;
 
 //====================================================================================Initialisation du jeu===============================================================================
 
@@ -45,7 +44,7 @@ void melanger_pioche(char* pioche, int *nbr_pioche)
     }
 }
 
-void initialisation_pioche(char *p, int *nbr)//remplissage de la pioche
+void initialisation_pioche(char p[], int* nbr)//remplissage de la pioche
 {
     int i;
     int k = 0;

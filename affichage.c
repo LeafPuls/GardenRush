@@ -20,9 +20,6 @@ void cadre_ecran() {
     dessiner_rectangle(87, 0, 1, 314, GRIS);
 }
 
-void dessiner_plateau() {
-	dessiner_rectangle(PLAT_L, PLAT_C, 60, 310, VERT_FONCE);
-}
 
 //====================================================================================Fonction base affichage====================================================================================
 

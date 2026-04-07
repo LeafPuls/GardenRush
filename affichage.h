@@ -39,7 +39,6 @@ extern int debug_state;
 
 //=======Def AFFICHAGE=======
 void cadre_ecran();
-void dessiner_plateau();
 //=======
 
 

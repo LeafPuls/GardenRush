@@ -24,7 +24,6 @@ extern char haie[5];
 extern int nbr_pioches;
 
 
-
 void initialisation_plateau(S_plateau* plat);
 //void afficher_plateau(S_plateau* plat);
 
@@ -33,7 +32,7 @@ void initialisation_plateau(S_plateau* plat);
 
 
 //=====Initialisation=====
-void initialisation_pioche(char *p, int *nbr);
+void initialisation_pioche(char p[], int* nbr);
 void initialiser_haie(char h[]);
 void initialisation_plateau(S_plateau* p);
 
