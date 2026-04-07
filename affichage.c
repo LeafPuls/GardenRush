@@ -8,6 +8,9 @@
 #include "affichage.h"
 #include "game.h"
 
+//=====Initialisation variable=====
+int debug_state;
+
 
 //=====================================================================================Fonction AFFICHAGE=====================================================================================
 void cadre_ecran() {
@@ -131,7 +134,7 @@ void afficher_grillage_colonne(int colonne) {
 
 void debug_afficher_matrice(int p, int l, int c)
 {
-     
+
         int i, j;
         positionner_curseur(l, c);
 		color(15, 0);
@@ -149,11 +152,11 @@ void debug_afficher_matrice(int p, int l, int c)
         // Affichage du score
         positionner_curseur(l + 7, c);
         printf("Score : %d", plateau[p].score);
-	
-    
+
+
 }
 
-void debug_afficher_pioche(int l, int c) 
+void debug_afficher_pioche(int l, int c)
 {
     int i;
     positionner_curseur(l, c);

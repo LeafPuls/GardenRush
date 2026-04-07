@@ -8,7 +8,12 @@
 #include "affichage.h"
 #include "game.h"
 
+//=====Initialisation variable=====
 
+S_plateau plateau[2];
+char pioche[60];//pioche de base pour le jeu, elle contient les 60 légumes à piocher
+char haie[5];//haie de base pour le jeu, elle contient les 5 légumes à récolter au choix du joueur, elle se remplit à chaque fois qu'on pioche un légume
+int nbr_pioches;//nombre de légumes restant dans la pioche, elle diminue à chaque fois qu'on pioche un légume
 
 
 //====================================================================================Initialisation du jeu===============================================================================
@@ -20,7 +25,7 @@ void initialisation_plateau(S_plateau *p)//tout à zéro
     {
         for (j = 0; j < 5; j++)
         {
-            
+
             p->plat[i][j] = '0';
         }
     }
@@ -33,7 +38,7 @@ void melanger_pioche(char* pioche, int *nbr_pioche)
     char temp;
     for (int i = 0; i < *nbr_pioche; i++)
     {
-        j = rand() % *nbr_pioche; 
+        j = rand() % *nbr_pioche;
         temp = pioche[i];
         pioche[i] = pioche[j];
         pioche[j] = temp;
@@ -83,7 +88,7 @@ void initialiser_haie(char h[])//permet de remplir la haie avec les 5 prochains 
 
 //=====================================================================================Fonction de jeu=====================================================================================
 
-void deplacer_haie_vers_plateau(char haie[], char plat[], int h, int p)//deplace de la haie vers le plateau, h et p sont les positions dans la haie et le plateau 
+void deplacer_haie_vers_plateau(char haie[], char plat[], int h, int p)//deplace de la haie vers le plateau, h et p sont les positions dans la haie et le plateau
 {
     haie[h] = plat[p];
 	plat[p] = '0';
@@ -97,8 +102,8 @@ void remplir_haie(char h[], char* pioche, int* nbr_pioches)//permet de remplir l
     {
         if (*nbr_pioches > 0) // Vérifie s'il reste des légumes dans la pioche
         {
-            if (h[i] == '0') 
-            { // Si la haie est 0 à cette position, on remplit 
+            if (h[i] == '0')
+            { // Si la haie est 0 à cette position, on remplit
                 h[i] = pioche[*nbr_pioches - 1]; // Prend le dernier légume de la pioche
                 *nbr_pioches = *nbr_pioches - 1; // Décrémente le nombre de légumes dans la pioche
             }

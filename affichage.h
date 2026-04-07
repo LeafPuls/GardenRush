@@ -35,10 +35,9 @@
 #define DEBUG_J2_L 90
 #define DEBUG_J2_C 20
 
-
+extern int debug_state;
 
 //=======Def AFFICHAGE=======
-int debug_state;//variable globale pour activer les fonctions de debug
 void cadre_ecran();
 void dessiner_plateau();
 //=======
