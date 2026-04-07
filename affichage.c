@@ -162,7 +162,7 @@ void debug_afficher_pioche(int l, int c)
     for (i = 0; i < nbr_pioches; i++) {
         printf("%c ", pioche[i]);
     }
-	printf("  nbr_pioches : %d   ", nbr_pioches);
+	printf("  nbr_pioches : %d    ", nbr_pioches);
 }
 
 void debug_afficher_haie(int l, int c)

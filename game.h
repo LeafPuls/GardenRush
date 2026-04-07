@@ -37,7 +37,7 @@ void initialisation_plateau(S_plateau* plat);
 void initialisation_pioche();
 void initialiser_haie(char h[]);
 void initialisation_plateau(S_plateau* p);
-void initialisation_pioche();
+void initialisation_pioche(char *p, int *nbr);
 
 //=====Fonction de jeu=====
 void melanger_pioche(char* pioche, int* nbr_pioche);
