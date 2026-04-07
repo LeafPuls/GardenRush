@@ -28,11 +28,11 @@ cadre_ecran();//permet de s'assurer qu'on voit tout le jeu pour éviter les bugs 
 
 initialisation_plateau(&plateau[0]);//remplie les matrices pour tout mettre a zéro
 initialisation_plateau(&plateau[1]);
-initialisation_pioche(&pioche, &nbr_pioches);//remplie la pioche de 60 légumes
-initialiser_haie(&haie);//remplie la haie de 0
-melanger_pioche(&pioche, &nbr_pioches);//mélange la pioche pour que les légumes soient dans un ordre aléatoire à chaque partie
-remplir_haie(&haie, &pioche, &nbr_pioches);//remplie la haie avec les 5 premiers légumes de la pioche
-dessiner_plateau(&plateau[0], &plateau[1]);//affiche le fond du plateau de jeu qui ne s'actualise pas
+initialisation_pioche(&pioche[60], &nbr_pioches);//remplie la pioche de 60 légumes
+initialiser_haie(&haie[5]);//remplie la haie de 0
+melanger_pioche(&pioche[60], &nbr_pioches);//mélange la pioche pour que les légumes soient dans un ordre aléatoire à chaque partie
+remplir_haie(&haie[5], &pioche[60], &nbr_pioches);//remplie la haie avec les 5 premiers légumes de la pioche
+dessiner_plateau();//affiche le fond du plateau de jeu qui ne s'actualise pas
 
 
 
