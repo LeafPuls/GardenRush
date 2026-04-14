@@ -60,8 +60,7 @@ void plein_ecran(int s);
 //=======DEF DEBUG=======
 void afficher_grillage_ligne(int ligne);//aide graphique pour positioner
 void afficher_grillage_colonne(int colonne);//aide graphique pour positioner
-void debug_afficher_matrice(int p, int x, int y);
+void debug_afficher_matrice(S_joueur p, int l, int c);
 void debug_afficher_pioche(int x, int y);
-void debug_update();
-void autoriser_scroll();
+//void debug_update();
 //=======

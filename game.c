@@ -5,19 +5,20 @@
 
 
 //=====Header=====
+#include "declaration.h"
 #include "affichage.h"
 #include "game.h"
 
+
 //=====Initialisation variable=====
 
-S_plateau plateau[2];
 char pioche[60];
 char haie[5];
 int nbr_pioches;
 
 //====================================================================================Initialisation du jeu===============================================================================
 
-void initialisation_plateau(S_plateau *p)//tout à zéro
+void initialisation_plateau(S_joueur p)//tout à zéro
 {
     int i, j;
     for (i = 0; i < 5; i++)
@@ -25,10 +26,10 @@ void initialisation_plateau(S_plateau *p)//tout à zéro
         for (j = 0; j < 5; j++)
         {
 
-            p->plat[i][j] = '0';
+            p.plat[i][j] = '0';
         }
     }
-    p->score = 0;//score de base à 0
+    p.score = 0;//score de base à 0
 }
 
 void melanger_pioche(char* pioche, int *nbr_pioche)
@@ -91,7 +92,6 @@ void deplacer_haie_vers_plateau(char haie[], char plat[], int h, int p)//deplace
 {
     haie[h] = plat[p];
 	plat[p] = '0';
-    debug_update();
 }
 
 void remplir_haie(char h[], char* pioche, int* nbr_pioches)//permet de remplir la haie avec les 5 prochains légumes de la pioche
@@ -112,5 +112,4 @@ void remplir_haie(char h[], char* pioche, int* nbr_pioches)//permet de remplir l
             h[i] = 'X'; // Si la pioche est vide, remplit la haie avec 'X'
         }
     }
-	debug_update();
 }

@@ -10,22 +10,9 @@
 #define PLATEAU_H
 
 
-//====================================================================================Structure du jeu===============================================================================
-struct plateau
-{
-    char plat[5][5];
-	int score;//score du joueur lors de la récolte
-};
-typedef struct plateau S_plateau;
-
-extern S_plateau plateau[2];
 extern char pioche[60];
 extern char haie[5];
 extern int nbr_pioches;
-
-
-void initialisation_plateau(S_plateau* plat);
-//void afficher_plateau(S_plateau* plat);
 
 
 //====================================================================================Def des fonctions===============================================================================
@@ -34,7 +21,7 @@ void initialisation_plateau(S_plateau* plat);
 //=====Initialisation=====
 void initialisation_pioche(char p[], int* nbr);
 void initialiser_haie(char h[]);
-void initialisation_plateau(S_plateau* p);
+void initialisation_plateau(S_joueur p);
 
 //=====Fonction de jeu=====
 void melanger_pioche(char* pioche, int* nbr_pioche);

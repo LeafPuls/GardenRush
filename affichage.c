@@ -5,6 +5,7 @@
 
 
 //=====Header=====
+#include "declaration.h"
 #include "affichage.h"
 #include "game.h"
 
@@ -129,7 +130,8 @@ void afficher_grillage_colonne(int colonne) {
     }
 }
 
-void debug_afficher_matrice(int p, int l, int c)
+
+void debug_afficher_matrice(S_joueur p, int l, int c)
 {
 
         int i, j;
@@ -142,17 +144,17 @@ void debug_afficher_matrice(int p, int l, int c)
 
             for (j = 0; j < 5; j++)
             {
-                printf("%c ", plateau[p].plat[i][j]);
+                printf("%c ", p.plat[i][j]);
             }
         }
 
         // Affichage du score
         positionner_curseur(l + 7, c);
-        printf("Score : %d", plateau[p].score);
-
+        printf("Score : %d",p.score);
 
 }
 
+/*
 void debug_afficher_pioche(int l, int c)
 {
     int i;
@@ -187,25 +189,4 @@ void debug_update()
     }
 }
 
-void autoriser_scroll()//permet d'avoir une console plus grande que l'écran pour pouvoir scroller et éviter les bugs d'affichage pour afficher le debug sous notre jeu
-{
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-
-    // On sécurise la largeur pour éviter une erreur de dimension X
-    short largeurFenetre = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-    short largeurBuffer = csbi.dwSize.X;
-
-    COORD nouvelleTaille;
-    nouvelleTaille.X = (largeurBuffer > largeurFenetre) ? largeurBuffer : largeurFenetre;
-    nouvelleTaille.Y = 500; // On demande 500 lignes de scroll
-
-    // Si Windows refuse la modification du scroll :
-    if (SetConsoleScreenBufferSize(hConsole, nouvelleTaille) == 0)
-    {
-        positionner_curseur(0, 0);
-        printf("ERREUR WINDOWS %lu : Impossible de creer un scroll en mode ALT+ENTREE.\n", GetLastError());
-        Sleep(5000); // Laisse 5 secondes pour que tu puisses lire
-    }
-}
+*/
