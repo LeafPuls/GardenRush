@@ -23,10 +23,11 @@ plein_ecran(4+debug_state);
 
 cadre_ecran();//permet de s'assurer qu'on voit tout le jeu pour éviter les bugs d'affichage
 
-S_joueur joueur[2];
+S_joueur joueur[2];//data des joueurs
+S_jeu game;//data des varables du jeu
 
-initialisation_plateau(joueur[0]);//remplie les matrices pour tout mettre a zéro
-initialisation_plateau(joueur[1]);
+initialisation_plateau(&joueur[0]);//remplie les matrices pour tout mettre a zéro
+initialisation_plateau(&joueur[1]);
 initialisation_pioche(pioche, &nbr_pioches);//remplie la pioche de 60 légumes
 initialiser_haie(haie);//remplie la haie de 0
 melanger_pioche(pioche, &nbr_pioches);//mélange la pioche pour que les légumes soient dans un ordre aléatoire à chaque partie

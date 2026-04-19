@@ -21,7 +21,7 @@ extern int nbr_pioches;
 //=====Initialisation=====
 void initialisation_pioche(char p[], int* nbr);
 void initialiser_haie(char h[]);
-void initialisation_plateau(S_joueur p);
+void initialisation_plateau(S_joueur *p);
 
 //=====Fonction de jeu=====
 void melanger_pioche(char* pioche, int* nbr_pioche);

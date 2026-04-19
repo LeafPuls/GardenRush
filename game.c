@@ -12,13 +12,11 @@
 
 //=====Initialisation variable=====
 
-char pioche[60];
-char haie[5];
-int nbr_pioches;
+
 
 //====================================================================================Initialisation du jeu===============================================================================
 
-void initialisation_plateau(S_joueur p)//tout à zéro
+void initialisation_plateau(S_joueur *p)//tout à zéro
 {
     int i, j;
     for (i = 0; i < 5; i++)
@@ -26,10 +24,11 @@ void initialisation_plateau(S_joueur p)//tout à zéro
         for (j = 0; j < 5; j++)
         {
 
-            p.plat[i][j] = '0';
+            p->plat[i][j] = '0';
         }
     }
-    p.score = 0;//score de base à 0
+    p->score = 0;//score de base à 0
+
 }
 
 void melanger_pioche(char* pioche, int *nbr_pioche)

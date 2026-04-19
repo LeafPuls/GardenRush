@@ -6,9 +6,16 @@
 struct joueur
 {
     char plat[5][5];
-	int score;//score du joueur lors de la récolte
+    int score;//score du joueur lors de la récolte
 };
 typedef struct joueur S_joueur;
 
+struct jeu
+{
+    char pioche[60];
+    char haie[5];
+    int nbr_pioches;
+};
+typedef struct jeu S_jeu;
 
 #endif // DECLARATION_H_INCLUDED
