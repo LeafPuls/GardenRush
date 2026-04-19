@@ -10,22 +10,17 @@
 #define PLATEAU_H
 
 
-extern char pioche[60];
-extern char haie[5];
-extern int nbr_pioches;
-
-
 //====================================================================================Def des fonctions===============================================================================
 
 
 //=====Initialisation=====
-void initialisation_pioche(char p[], int* nbr);
-void initialiser_haie(char h[]);
-void initialisation_plateau(S_joueur *p);
+void initialisation_plateau(S_joueur *joueur);
+void initialisation_pioche(S_jeu *game);
+void melanger_pioche(S_jeu *game);
+void initialiser_haie(S_jeu *game);
 
 //=====Fonction de jeu=====
-void melanger_pioche(char* pioche, int* nbr_pioche);
-void deplacer_haie_vers_plateau(char haie[], char plat[], int h, int p);
-void remplir_haie(char h[], char* pioche, int* nbr_pioches);
+void remplir_haie(S_jeu *game);
+void deplacer_haie_vers_plateau(S_jeu *p_game, S_joueur *p_joueur, int h, int lig, int col);
 
 #endif

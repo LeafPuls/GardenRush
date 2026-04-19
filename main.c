@@ -28,10 +28,10 @@ S_jeu game;//data des varables du jeu
 
 initialisation_plateau(&joueur[0]);//remplie les matrices pour tout mettre a zéro
 initialisation_plateau(&joueur[1]);
-initialisation_pioche(pioche, &nbr_pioches);//remplie la pioche de 60 légumes
-initialiser_haie(haie);//remplie la haie de 0
-melanger_pioche(pioche, &nbr_pioches);//mélange la pioche pour que les légumes soient dans un ordre aléatoire à chaque partie
-remplir_haie(haie, pioche, &nbr_pioches);
+initialisation_pioche(&game);
+initialiser_haie(&game);
+melanger_pioche(&game);
+remplir_haie(&game);
 
 
 

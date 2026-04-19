@@ -19,41 +19,44 @@
 	<windows.h>
 	"affichage.h"
 
-1775581426 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\affichage.c
+1776152144 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\affichage.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"declaration.h"
+	"affichage.h"
+	"game.h"
+
+1776151618 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\affichage.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"game.h"
+
+1776614288 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+	"declaration.h"
+	"affichage.h"
+	"game.h"
+
+1776617294 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\game.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<windows.h>
 	"affichage.h"
-	"game.h"
 
-1775581426 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\affichage.h
+1776616576 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\game.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<windows.h>
-	"game.h"
-
-1775580685 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\main.c
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<windows.h>
-	"affichage.h"
-	"game.h"
-
-1775580933 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\game.h
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<windows.h>
-	"affichage.h"
-
-1775581196 source:c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\game.c
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-	<windows.h>
+	"declaration.h"
 	"affichage.h"
 	"game.h"
 
@@ -99,4 +102,6 @@
 	"declaration.h"
 	"affichage.h"
 	"game.h"
+
+1776155297 c:\users\alexi\onedrive - estaca\estaca\codage\projet algo\code\gardenrush\declaration.h
 
