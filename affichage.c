@@ -14,17 +14,19 @@ int debug_state;
 
 
 //=====================================================================================Fonction AFFICHAGE=====================================================================================
-void cadre_ecran() {
-	dessiner_rectangle(0, 0, 88, 1, GRIS);//côté
+void cadre_ecran()
+{
+    dessiner_rectangle(0, 0, 88, 1, GRIS);//côté
     dessiner_rectangle(0, 313, 88, 1, GRIS);
-	dessiner_rectangle(0, 0, 1, 314, GRIS);//haut et bas
+    dessiner_rectangle(0, 0, 1, 314, GRIS);//haut et bas
     dessiner_rectangle(87, 0, 1, 314, GRIS);
 }
 
 
 //====================================================================================Fonction base affichage====================================================================================
 
-void dessine_pixel_hex(int x, int y, int hex_couleur) {
+void dessine_pixel_hex(int x, int y, int hex_couleur)
+{
     // extrait les composantes R, G, B du code hexadécimal
     int r = (hex_couleur >> 16) & 0xFF;
     int g = (hex_couleur >> 8) & 0xFF;
@@ -35,9 +37,12 @@ void dessine_pixel_hex(int x, int y, int hex_couleur) {
     printf("\x1b[48;2;%d;%d;%dm \x1b[0m", r, g, b);
 }
 
-void dessiner_rectangle(int x, int y, int longueur, int hauteur, int hex_couleur) {
-    for (int j = 0; j < hauteur; j++) {
-        for (int i = 0; i < longueur; i++) {
+void dessiner_rectangle(int x, int y, int longueur, int hauteur, int hex_couleur)
+{
+    for (int j = 0; j < hauteur; j++)
+    {
+        for (int i = 0; i < longueur; i++)
+        {
             dessine_pixel_hex(x + i, y + j, hex_couleur);
         }
     }
@@ -97,7 +102,8 @@ void positionner_curseur(int ligne, int colonne)
 }
 
 
-void cacher_curseur() {
+void cacher_curseur()
+{
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO info;
     info.dwSize = 100;
@@ -109,23 +115,30 @@ void cacher_curseur() {
 //=====================================================================================Fonction DEBUG=====================================================================================
 
 //aide pour positioner
-void afficher_grillage_ligne(int ligne) {
+void afficher_grillage_ligne(int ligne)
+{
     positionner_curseur(ligne, 0);
-    for (int j = 0; j < 24; j++) {
-        for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 24; j++)
+    {
+        for (int i = 0; i < 10; i++)
+        {
             color(0, i);
             printf("%d", i);
         }
     }
 }
-void afficher_grillage_colonne(int colonne) {
-	int k = 0;
-    for (int j = 0; j < 7; j++) {
-        for (int i = 0; i < 10; i++) {
+
+void afficher_grillage_colonne(int colonne)
+{
+    int k = 0;
+    for (int j = 0; j < 7; j++)
+    {
+        for (int i = 0; i < 10; i++)
+        {
             positionner_curseur(k, colonne);
             color(0, i);
             printf("%d", i);
-			k++;
+            k++;
         }
     }
 }
@@ -134,59 +147,64 @@ void afficher_grillage_colonne(int colonne) {
 void debug_afficher_matrice(S_joueur p, int l, int c)
 {
 
-        int i, j;
-        positionner_curseur(l, c);
-		color(15, 0);
-        // Affichage des données
-        for (i = 0; i < 5; i++)
+    int i, j;
+    positionner_curseur(l, c);
+    color(15, 0);
+    // Affichage des données
+    for (i = 0; i < 5; i++)
+    {
+        positionner_curseur(l+i, c);
+
+        for (j = 0; j < 5; j++)
         {
-            positionner_curseur(l+i, c);
-
-            for (j = 0; j < 5; j++)
-            {
-                printf("%c ", p.plat[i][j]);
-            }
+            printf("%c ", p.plat[i][j]);
         }
+    }
 
-        // Affichage du score
-        positionner_curseur(l + 7, c);
-        printf("Score : %d",p.score);
+    // Affichage du score
+    positionner_curseur(l + 7, c);
+    printf("Score : %d",p.score);
 
 }
 
-/*
-void debug_afficher_pioche(int l, int c)
+
+void debug_afficher_pioche(S_jeu *game, int l, int c)
 {
     int i;
     positionner_curseur(l, c);
     color(15, 0);
     printf("Pioche : ");
-    for (i = 0; i < nbr_pioches; i++) {
-        printf("%c ", pioche[i]);
+
+    // Utilisation de game-> pour accéder aux membres de la structure
+    for (i = 0; i < game->nbr_pioches; i++)
+    {
+        printf("%c ", game->pioche[i]);
     }
-	printf("  nbr_pioches : %d   ", nbr_pioches);
+
+    printf("  nbr_pioches : %d   ", game->nbr_pioches);
 }
 
-void debug_afficher_haie(int l, int c)
+void debug_afficher_haie(S_jeu *game, int l, int c)
 {
     int i;
-    positionner_curseur(l, c);
     color(15, 0);
-    for (i = 0; i < 5; i++) {
-		positionner_curseur(l+i, c);
-        printf("%c ", haie[i]);
-    }
-}
-
-void debug_update()
-{
-    if (debug_state==1)
+    for (i = 0; i < 5; i++)
     {
-		debug_afficher_matrice(0, DEBUG_J1_L, DEBUG_J1_C);
-		debug_afficher_matrice(1, DEBUG_J2_L, DEBUG_J2_C);
-        debug_afficher_pioche(DEBUG_J1_L+9, DEBUG_J1_C);
-		debug_afficher_haie(DEBUG_J1_L, DEBUG_J1_C+14);
+        positionner_curseur(l + i, c);
+        printf("%c ", game->haie[i]);
     }
 }
 
-*/
+void debug_update(S_jeu *game, S_joueur joueur[])
+{
+    if (debug_state == 1)
+    {
+        debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
+        debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
+
+        debug_afficher_pioche(game, DEBUG_J1_L + 9, DEBUG_J1_C);
+
+        debug_afficher_haie(game, DEBUG_J1_L, DEBUG_J1_C + 14);
+    }
+}
+

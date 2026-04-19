@@ -79,11 +79,13 @@ void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
 
 //=====================================================================================Fonction de jeu=====================================================================================
 
-void deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int lig, int col)
+void deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int l, int c)//deplacer_haie_vers_plateau(&game, &joueur[NUM], pos HAIE, lig, col);
 {
-    // On prend le légume de la haie et on le met sur le plateau du joueur
-    joueur->plat[lig][col] = game->haie[h];
+    // On prend le légume de la haie et on le met sur le plateau du joueur FAUT AJOUTER VERIF COLONNE = HAIE POUR LE -1
+    if (game->haie[h] != '0'){
+    joueur->plat[l][c] = game->haie[h];
     game->haie[h] = '0';
+    }
 }
 
 void remplir_haie(S_jeu *game) //permet de remplir la haie avec les 5 prochains légumes de la pioche
@@ -94,7 +96,7 @@ void remplir_haie(S_jeu *game) //permet de remplir la haie avec les 5 prochains 
         if (game->nbr_pioches > 0) // Vérifie s'il reste des légumes dans la pioche
         {
             if (game->haie[i] == '0')
-            { // Si la haie est 0 à cette position, on remplit
+            { // Si la haie est 0 à cette position, on remplit donc le 0 c'est notre état vide on l'affiche sans pion
                 game->haie[i] = game->pioche[game->nbr_pioches - 1]; // Prend le dernier légume de la pioche
                 game->nbr_pioches = game->nbr_pioches - 1; // Décrémente le nombre de légumes dans la pioche
             }

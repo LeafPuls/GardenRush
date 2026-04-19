@@ -61,6 +61,7 @@ void plein_ecran(int s);
 void afficher_grillage_ligne(int ligne);//aide graphique pour positioner
 void afficher_grillage_colonne(int colonne);//aide graphique pour positioner
 void debug_afficher_matrice(S_joueur p, int l, int c);
-void debug_afficher_pioche(int x, int y);
-//void debug_update();
+void debug_afficher_pioche(S_jeu *game, int l, int c);
+void debug_afficher_haie(S_jeu *game, int l, int c);
+void debug_update(S_jeu *game, S_joueur joueur[]);
 //=======
