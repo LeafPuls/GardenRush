@@ -21,8 +21,8 @@ void initialiser_haie(S_jeu *game);
 
 //=====Fonction de jeu=====
 void remplir_haie(S_jeu *game);
-int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueurs[], int j, int h, int l, int c);
+int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int l, int c);
 char soustraire_legume(char leg);
-void recolter(S_joueur* joueur, S_jeu* game);
+int recolter(S_jeu* game, S_joueur joueur[], int j);
 
 #endif

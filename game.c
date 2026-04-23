@@ -79,65 +79,92 @@ void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
 
 //=====================================================================================Fonction de jeu=====================================================================================
 
-void recolter(S_joueur* joueur, S_jeu* game)
+int recolter(S_jeu* game, S_joueur joueur[], int j)
 {
     char choix;
-    scanf_s("%c", &choix);//correspond au legumes
+    int motif;
+	int rot;
+	int l, c;
+
+    scanf_s("%c", &choix);//correspond au legumes à fair plus tard avec des cliques souris ou clavier
 
     switch (choix)
     {
-    case 'C':
-        break;
+	case 'C'://===========Carottes==========
 
+        scanf_s("%d", &motif);
+        if (motif==2) {
+            scanf_s("%d", &rot);
+			if (rot == 0) {//faire motif 2 sans rotation
+                scanf_s("%d", &l);
+                scanf_s("%d", &c);
+				joueur[j].plat[l][c] = 'C';
+            }
+        }
+        if(motif==4) {
+           //higligh les 4 combinaisons diagnolales via affichage puis demander de cliquer 
+        }
+        
+        
+        break;
+        
+    
     case 'P':
         break;
 
+    
     case 'B':
         break;
 
+    
     case 'A':
         break;
 
+    
     case 'T':
         break;
     }
+	return 0;
 }
 
-int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueurs[], int j, int h, int l, int c)//deplacer_haie_vers_plateau(&game, joueurs, joueur_actuel, h, l, c);
+int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int l, int c)//deplacer_haie_vers_plateau(&game, joueurs, num joueur, h, l, c);
 {
     // On prend le légume de la haie et on le met sur le plateau du joueur
-    if ((l == 0 && c == 0) || (l == 0 && c == 4) || (l == 4 && c == 0) || (l == 4 && c == 4) || (h > 4) || (l >= 5) || (c >= 5))
-        debug_update(game, joueurs);
+    if ((l == 0 && c == 0) || (l == 0 && c == 4) || (l == 4 && c == 0) || (l == 4 && c == 4) || (h > 4) || (l >= 5) || (c >= 5)) {
+        debug_update(game, joueur);
         return 404;
-    if (game->haie[h] == '0')
-        debug_update(game, joueurs);
+    }
+    if (game->haie[h] == '0') {
+        debug_update(game, joueur);
         return 5;
+    }
     // On utilise l'index pour accéder au bon joueur
-    if (joueurs[j].plat[l][c] != '0')
-        debug_update(game, joueurs);
+    if (joueur[j].plat[l][c] != '0') {
+        debug_update(game, joueur);
         return 21;
+    }
 
     if (game->haie[h] != '0') {
         if (l == h) {
-            joueurs[j].plat[l][c] = game->haie[h];
+            joueur[j].plat[l][c] = game->haie[h];
             game->haie[h] = '0';
 
             // L'appel à debug_update est maintenant correct !
-            debug_update(game, joueurs);
+            debug_update(game, joueur);
             return 0;
         }
 
         if (l != h) {
             int temp = soustraire_legume(game->haie[h]);
-            joueurs[j].plat[l][c] = temp;
+            joueur[j].plat[l][c] = temp;
             game->haie[h] = '0';
 
             // L'appel à debug_update est maintenant correct !
-            debug_update(game, joueurs);
+            debug_update(game, joueur);
             return 0;
         }
     }
-    debug_update(game, joueurs); 
+    debug_update(game, joueur); 
     return 404;
 }
 
