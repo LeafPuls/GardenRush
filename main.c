@@ -33,11 +33,12 @@ initialiser_haie(&game);//remplie de 0
 melanger_pioche(&game);
 remplir_haie(&game);
 
-debug_update(&game, joueur);
+
+
 Sleep(2000);
 
 color(12, 3);
-printf("       %d\n", deplacer_haie_vers_plateau(&game, &joueur[0], 1, 1, 1));
+printf("\n\n\n\n       %d\n", deplacer_haie_vers_plateau(&game, &joueur[0], 2, 1, 1));
 
 
 
@@ -51,7 +52,7 @@ afficher_grillage_ligne(0);
 afficher_grillage_colonne(0);
 
 //====Data jeu=====
-debug_update(&game, joueur);
+//debug_update(&game, joueur);
 
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
