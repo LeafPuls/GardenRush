@@ -21,6 +21,6 @@ void initialiser_haie(S_jeu *game);
 
 //=====Fonction de jeu=====
 void remplir_haie(S_jeu *game);
-void deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int l, int c);
+int deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int l, int c);
 
 #endif

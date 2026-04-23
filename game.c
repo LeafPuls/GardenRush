@@ -79,12 +79,21 @@ void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
 
 //=====================================================================================Fonction de jeu=====================================================================================
 
-void deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int l, int c)//deplacer_haie_vers_plateau(&game, &joueur[NUM], pos HAIE, lig, col);
+int deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int l, int c)//deplacer_haie_vers_plateau(&game, &joueur[NUM], pos HAIE, lig, col);
 {
     // On prend le légume de la haie et on le met sur le plateau du joueur FAUT AJOUTER VERIF COLONNE = HAIE POUR LE -1
-    if (game->haie[h] != '0'){
-    joueur->plat[l][c] = game->haie[h];
-    game->haie[h] = '0';
+
+    if(game->haie[h] = '0')
+		return 4;//si la haie est vide, on ne peut pas déplacer 0=fail
+	if (joueur->plat[l][c] != '0')//si case du plateau pas vide on return fail
+		return 3;
+    if (game->haie[h] != '0') {
+        if (l == h) {//si sur la bonne ligne garde légume double
+            joueur->plat[l][c] = game->haie[h];
+            game->haie[h] = '0';
+            return 1; // return que c bon
+        }
+
     }
 }
 

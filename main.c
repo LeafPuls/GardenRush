@@ -33,7 +33,11 @@ initialiser_haie(&game);//remplie de 0
 melanger_pioche(&game);
 remplir_haie(&game);
 
+debug_update(&game, joueur);
+Sleep(2000);
 
+color(12, 3);
+printf("       %d\n", deplacer_haie_vers_plateau(&game, &joueur[0], 1, 1, 1));
 
 
 
