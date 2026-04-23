@@ -103,33 +103,41 @@ void recolter(S_joueur* joueur, S_jeu* game)
     }
 }
 
-int deplacer_haie_vers_plateau(S_jeu *game, S_joueur *joueur, int h, int l, int c)//deplacer_haie_vers_plateau(&game, &joueur[NUM], pos HAIE, lig, col);
+int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueurs[], int j, int h, int l, int c)//deplacer_haie_vers_plateau(&game, joueurs, joueur_actuel, h, l, c);
 {
     // On prend le légume de la haie et on le met sur le plateau du joueur
-    if ((l == 0 && c == 0) || (l == 0 && c == 4) || (l == 4 && c == 0) || (l == 4 && c == 4) || (h > 4) || (l >= 5) || (c >= 5) )
-		return 404;//si on essaye de mettre un légume dans les coins du plateau ou prendre un truc en dehors des limites, return fail pas trouvé
-    if(game->haie[h] == '0')
-		return 5;//si la haie est vide, on ne peut pas déplacer, different de 0 = fail
-	if (joueur->plat[l][c] != '0')//si case du plateau pas vide on return fail
-		return 21;
+    if ((l == 0 && c == 0) || (l == 0 && c == 4) || (l == 4 && c == 0) || (l == 4 && c == 4) || (h > 4) || (l >= 5) || (c >= 5))
+        debug_update(game, joueurs);
+        return 404;
+    if (game->haie[h] == '0')
+        debug_update(game, joueurs);
+        return 5;
+    // On utilise l'index pour accéder au bon joueur
+    if (joueurs[j].plat[l][c] != '0')
+        debug_update(game, joueurs);
+        return 21;
 
     if (game->haie[h] != '0') {
-		//=====cas ligne de la haie correspond à la ligne du plateau=====
-        if (l == h) {//si sur la bonne ligne garde légume double
-            joueur->plat[l][c] = game->haie[h];
+        if (l == h) {
+            joueurs[j].plat[l][c] = game->haie[h];
             game->haie[h] = '0';
-            return 0; // return que c bon
+
+            // L'appel à debug_update est maintenant correct !
+            debug_update(game, joueurs);
+            return 0;
         }
 
-        //=====cas ligne de la haie ne correspond pas à la ligne du plateau=====
-        if (l != h) {//si pas sur la bonne ligne légume simple
-			int temp = soustraire_legume(game->haie[h]);//on soustrait le légume pour simple
-            joueur->plat[l][c] = temp;
+        if (l != h) {
+            int temp = soustraire_legume(game->haie[h]);
+            joueurs[j].plat[l][c] = temp;
             game->haie[h] = '0';
-            return 0; // return que c bon
+
+            // L'appel à debug_update est maintenant correct !
+            debug_update(game, joueurs);
+            return 0;
         }
     }
-    debug_update(&game, joueur);
+    debug_update(game, joueurs); 
     return 404;
 }
 

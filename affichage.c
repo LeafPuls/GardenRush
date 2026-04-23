@@ -199,6 +199,7 @@ void debug_update(S_jeu *game, S_joueur joueur[])
 {
     if (debug_state == 1)
     {
+        printf("\n--- APPEL DEBUG UPDATE ---\n");
         debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
         debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
 

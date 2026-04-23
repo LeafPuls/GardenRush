@@ -38,7 +38,9 @@ remplir_haie(&game);
 Sleep(2000);
 
 color(12, 3);
-printf("\n\n\n\n       %d\n", deplacer_haie_vers_plateau(&game, &joueur[0], 2, 1, 1));
+printf("\n\n\n\n       %d\n", deplacer_haie_vers_plateau(&game, joueur, 0, 2, 1, 1));
+// On passe le tableau entier, et l'index du joueur actuel
+
 
 
 
