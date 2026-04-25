@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:affichage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:affichage.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:affichage.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\declaration.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:declaration.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,19 +39,20 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "affichage.h",
-              "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.h",
-              "RelativeDocumentMoniker": "affichage.h",
-              "ToolTip": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.h",
-              "RelativeToolTip": "affichage.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-01T16:13:50.949Z",
+              "Title": "main.c",
+              "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\main.c",
+              "RelativeDocumentMoniker": "main.c",
+              "ToolTip": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\main.c*",
+              "RelativeToolTip": "main.c*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-04-25T21:45:41.886Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "affichage.c",
               "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.c",
               "RelativeDocumentMoniker": "affichage.c",
@@ -44,6 +61,63 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-04-01T16:13:48.704Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "affichage.h",
+              "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.h",
+              "RelativeDocumentMoniker": "affichage.h",
+              "ToolTip": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\affichage.h",
+              "RelativeToolTip": "affichage.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-01T16:13:50.949Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "game.c",
+              "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\game.c",
+              "RelativeDocumentMoniker": "game.c",
+              "ToolTip": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\game.c",
+              "RelativeToolTip": "game.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-04-25T21:45:34.849Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "game.h",
+              "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\game.h",
+              "RelativeDocumentMoniker": "game.h",
+              "ToolTip": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\game.h",
+              "RelativeToolTip": "game.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-25T21:45:29.024Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "declaration.h",
+              "DocumentMoniker": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\declaration.h",
+              "RelativeDocumentMoniker": "declaration.h",
+              "ToolTip": "C:\\Users\\alexi\\OneDrive - ESTACA\\ESTACA\\Codage\\PROJET ALGO\\CODE\\GardenRush\\declaration.h",
+              "RelativeToolTip": "declaration.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-25T21:45:36.829Z",
+              "IsPinned": true,
               "EditorCaption": ""
             }
           ]
