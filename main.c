@@ -8,6 +8,18 @@
 #include "affichage.h"
 #include "game.h"
 
+/*
+  .-_'''-.      ____    .-------.     ______         .-''-.  ,---.   .--.        .-------.      ___    _    .-'''-. .---.  .---.
+ '_( )_   \   .'  __ `. |  _ _   \   |    _ `''.   .'_ _   \ |    \  |  |        |  _ _   \   .'   |  | |  / _     \|   |  |_ _|
+|(_ o _)|  ' /   '  \  \| ( ' )  |   | _ | ) _  \ / ( ` )   '|  ,  \ |  |        | ( ' )  |   |   .'  | | (`' )/`--'|   |  ( ' )
+. (_,_)/___| |___|  /  ||(_ o _) /   |( ''_'  ) |. (_ o _)  ||  |\_ \|  |        |(_ o _) /   .'  '_  | |(_ o _).   |   '-(_{;}_)
+|  |  .-----.   _.-`   || (_,_).' __ | . (_) `. ||  (_,_)___||  _( )_\  |        | (_,_).' __ '   ( \.-.| (_,_). '. |      (_,_)
+'  \  '-   .'.'   _    ||  |\ \  |  ||(_    ._) ''  \   .---.| (_ o _)  |        |  |\ \  |  |' (`. _` /|.---.  \  :| _ _--.   |
+ \  `-'`   | |  _( )_  ||  | \ `'   /|  (_.\.' /  \  `-'    /|  (_,_)\  |        |  | \ `'   /| (_ (_) _)\    `-'  ||( ' ) |   |
+  \        / \ (_ o _) /|  |  \    / |       .'    \       / |  |    |  |        |  |  \    /  \ /  . \ / \       / (_{;}_)|   |
+   `'-...-'   '.(_,_).' ''-'   `'-'  '-----'`       `'-..-'  '--'    '--'        ''-'   `'-'    ``-'`-''   `-...-'  '(_,_) '---'
+*/
+
 int main()
 {
 srand(time(NULL));
@@ -34,7 +46,6 @@ melanger_pioche(&game);
 remplir_haie(&game);
 
 //printf("\n\n\n\n       %d\n", deplacer_haie_vers_plateau(&game, joueur, 0, 2, 1, 1));
-// On passe le tableau entier, et l'index du joueur actuel
 
 
 
@@ -49,7 +60,7 @@ afficher_grillage_ligne(0);
 afficher_grillage_colonne(0);
 
 //====Data jeu=====
-debug_update(&game, joueur);
+debug_update(&game, joueur);//affiche toutes les données du jeu (pioche, haie, plateau) et le score des joueurs
 
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
