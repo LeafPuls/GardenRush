@@ -469,9 +469,8 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             }
         }
 
-        //-------------------========== Motif 3 : Grand Chevron (V) de 5 Tomates ==========-------------------
+        //-------------------========== Motif 3 : Forme de 'W' (5 Tomates) ==========-------------------
         else if (motif == 3) {
-
             positionner_curseur(0, 0);
             color(15, 0);
             printf("rotation : ");
@@ -479,84 +478,94 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             scanf_s("%d", &l);
             scanf_s("%d", &c);
 
-            // Rotation 1 : Pointe vers la GAUCHE
+            // Rotation 1 : W
             if (rot == 1) {
-                if (l - 2 >= 0 && l + 2 < 5 && c >= 0 && c + 2 < 5) {
-                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l - 2 == 0 || l - 2 == 4) && (c + 2 == 0 || c + 2 == 4)) &&
-                        !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l + 2 == 0 || l + 2 == 4) && (c + 2 == 0 || c + 2 == 4))) {
+
+                if (l >= 0 && l + 1 < 5 && c - 2 >= 0 && c + 2 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l + 1 == 0 || l + 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l == 0 || l == 4) && (c - 2 == 0 || c - 2 == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l == 0 || l == 4) && (c + 2 == 0 || c + 2 == 4))) {
+
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
-                            (joueur[j].plat[l - 1][c + 1] == 'T' || joueur[j].plat[l - 1][c + 1] == 't') &&
-                            (joueur[j].plat[l - 2][c + 2] == 'T' || joueur[j].plat[l - 2][c + 2] == 't') &&
+                            (joueur[j].plat[l + 1][c - 1] == 'T' || joueur[j].plat[l + 1][c - 1] == 't') &&
+                            (joueur[j].plat[l][c - 2] == 'T' || joueur[j].plat[l][c - 2] == 't') &&
                             (joueur[j].plat[l + 1][c + 1] == 'T' || joueur[j].plat[l + 1][c + 1] == 't') &&
-                            (joueur[j].plat[l + 2][c + 2] == 'T' || joueur[j].plat[l + 2][c + 2] == 't')) {
+                            (joueur[j].plat[l][c + 2] == 'T' || joueur[j].plat[l][c + 2] == 't')) {
+
                             joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
-                            joueur[j].plat[l - 1][c + 1] = soustraire_legume(joueur[j].plat[l - 1][c + 1]);
-                            joueur[j].plat[l - 2][c + 2] = soustraire_legume(joueur[j].plat[l - 2][c + 2]);
+                            joueur[j].plat[l + 1][c - 1] = soustraire_legume(joueur[j].plat[l + 1][c - 1]);
+                            joueur[j].plat[l][c - 2] = soustraire_legume(joueur[j].plat[l][c - 2]);
                             joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
-                            joueur[j].plat[l + 2][c + 2] = soustraire_legume(joueur[j].plat[l + 2][c + 2]);
+                            joueur[j].plat[l][c + 2] = soustraire_legume(joueur[j].plat[l][c + 2]);
                             debug_update(game, joueur);
                             return 5;
                         }
                     }
                 }
             }
-            // Rotation 2 : Pointe vers le HAUT
+            // Rotation 2 : ∃
             else if (rot == 2) {
-                if (l >= 0 && l + 2 < 5 && c - 2 >= 0 && c + 2 < 5) {
-                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l + 1 == 0 || l + 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l + 2 == 0 || l + 2 == 4) && (c - 2 == 0 || c - 2 == 4)) &&
-                        !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l + 2 == 0 || l + 2 == 4) && (c + 2 == 0 || c + 2 == 4))) {
+
+                if (l - 2 >= 0 && l + 2 < 5 && c - 1 >= 0 && c < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l - 2 == 0 || l - 2 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l + 2 == 0 || l + 2 == 4) && (c == 0 || c == 4))) {
+
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
+                            (joueur[j].plat[l - 1][c - 1] == 'T' || joueur[j].plat[l - 1][c - 1] == 't') &&
+                            (joueur[j].plat[l - 2][c] == 'T' || joueur[j].plat[l - 2][c] == 't') &&
                             (joueur[j].plat[l + 1][c - 1] == 'T' || joueur[j].plat[l + 1][c - 1] == 't') &&
-                            (joueur[j].plat[l + 2][c - 2] == 'T' || joueur[j].plat[l + 2][c - 2] == 't') &&
-                            (joueur[j].plat[l + 1][c + 1] == 'T' || joueur[j].plat[l + 1][c + 1] == 't') &&
-                            (joueur[j].plat[l + 2][c + 2] == 'T' || joueur[j].plat[l + 2][c + 2] == 't')) {
+                            (joueur[j].plat[l + 2][c] == 'T' || joueur[j].plat[l + 2][c] == 't')) {
+
                             joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l - 1][c - 1] = soustraire_legume(joueur[j].plat[l - 1][c - 1]);
+                            joueur[j].plat[l - 2][c] = soustraire_legume(joueur[j].plat[l - 2][c]);
                             joueur[j].plat[l + 1][c - 1] = soustraire_legume(joueur[j].plat[l + 1][c - 1]);
-                            joueur[j].plat[l + 2][c - 2] = soustraire_legume(joueur[j].plat[l + 2][c - 2]);
-                            joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
-                            joueur[j].plat[l + 2][c + 2] = soustraire_legume(joueur[j].plat[l + 2][c + 2]);
+                            joueur[j].plat[l + 2][c] = soustraire_legume(joueur[j].plat[l + 2][c]);
                             debug_update(game, joueur);
                             return 5;
                         }
                     }
                 }
             }
-            // Rotation 3 : Pointe vers la DROITE
+            // Rotation 3 : M
             else if (rot == 3) {
-                if (l - 2 >= 0 && l + 2 < 5 && c - 2 >= 0 && c < 5) {
-                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l - 2 == 0 || l - 2 == 4) && (c - 2 == 0 || c - 2 == 4)) &&
-                        !((l + 1 == 0 || l + 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l + 2 == 0 || l + 2 == 4) && (c - 2 == 0 || c - 2 == 4))) {
+                if (l - 1 >= 0 && l < 5 && c - 2 >= 0 && c + 2 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l == 0 || l == 4) && (c - 2 == 0 || c - 2 == 4)) &&
+                        !((l - 1 == 0 || l - 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l == 0 || l == 4) && (c + 2 == 0 || c + 2 == 4))) {
+
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
                             (joueur[j].plat[l - 1][c - 1] == 'T' || joueur[j].plat[l - 1][c - 1] == 't') &&
-                            (joueur[j].plat[l - 2][c - 2] == 'T' || joueur[j].plat[l - 2][c - 2] == 't') &&
-                            (joueur[j].plat[l + 1][c - 1] == 'T' || joueur[j].plat[l + 1][c - 1] == 't') &&
-                            (joueur[j].plat[l + 2][c - 2] == 'T' || joueur[j].plat[l + 2][c - 2] == 't')) {
+                            (joueur[j].plat[l][c - 2] == 'T' || joueur[j].plat[l][c - 2] == 't') &&
+                            (joueur[j].plat[l - 1][c + 1] == 'T' || joueur[j].plat[l - 1][c + 1] == 't') &&
+                            (joueur[j].plat[l][c + 2] == 'T' || joueur[j].plat[l][c + 2] == 't')) {
+
                             joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
                             joueur[j].plat[l - 1][c - 1] = soustraire_legume(joueur[j].plat[l - 1][c - 1]);
-                            joueur[j].plat[l - 2][c - 2] = soustraire_legume(joueur[j].plat[l - 2][c - 2]);
-                            joueur[j].plat[l + 1][c - 1] = soustraire_legume(joueur[j].plat[l + 1][c - 1]);
-                            joueur[j].plat[l + 2][c - 2] = soustraire_legume(joueur[j].plat[l + 2][c - 2]);
+                            joueur[j].plat[l][c - 2] = soustraire_legume(joueur[j].plat[l][c - 2]);
+                            joueur[j].plat[l - 1][c + 1] = soustraire_legume(joueur[j].plat[l - 1][c + 1]);
+                            joueur[j].plat[l][c + 2] = soustraire_legume(joueur[j].plat[l][c + 2]);
                             debug_update(game, joueur);
                             return 5;
                         }
                     }
                 }
             }
-            // Rotation 4 : Pointe vers le BAS
+            // Rotation 4 : Σ
             else if (rot == 4) {
-                if (l - 2 >= 0 && l < 5 && c - 2 >= 0 && c + 2 < 5) {
-                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l - 2 == 0 || l - 2 == 4) && (c - 2 == 0 || c - 2 == 4)) &&
-                        !((l - 1 == 0 || l - 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l - 2 == 0 || l - 2 == 4) && (c + 2 == 0 || c + 2 == 4))) {
+                if (l - 2 >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l - 2 == 0 || l - 2 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l + 2 == 0 || l + 2 == 4) && (c == 0 || c == 4))) {
+
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
-                            (joueur[j].plat[l - 1][c - 1] == 'T' || joueur[j].plat[l - 1][c - 1] == 't') &&
-                            (joueur[j].plat[l - 2][c - 2] == 'T' || joueur[j].plat[l - 2][c - 2] == 't') &&
                             (joueur[j].plat[l - 1][c + 1] == 'T' || joueur[j].plat[l - 1][c + 1] == 't') &&
-                            (joueur[j].plat[l - 2][c + 2] == 'T' || joueur[j].plat[l - 2][c + 2] == 't')) {
+                            (joueur[j].plat[l - 2][c] == 'T' || joueur[j].plat[l - 2][c] == 't') &&
+                            (joueur[j].plat[l + 1][c + 1] == 'T' || joueur[j].plat[l + 1][c + 1] == 't') &&
+                            (joueur[j].plat[l + 2][c] == 'T' || joueur[j].plat[l + 2][c] == 't')) {
+
                             joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
-                            joueur[j].plat[l - 1][c - 1] = soustraire_legume(joueur[j].plat[l - 1][c - 1]);
-                            joueur[j].plat[l - 2][c - 2] = soustraire_legume(joueur[j].plat[l - 2][c - 2]);
                             joueur[j].plat[l - 1][c + 1] = soustraire_legume(joueur[j].plat[l - 1][c + 1]);
-                            joueur[j].plat[l - 2][c + 2] = soustraire_legume(joueur[j].plat[l - 2][c + 2]);
+                            joueur[j].plat[l - 2][c] = soustraire_legume(joueur[j].plat[l - 2][c]);
+                            joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
+                            joueur[j].plat[l + 2][c] = soustraire_legume(joueur[j].plat[l + 2][c]);
                             debug_update(game, joueur);
                             return 5;
                         }
