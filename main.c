@@ -28,7 +28,7 @@ debug_state = 1;//mettre à 1 pour activer les fonctions de debug 0 pour désactiv
 //================================================================================|
 
 
-plein_ecran(5+debug_state);
+plein_ecran(4+debug_state);
 
 
 //==============================================================initialisation de base===========================================================
@@ -50,14 +50,35 @@ for (i = 0; i < 5; i++)
 {
     for (j = 0; j < 5; j++)
     {
-        joueur[0].plat[i][j] = 'A';
+        joueur[0].plat[i][j] = 'T';
     }
 }
 
 
 joueur[0].score= joueur[0].score + recolter(&game, joueur, 0);
+for (i = 0; i < 5; i++)
+{
+    for (j = 0; j < 5; j++)
+    {
+        joueur[0].plat[i][j] = 'T';
+    }
+}
 joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+for (i = 0; i < 5; i++)
+{
+    for (j = 0; j < 5; j++)
+    {
+        joueur[0].plat[i][j] = 'T';
+    }
+}
 joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+for (i = 0; i < 5; i++)
+{
+    for (j = 0; j < 5; j++)
+    {
+        joueur[0].plat[i][j] = 'T';
+    }
+}
 joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
 joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
 
