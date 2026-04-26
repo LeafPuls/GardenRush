@@ -146,7 +146,6 @@ void afficher_grillage_colonne(int colonne)
 
 void debug_afficher_matrice(S_joueur p, int l, int c)
 {
-
     int i, j;
     positionner_curseur(l, c);
     color(15, 0);
@@ -160,13 +159,10 @@ void debug_afficher_matrice(S_joueur p, int l, int c)
             printf("%c ", p.plat[i][j]);
         }
     }
-
     // Affichage du score
     positionner_curseur(l + 7, c);
     printf("Score : %d",p.score);
-
 }
-
 
 void debug_afficher_pioche(S_jeu *game, int l, int c)
 {
