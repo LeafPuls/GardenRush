@@ -86,7 +86,6 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
     int rot;
     int l, c;
 
-    // Lecture de l'input utilisateur pour le type de légume
     positionner_curseur(0,0);
     color(15, 0);
     printf("choix : ");
@@ -102,11 +101,13 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         printf("motif : ");
         scanf_s("%d", &motif);
 
-        //-------------------========== Motif X2 : Récolte d'une diag de 2 carottes ==========-------------------
-        if (motif == 2) {
+        //-------------------========== Motif 1 : Récolte d'une diag de 2 carottes ==========-------------------
+        if (motif == 1) {
+
             positionner_curseur(0, 0);
             color(15, 0);
             printf("rotation : ");
+
             scanf_s("%d", &rot);
             scanf_s("%d", &l);
             scanf_s("%d", &c);
@@ -153,11 +154,13 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             }
         }
 
-        //-------------------========== Motif X4 : Récolte d'une diag de 4 carottes ==========-------------------
-        if (motif == 4) {
+        //-------------------========== Motif 2 : Récolte d'une diag de 4 carottes ==========-------------------
+        if (motif == 2) {
+
             positionner_curseur(0,0);
 			color(15, 0);
             printf("rotation : ");
+
             scanf_s("%d", &rot);
             scanf_s("%d", &l);
             scanf_s("%d", &c);
@@ -219,13 +222,169 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         debug_update(game, joueur);
         break;
 
-    case 'A':
-        break;
+   case 'A': //======================================================Aubergines======================================================
+
+       positionner_curseur(0, 0);
+       color(15, 0);
+       printf("motif : ");
+       scanf_s("%d", &motif);
+
+       //-------------------========== Motif 1 : 2 Aubergines côte à côte ==========-------------------
+       if (motif == 1) {
+
+           positionner_curseur(0, 0);
+           color(15, 0);
+           printf("rotation : ");
+
+           scanf_s("%d", &rot);
+           scanf_s("%d", &l);
+           scanf_s("%d", &c);
+
+           // Rotation 1 : Horizontale (1 ligne, 2 colonnes) -> épicentre à gauche
+           if (rot == 1) {
+               // Limites strictes
+               if (l >= 0 && l < 5 && c >= 0 && c + 1 < 5) {
+                   // vérif des angles morts pour les 2 extrémités du bloc
+                   if (!((l == 0 && c == 0) || (l == 4 && c == 0) || (l == 0 && c + 1 == 4) || (l == 4 && c + 1 == 4))) {
+                       // Validation
+                       if ((joueur[j].plat[l][c] == 'A' || joueur[j].plat[l][c] == 'a') &&
+                           (joueur[j].plat[l][c + 1] == 'A' || joueur[j].plat[l][c + 1] == 'a'))
+                       {
+                           joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                           joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+
+                           debug_update(game, joueur);
+                           return 2; 
+                       }
+                   }
+               }
+           }
+           // Rotation 2 : Verticale (2 lignes, 1 colonne) -> épicentre en haut
+           else if (rot == 2) {
+               if (l >= 0 && l + 1 < 5 && c >= 0 && c < 5) {
+                   if (!((l == 0 && c == 0) || (l == 0 && c == 4) || (l + 1 == 4 && c == 0) || (l + 1 == 4 && c == 4))) {
+
+                       if ((joueur[j].plat[l][c] == 'A' || joueur[j].plat[l][c] == 'a') &&
+                           (joueur[j].plat[l + 1][c] == 'A' || joueur[j].plat[l + 1][c] == 'a'))
+                       {
+                           joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                           joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+
+                           debug_update(game, joueur);
+                           return 2;
+                       }
+                   }
+               }
+           }
+       }
+
+       //-------------------========== Motif 2 : Carré de 2x2 Aubergines ==========-------------------
+       else if (motif == 2) {
+           scanf_s("%d", &l);
+           scanf_s("%d", &c);
+
+           //pas de rot car carré
+           if (l >= 0 && l + 1 < 5 && c >= 0 && c + 1 < 5) {
+               // Seuls les 4 coins du carré peuvent théoriquement toucher un coin du plateau
+               if (!((l == 0 && c == 0) || (l == 0 && c + 1 == 4) || (l + 1 == 4 && c == 0) || (l + 1 == 4 && c + 1 == 4))) {
+
+                   if ((joueur[j].plat[l][c] == 'A' || joueur[j].plat[l][c] == 'a') &&
+                       (joueur[j].plat[l][c + 1] == 'A' || joueur[j].plat[l][c + 1] == 'a') &&
+                       (joueur[j].plat[l + 1][c] == 'A' || joueur[j].plat[l + 1][c] == 'a') &&
+                       (joueur[j].plat[l + 1][c + 1] == 'A' || joueur[j].plat[l + 1][c + 1] == 'a'))
+                   {
+                       joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                       joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                       joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                       joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
+
+                       debug_update(game, joueur);
+                       return 4; 
+                   }
+               }
+           }
+       }
+
+       //-------------------========== Motif 3 : Rectangle 2x3 ou 3x2 Aubergines ==========-------------------
+       else if (motif == 3) {
+
+           positionner_curseur(0, 0);
+           color(15, 0);
+           printf("rotation : ");
+
+           scanf_s("%d", &rot);
+           scanf_s("%d", &l);
+           scanf_s("%d", &c);
+
+           // Rotation 1 : Horizontale (2 lignes, 3 colonnes) -> épicentre en haut à gauche
+           if (rot == 1) {
+               if (l >= 0 && l + 1 < 5 && c >= 0 && c + 2 < 5) {//verif que c'est bien dedans
+				   if (!((l == 0 && c == 0) || (l + 1 == 4 && c == 0) || (l == 0 && c + 2 == 4) || (l + 1 == 4 && c + 2 == 4))) {//verif que les coins du rectangle ne sont pas dans les coins du plateau
+
+                       if ((joueur[j].plat[l][c] == 'A' || joueur[j].plat[l][c] == 'a') &&
+                           (joueur[j].plat[l][c + 1] == 'A' || joueur[j].plat[l][c + 1] == 'a') &&
+                           (joueur[j].plat[l][c + 2] == 'A' || joueur[j].plat[l][c + 2] == 'a') &&
+                           (joueur[j].plat[l + 1][c] == 'A' || joueur[j].plat[l + 1][c] == 'a') &&
+                           (joueur[j].plat[l + 1][c + 1] == 'A' || joueur[j].plat[l + 1][c + 1] == 'a') &&
+                           (joueur[j].plat[l + 1][c + 2] == 'A' || joueur[j].plat[l + 1][c + 2] == 'a'))
+                       {
+                           joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                           joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                           joueur[j].plat[l][c + 2] = soustraire_legume(joueur[j].plat[l][c + 2]);
+                           joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                           joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
+                           joueur[j].plat[l + 1][c + 2] = soustraire_legume(joueur[j].plat[l + 1][c + 2]);
+
+                           debug_update(game, joueur);
+                           return 6;
+                       }
+                   }
+               }
+           }
+           // Rotation 2 : Verticale (3 lignes, 2 colonnes) -> épicentre en haut à gauche
+           else if (rot == 2) {
+               if (l >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5) {
+                   if (!((l == 0 && c == 0) || (l == 0 && c + 1 == 4) || (l + 2 == 4 && c == 0) || (l + 2 == 4 && c + 1 == 4))) {
+
+                       if ((joueur[j].plat[l][c] == 'A' || joueur[j].plat[l][c] == 'a') &&
+                           (joueur[j].plat[l][c + 1] == 'A' || joueur[j].plat[l][c + 1] == 'a') &&
+                           (joueur[j].plat[l + 1][c] == 'A' || joueur[j].plat[l + 1][c] == 'a') &&
+                           (joueur[j].plat[l + 1][c + 1] == 'A' || joueur[j].plat[l + 1][c + 1] == 'a') &&
+                           (joueur[j].plat[l + 2][c] == 'A' || joueur[j].plat[l + 2][c] == 'a') &&
+                           (joueur[j].plat[l + 2][c + 1] == 'A' || joueur[j].plat[l + 2][c + 1] == 'a'))
+                       {
+                           joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                           joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                           joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                           joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
+                           joueur[j].plat[l + 2][c] = soustraire_legume(joueur[j].plat[l + 2][c]);
+                           joueur[j].plat[l + 2][c + 1] = soustraire_legume(joueur[j].plat[l + 2][c + 1]);
+
+                           debug_update(game, joueur);
+                           return 6;
+                       }
+                   }
+               }
+           }
+       }
+       break;
+
     case 'T':
+
+
+
         break;
+
     case 'B':
+
+
+
         break;
+
     case 'P':
+
+
+
         break;
     }
 
@@ -282,7 +441,7 @@ char soustraire_legume(char leg)
 
     if ((leg >= 'a' && leg <= 'z') || leg == '0')
     {
-        return '0'; // Déjà minuscule ou vide -> devient vide
+        return '0'; // deja minuscule ou vide -> devient vide
     }
 
     return '0'; // Par sécurité pour tout autre caractère (comme ton 'X' de pioche vide)

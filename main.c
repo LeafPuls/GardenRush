@@ -33,15 +33,15 @@ plein_ecran(5+debug_state);
 
 //==============================================================initialisation de base===========================================================
 
-cadre_ecran();//permet de s'assurer qu'on voit tout le jeu pour éviter les bugs d'affichage
+cadre_ecran();// permet de s'assurer qu'on voit tout le jeu pour éviter les bugs d'affichage
 
-S_joueur joueur[2];//data des joueurs
-S_jeu game;//data des variables du jeu
+S_joueur joueur[2];// data des joueurs
+S_jeu game;// data des variables du jeu
 
-initialisation_plateau(&joueur[0]);//remplie les matrices pour tout mettre a zéro
+initialisation_plateau(&joueur[0]);// remplit les matrices pour tout mettre à zéro
 initialisation_plateau(&joueur[1]);
-initialisation_pioche(&game);//met les pions dans la pioche
-initialiser_haie(&game);//remplie de 0
+initialisation_pioche(&game);// met les pions dans la pioche
+initialiser_haie(&game);// remplit de 0
 melanger_pioche(&game);
 remplir_haie(&game);
 
@@ -50,12 +50,16 @@ for (i = 0; i < 5; i++)
 {
     for (j = 0; j < 5; j++)
     {
-        joueur[0].plat[i][j] = 'C';
+        joueur[0].plat[i][j] = 'A';
     }
 }
 
-color(12, 7);
-joueur[0].score= recolter(&game, joueur, 0);
+
+joueur[0].score= joueur[0].score + recolter(&game, joueur, 0);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
 
 
 
@@ -72,7 +76,7 @@ afficher_grillage_ligne(0);
 afficher_grillage_colonne(0);
 
 //====Data jeu=====
-debug_update(&game, joueur);//affiche toutes les données du jeu (pioche, haie, plateau) et le score des joueurs
+debug_update(&game, joueur);// affiche toutes les données du jeu (pioche, haie, plateau) et le score des joueurs
 
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
