@@ -26,12 +26,21 @@
 #define ROSE          0xFFC0CB
 #define MARRON        0x654321
 #define BEIGE         0xE8D0AE
+#define VIOLET        0xEE82EE
+#define VIOLET_FONCE  0x800080
 
 //=======Position jeux=======
 #define PLAT_L 20
 #define PLAT_C 40
+
 #define PLAT2_L 20
 #define PLAT2_C 350
+
+#define MARCHE_L PLAT_L
+#define MARCHE_C PLAT_C-38
+
+#define MARCHE2_L PLAT_L
+#define MARCHE2_C PLAT2_C+38
 
 //=======Position DEBUG=======
 #define DEBUG_J1_L 120
@@ -45,13 +54,11 @@ extern int debug_state;
 void initialisation_affichage(S_jeu* game, S_joueur joueur[], int j);
 
 void cadre_ecran();
-void afficher_carotte(int ligne, int colonne);
-void afficher_plateau_gauche(int  x, int y);
-void afficher_plateau_droite(int x, int y);
-void dessiner_case(int ligne, int colonne);
 void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur);
+void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j);
 void afficher_score(S_jeu* game, S_joueur joueur[]);
-void afficher_parcelles_terre(int x_start, int y_start);
+
+void afficher_carotte(int ligne, int colonne);
 //=======
 
 

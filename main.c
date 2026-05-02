@@ -47,26 +47,39 @@ remplir_haie(&game);
 
 
 afficher_score(&game, joueur);
-afficher_plateau_gauche(PLAT_L, PLAT_C);
-afficher_plateau_droite(PLAT2_L, PLAT2_C);
+afficher_plateau_joueur(&game, joueur, 0);
+afficher_plateau_joueur(&game, joueur, 1);
+afficher_marche(0);
+ 
+int i, j;
 
-while (1) {
-    positionner_curseur(0, 0);
-    color(15, 0);
-	printf("testestest");
-    int t=clique_plateau(PLAT_L, PLAT_C);
-	printf("  ligne %d  ", case_L(t));
-	printf("  colonne %d  ", case_C(t));
-
+for (i = 0; i < 5; i++)
+{
+    for (j = 0; j < 5; j++)
+    {
+        joueur[0].plat[i][j] = 'C';
+    }
 }
 
+//while(1){
+//    positionner_curseur(0, 0);
+//    color(15, 0);
+//	printf("testestest");
+//    int t=clique_plateau(5,1,MARCHE_L, MARCHE_C);
+//	printf("  ligne %d  ", case_L(t));
+//	printf("  colonne %d  ", case_C(t));
+//}
 
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+
+    afficher_score(&game, joueur);
 
 //======================================================================DEBUG==============================================================
 
 //=====Affichage=====
-afficher_grillage_ligne(0);
-afficher_grillage_colonne(0);
+//afficher_grillage_ligne(0);
+//afficher_grillage_colonne(0);
 
 //====Data jeu=====
 debug_update(&game, joueur);// affiche toutes les données du jeu (pioche, haie, plateau) et le score des joueurs
@@ -75,7 +88,7 @@ debug_update(&game, joueur);// affiche toutes les données du jeu (pioche, haie, 
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
 
 
-positionner_curseur(100, 0);
+positionner_curseur(150, 0);
     return 0;
 }
 

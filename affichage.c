@@ -30,46 +30,121 @@ void cadre_ecran()
     dessiner_rectangle(87, 0, 1, 314, GRIS);
 }
 
-void afficher_carotte(int ligne, int colonne)
+void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
 {
-    dessiner_rectangle(ligne, colonne + 4, 2, 1, VERT);
-    dessiner_rectangle(ligne + 1, colonne + 2, 2, 2, ORANGE);
-    dessiner_rectangle(ligne + 2, colonne, 2, 2, ORANGE);
-}
-/*void afficher_plateau_gauche(int ligne,int colonne){
-    dessiner_rectangle()
+    int l, c; // Ligne et colonne de départ du plateau
 
-}*/
-void dessiner_case(int ligne, int colonne)
-{
-    dessiner_rectangle(ligne, colonne, 5, 10, 0xF4A460);
+    if (j == 0) {
+        l = PLAT_L;
+        c = PLAT_C;
+    }
+    else {
+        l = PLAT2_L;
+        c = PLAT2_C;
+    }
 
-
-}
-
-
-void afficher_parcelles_terre(int x_start, int y_start)
-{
-    // --- Configuration du potager ---
-    int nb_lignes = 5;
+    int nb_lignes = 5;//taille
     int nb_cols = 5;
 
-    int largeur_parcelle = 15;
-    int hauteur_parcelle = 30;
+	int l_case = 15; // taille case
+    int c_case = 30; 
 
-    // Espace entre les parcelles (l'herbe)
-    int espace_x = 2;
-    int espace_y = 4;
+    int espace_ligne = 2;
+    int espace_colonne = 4;
 
-    for (int l = 0; l < nb_lignes; l++)
+    for (int lig = 0; lig < nb_lignes; lig++)
     {
-        for (int c = 0; c < nb_cols; c++)
+        for (int col = 0; col < nb_cols; col++)
         {
-            // Calcul des positions en utilisant tes paramètres x et y
-            int x_pos = x_start + (c * (largeur_parcelle + espace_x));
-            int y_pos = y_start + (l * (hauteur_parcelle + espace_y));
+            // Calcul des coord
+            int coord_l = l + (lig * (l_case + espace_ligne));
+            int coord_c = c + (col * (c_case + espace_colonne));
+            char case_actuelle = joueur[j].plat[lig][col];
 
-            dessiner_rectangle(x_pos, y_pos, largeur_parcelle, hauteur_parcelle, MARRON);
+            switch (case_actuelle)
+            {
+                // ------ Carottes ------
+            case 'C':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, ORANGE);
+                break;
+            case 'c':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, OR);
+                break;
+
+                // ------ Tomates ------
+            case 'T':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, ROUGE);
+                break;
+            case 't':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, ROSE);
+                break;
+
+                // ------ Brocolis ------
+            case 'B':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VERT_FONCE);
+                break;
+            case 'b':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VERT);
+                break;
+
+                // ------ Aubergines ------
+            case 'A':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VIOLET_FONCE);
+                break;
+            case 'a':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VIOLET);
+                break;
+
+                // ------ Patates ------
+            case 'P':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, JAUNE);
+                break;
+            case 'p':
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, BEIGE);
+                break;
+
+                // ------ Case Vide / Terre nue ------
+            case '0':
+            default:
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, MARRON);
+                break;
+            }
+        }
+    }
+}
+
+void afficher_marche(int j) 
+{
+    int l, c;
+
+    if (j == 0) {
+        l = MARCHE_L;
+        c = MARCHE_C;
+        dessiner_rectangle(l-4, c-2, 91, 34, BLEU);
+    }
+    else {
+        l = MARCHE2_L;
+        c = MARCHE2_C;
+        dessiner_rectangle(l-4, c+2, 0, 0, ROUGE);
+    }
+
+    int nb_lignes = 5;//taille plat
+    int nb_cols = 1;
+
+    int l_case = 15; // taille case
+    int c_case = 30;
+
+    int espace_ligne = 2;
+    int espace_colonne = 4;
+
+    for (int lig = 0; lig < nb_lignes; lig++)
+    {
+        for (int col = 0; col < nb_cols; col++)
+        {
+            // Calcul des coord
+            int coord_l = l + (lig * (l_case + espace_ligne));
+            int coord_c = c + (col * (c_case + espace_colonne));
+            dessiner_rectangle(coord_l, coord_c, l_case, c_case, BEIGE);
         }
     }
 }
@@ -77,8 +152,8 @@ void afficher_parcelles_terre(int x_start, int y_start)
 void afficher_score(S_jeu* game, S_joueur joueur[]) {
     dessiner_ligne_score(2, 2, 45, GRIS);//base
 
-	dessiner_rectangle(2, (joueur[0].score * (6 + 5)), 3, 6, ROSE);//pion joueur 1
-    dessiner_rectangle(2, (joueur[1].score * (6 + 5)), 3, 6, BLEU);//pion joueur 2
+	dessiner_rectangle(2, 2+(joueur[0].score * (6 + 5)), 3, 6, ROSE);//pion joueur 1
+    dessiner_rectangle(2, 2+(joueur[1].score * (6 + 5)), 3, 6, BLEU);//pion joueur 2
 }
 
 void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
@@ -95,22 +170,16 @@ void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
     }
 }
 
-void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
+
+
+//----------LEGUMES----------
+
+void afficher_carotte(int ligne, int colonne)
 {
-	int lj, cj;
-
-    if (j == 0) {
-        lj = PLAT_L;
-        cj = PLAT_C;
-    }
-    else {
-        lj = PLAT2_L;
-        cj = PLAT2_C;
-    }
-
-    afficher_parcelles_terre(lj, cj);
+    dessiner_rectangle(ligne, colonne + 4, 2, 1, VERT);
+    dessiner_rectangle(ligne + 1, colonne + 2, 2, 2, ORANGE);
+    dessiner_rectangle(ligne + 2, colonne, 2, 2, ORANGE);
 }
-
 
 //====================================================================================Fonction base affichage====================================================================================
 

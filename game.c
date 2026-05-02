@@ -124,18 +124,15 @@ int case_C(int c) { // convertit le numéro de la case en colonne (0 à 4)
 
 
 // Ajout de nbLignes et nbColonnes en paramètres
-int clique_plateau(int baseLigne, int baseColonne) {
+int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne) {
     INPUT_RECORD ev;
     DWORD count;
 
-	int nbLignes = 5; // nombre de lignes du plateau
-    int nbColonnes = 5; // nombre de colonnes du plateau
     int hauteur = 17; // taille case
     int largeur = 34; // taille case
 
     // Boucle infinie jusqu'à un clic valide
     while (1) {
-        // On utilise le hIn global initialisé au début du programme
         if (!ReadConsoleInput(hIn, &ev, 1, &count))
             continue;
 
@@ -143,7 +140,7 @@ int clique_plateau(int baseLigne, int baseColonne) {
         if (ev.EventType == MOUSE_EVENT &&
             (ev.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)) {
 
-            // Récup des coord de la console
+            // recup des coord de la console
             int c = ev.Event.MouseEvent.dwMousePosition.X;
             int l = ev.Event.MouseEvent.dwMousePosition.Y;
 
@@ -153,11 +150,11 @@ int clique_plateau(int baseLigne, int baseColonne) {
                 continue;
             }
 
-            // Calcul ratio (ça reste identique, la division marche toujours)
+            // Calcul ratio
             int ligne = (l - baseLigne) / hauteur;
             int colonne = (c - baseColonne) / largeur;
 
-            // Return numéro case (ex: ligne * 5 + colonne + 1 si nbColonnes = 5)
+            // Return case 
             return (ligne * nbColonnes) + colonne + 1;
         }
     }
@@ -167,7 +164,7 @@ int clique_plateau(int baseLigne, int baseColonne) {
 
 int recolter(S_jeu* game, S_joueur joueur[], int j)
 {
-    char choix;
+    int choix;
     int motif;
     int rot;
     int l, c;
@@ -184,14 +181,11 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         cj = PLAT2_C;
     }
 
-    positionner_curseur(0,0);
-    color(15, 0);
-    printf("choix : ");
-    scanf_s(" %c", &choix);
+    choix=clique_plateau(5, 1, MARCHE_L, MARCHE_C);
 
     switch (choix)
     {
-    case 'C': // ================= Carottes =================
+    case 0 : // ================= Carottes =================
 
         // Demande la taille du motif (2 ou 4)
         positionner_curseur(0,0);
@@ -207,7 +201,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             printf("rotation : ");
             scanf_s("%d", &rot);
 
-            pos=clique_plateau(lj, cj);
+            pos=clique_plateau(5,5,lj, cj);
 			l = case_L(pos);
 			c = case_C(pos);
            
@@ -321,7 +315,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         debug_update(game, joueur);
         break;
 
-   case 'A': //======================================================Aubergines======================================================
+   case 1 : //======================================================Aubergines======================================================
 
        positionner_curseur(0, 0);
        color(15, 0);
@@ -473,7 +467,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
        }
        break;
 
-    case 'T': //======================================================Tomates======================================================
+    case 2 : //======================================================Tomates======================================================
 
         positionner_curseur(0, 0);
         color(15, 0);
@@ -702,7 +696,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         }
         break;
 
-    case 'B'://======================================================Brocoli======================================================
+    case 3://======================================================Brocoli======================================================
 
         positionner_curseur(0, 0);
         color(15, 0);
@@ -853,7 +847,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         }
         break;
 
-    case 'P':
+    case 4 :
 
 
 

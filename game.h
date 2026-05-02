@@ -25,7 +25,7 @@ void initialiser_haie(S_jeu *game);
 int menu(S_jeu* game, S_joueur joueur[], int j);
 int case_L(int c);
 int case_C(int c);
-int clique_plateau(int baseLigne, int baseColonne);
+int clique_plateau(int nbLignes, int nbColonnes, int baseLigne, int baseColonne);
 
 //=====Fonction de jeu=====
 void remplir_haie(S_jeu *game);
