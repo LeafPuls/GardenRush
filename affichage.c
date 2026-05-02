@@ -46,19 +46,7 @@ void dessiner_case(int ligne, int colonne)
 
 
 }
-void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
-{
-    int largeur_rect = 6;
-    int hauteur_rect = 3;
-    int espace = 10;
 
-    for (int i = 0; i < nombre; i++)
-    {
-        int nouvelle_colonne = colonne + (i * (largeur_rect + espace));
-
-        dessiner_rectangle(ligne, nouvelle_colonne, hauteur_rect, largeur_rect, couleur);
-    }
-}
 
 void afficher_parcelles_terre(int x_start, int y_start)
 {
@@ -86,36 +74,43 @@ void afficher_parcelles_terre(int x_start, int y_start)
     }
 }
 
+void afficher_score(S_jeu* game, S_joueur joueur[]) {
+    dessiner_ligne_score(2, 2, 45, GRIS);//base
 
-void afficher_plateau_haut() {
-    dessiner_ligne_score(2, 2, 22, GRIS);
-    dessiner_ligne_score(6, 2, 23, GRIS);
-
+	dessiner_rectangle(2, (joueur[0].score * (6 + 5)), 3, 6, ROSE);//pion joueur 1
+    dessiner_rectangle(2, (joueur[1].score * (6 + 5)), 3, 6, BLEU);//pion joueur 2
 }
 
-
-void afficher_plateau_gauche(int x, int y)
+void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
 {
-    afficher_parcelles_terre(x, y);
+    int largeur_rect = 6;
+    int hauteur_rect = 3;
+    int espace = 5;
 
+    for (int i = 0; i < nombre; i++)
+    {
+        int nouvelle_colonne = colonne + (i * (largeur_rect + espace));
+
+        dessiner_rectangle(ligne, nouvelle_colonne, hauteur_rect, largeur_rect, couleur);
+    }
 }
 
-
-void afficher_plateau_droite(int x, int y)
+void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
 {
-    afficher_parcelles_terre(x, y);
+	int lj, cj;
 
+    if (j == 0) {
+        lj = PLAT_L;
+        cj = PLAT_C;
+    }
+    else {
+        lj = PLAT2_L;
+        cj = PLAT2_C;
+    }
+
+    afficher_parcelles_terre(lj, cj);
 }
 
-
-void afficher_jardin()
-{
-    dessiner_rectangle(0, 0, 175, 630, 0x2439942);
-    afficher_plateau_haut();
-    afficher_plateau_gauche(40, 100);
-    afficher_plateau_droite(40, 350);
-
-}
 
 //====================================================================================Fonction base affichage====================================================================================
 

@@ -28,8 +28,10 @@
 #define BEIGE         0xE8D0AE
 
 //=======Position jeux=======
-#define PLAT_L 12
-#define PLAT_C 5
+#define PLAT_L 20
+#define PLAT_C 40
+#define PLAT2_L 20
+#define PLAT2_C 350
 
 //=======Position DEBUG=======
 #define DEBUG_J1_L 120
@@ -48,9 +50,8 @@ void afficher_plateau_gauche(int  x, int y);
 void afficher_plateau_droite(int x, int y);
 void dessiner_case(int ligne, int colonne);
 void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur);
-void afficher_plateau_haut();
+void afficher_score(S_jeu* game, S_joueur joueur[]);
 void afficher_parcelles_terre(int x_start, int y_start);
-void afficher_jardin();
 //=======
 
 

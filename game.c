@@ -123,40 +123,42 @@ int case_C(int c) { // convertit le numéro de la case en colonne (0 à 4)
 }
 
 
+// Ajout de nbLignes et nbColonnes en paramètres
 int clique_plateau(int baseLigne, int baseColonne) {
-    HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD ev;
     DWORD count;
 
+	int nbLignes = 5; // nombre de lignes du plateau
+    int nbColonnes = 5; // nombre de colonnes du plateau
+    int hauteur = 17; // taille case
+    int largeur = 34; // taille case
+
     // Boucle infinie jusqu'à un clic valide
     while (1) {
-
+        // On utilise le hIn global initialisé au début du programme
         if (!ReadConsoleInput(hIn, &ev, 1, &count))
             continue;
 
-        // event est un clic gauche de la souris
+        // Si event = clic gauche de la souris
         if (ev.EventType == MOUSE_EVENT &&
             (ev.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)) {
 
-            // recup des coord de la console
-            int c = ev.Event.MouseEvent.dwMousePosition.X; // Colonne
-            int l = ev.Event.MouseEvent.dwMousePosition.Y; // Ligne
+            // Récup des coord de la console
+            int c = ev.Event.MouseEvent.dwMousePosition.X;
+            int l = ev.Event.MouseEvent.dwMousePosition.Y;
 
-            int hauteur = 17;  // hauteur d'une case à analyser
-            int largeur = 34;  // largeur d'une case
-
-			// hors du plateau 5x5 => on ignore
-            if (l < baseLigne || l >= baseLigne + 5 * hauteur ||
-                c < baseColonne || c >= baseColonne + 5 * largeur) {
+            // Clic hors du plateau dynamique => on ignore
+            if (l < baseLigne || l >= baseLigne + (nbLignes * hauteur) ||
+                c < baseColonne || c >= baseColonne + (nbColonnes * largeur)) {
                 continue;
             }
 
-            // Calcul ration selon tableu et case 
+            // Calcul ratio (ça reste identique, la division marche toujours)
             int ligne = (l - baseLigne) / hauteur;
             int colonne = (c - baseColonne) / largeur;
 
-            // return numéro case
-            return ligne * 5 + colonne + 1;
+            // Return numéro case (ex: ligne * 5 + colonne + 1 si nbColonnes = 5)
+            return (ligne * nbColonnes) + colonne + 1;
         }
     }
 }
@@ -169,6 +171,18 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
     int motif;
     int rot;
     int l, c;
+	int lj, cj;
+    int pos;
+
+	// position analyse clique selon joueur
+	if (j == 0) {
+        lj = PLAT_L;
+        cj = PLAT_C;
+    }
+    else {
+        lj = PLAT2_L;
+        cj = PLAT2_C;
+    }
 
     positionner_curseur(0,0);
     color(15, 0);
@@ -191,11 +205,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             positionner_curseur(0, 0);
             color(15, 0);
             printf("rotation : ");
-
             scanf_s("%d", &rot);
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
 
+            pos=clique_plateau(lj, cj);
+			l = case_L(pos);
+			c = case_C(pos);
+           
             //----------Rotation 1 : Bas-Droite (+1 ligne, +1 colonne)----------
             if (rot == 1) {
                 // On vérifie que la 2ème case ne sort pas du plateau 5x5

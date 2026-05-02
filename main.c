@@ -46,8 +46,9 @@ melanger_pioche(&game);
 remplir_haie(&game);
 
 
-afficher_plateau_haut();
+afficher_score(&game, joueur);
 afficher_plateau_gauche(PLAT_L, PLAT_C);
+afficher_plateau_droite(PLAT2_L, PLAT2_C);
 
 while (1) {
     positionner_curseur(0, 0);
