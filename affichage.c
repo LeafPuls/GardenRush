@@ -12,23 +12,15 @@
 //=====Initialisation variable=====
 int debug_state;
 
-//=====================================================================================Initialisation AFFICHAGE=====================================================================================
+//=====================================================================================================================================================================Initialisation AFFICHAGE==========================================================================================================================================================================
 
 void initialisation_affichage(S_jeu* game, S_joueur joueur[], int j)
 {
-    //cadre_ecran();// permet de s'assurer qu'on voit tout le jeu pour éviter les bugs d'affichage
-    
+   
 }
 
 
-//=====================================================================================Fonction AFFICHAGE=====================================================================================
-void cadre_ecran()
-{
-    dessiner_rectangle(0, 0, 88, 1, GRIS);//côté
-    dessiner_rectangle(0, 313, 88, 1, GRIS);
-    dessiner_rectangle(0, 0, 1, 314, GRIS);//haut et bas
-    dessiner_rectangle(87, 0, 1, 314, GRIS);
-}
+//==========================================================================================================================================================================Fonction AFFICHAGE==========================================================================================================================================================================
 
 void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
 {
@@ -125,7 +117,7 @@ void afficher_marche(int j)
     else {
         l = MARCHE2_L;
         c = MARCHE2_C;
-        dessiner_rectangle(l-4, c+2, 0, 0, ROUGE);
+        dessiner_rectangle(l-4, c-2, 91, 34, ROUGE);
     }
 
     int nb_lignes = 5;//taille plat
@@ -150,17 +142,20 @@ void afficher_marche(int j)
 }
 
 void afficher_score(S_jeu* game, S_joueur joueur[]) {
-    dessiner_ligne_score(2, 2, 45, GRIS);//base
+	int l = 2;
+	int c = 10;
 
-	dessiner_rectangle(2, 2+(joueur[0].score * (6 + 5)), 3, 6, ROSE);//pion joueur 1
-    dessiner_rectangle(2, 2+(joueur[1].score * (6 + 5)), 3, 6, BLEU);//pion joueur 2
+    dessiner_ligne_score(l, c, 45, GRIS);//base
+
+	dessiner_rectangle(l, c+(joueur[1].score * (6 + 4)), 3, 6, ROSE);//pion joueur 1
+    dessiner_rectangle(l, c+(joueur[0].score * (6 + 4)), 3, 6, BLEU);//pion joueur 2
 }
 
 void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
 {
     int largeur_rect = 6;
     int hauteur_rect = 3;
-    int espace = 5;
+    int espace = 4;
 
     for (int i = 0; i < nombre; i++)
     {
@@ -181,7 +176,113 @@ void afficher_carotte(int ligne, int colonne)
     dessiner_rectangle(ligne + 2, colonne, 2, 2, ORANGE);
 }
 
-//====================================================================================Fonction base affichage====================================================================================
+
+//----------MOTIF----------
+
+void afficher_case(int l, int c, int nb, int couleur)
+{
+    int nb_lignes = 1;//taille plat
+    int nb_cols = nb;
+
+    int l_case = 15; // taille case
+    int c_case = 30;
+
+    int espace_ligne = 2;
+    int espace_colonne = 4;
+
+    for (int lig = 0; lig < nb_lignes; lig++)
+    {
+        for (int col = 0; col < nb_cols; col++)
+        {
+            // Calcul des coord
+            int coord_l = l + (lig * (l_case + espace_ligne));
+            int coord_c = c + (col * (c_case + espace_colonne));
+            dessiner_rectangle(coord_l, coord_c, l_case, c_case, couleur);
+        }
+    }
+}
+
+void motif_carotte(int l, int c) {
+    afficher_case(l, c, 2, BEIGE);
+
+	//motif 1 : diagonale de 2 carottes
+    dessiner_rectangle(l+2, c+4, 4, 8, GRIS);
+    dessiner_rectangle(l + 6, c + 12, 4, 8, ORANGE);
+
+	//motif 2 : diagonale de 4 carottes
+    c = c + 30;
+    dessiner_rectangle(l + 2, c + 6, 3, 6, GRIS);
+    dessiner_rectangle(l + 5, c + 12, 3, 6, ORANGE);
+    dessiner_rectangle(l + 8, c + 18, 3, 6, ORANGE);
+    dessiner_rectangle(l + 11, c + 24, 3, 6, ORANGE);
+
+}
+
+void rot1_carotte(int l, int c) {
+    afficher_case(l, c, 2, BEIGE);
+
+    //rot 1 
+    dessiner_rectangle(l + 2, c + 4, 4, 8, GRIS);
+    dessiner_rectangle(l + 6, c + 12, 4, 8, ORANGE);
+
+    //rot 2 
+    c = c + 35;
+    dessiner_rectangle(l + 2, c + 12, 4, 8, GRIS);
+    dessiner_rectangle(l + 6, c + 4, 4, 8, ORANGE);
+
+}
+
+void rot2_carotte(int l, int c) {
+    afficher_case(l, c, 2, BEIGE);
+
+    //rot 1 
+    c = c-2;
+    dessiner_rectangle(l + 2, c + 6, 3, 6, GRIS);
+    dessiner_rectangle(l + 5, c + 12, 3, 6, ORANGE);
+    dessiner_rectangle(l + 8, c + 18, 3, 6, ORANGE);
+    dessiner_rectangle(l + 11, c + 24, 3, 6, ORANGE);
+
+    //rot 2 
+    c = c + 32;
+    dessiner_rectangle(l + 2, c + 24, 3, 6, GRIS);
+    dessiner_rectangle(l + 5, c + 18, 3, 6, ORANGE);
+    dessiner_rectangle(l + 8, c + 12, 3, 6, ORANGE);
+    dessiner_rectangle(l + 11, c + 6, 3, 6, ORANGE);
+
+}
+
+
+void motif_aubergine(int l, int c) {
+    afficher_case(l, c, 3, BEIGE);
+
+    //motif 1 : diagonale de 2 aubergines
+    dessiner_rectangle(l + 5, c + 6, 4, 8, GRIS);
+    dessiner_rectangle(l + 5, c + 16, 4, 8, VIOLET);
+
+    //motif 2 : diagonale de 4 aubergines
+    c = c + 34;
+    dessiner_rectangle(l + 3, c + 6, 4, 8, GRIS);
+    dessiner_rectangle(l + 3, c + 16, 4, 8, VIOLET);
+    dessiner_rectangle(l + 8, c + 6, 4, 8, VIOLET);
+    dessiner_rectangle(l + 8, c + 16, 4, 8, VIOLET);
+
+    //motif 2 : diagonale de 4 aubergines
+    c = c + 32;
+    dessiner_rectangle(l + 4, c + 6, 3, 6, GRIS);
+    dessiner_rectangle(l + 4, c + 14, 3, 6, VIOLET);
+    dessiner_rectangle(l + 4, c + 22, 3, 6, VIOLET);
+    dessiner_rectangle(l + 8, c + 6, 3, 6, VIOLET);
+    dessiner_rectangle(l + 8, c + 14, 3, 6, VIOLET);
+    dessiner_rectangle(l + 8, c + 22, 3, 6, VIOLET);
+
+
+}
+
+void rot1_aubergine(int l, int c) {
+
+}
+
+//========================================================================================================================================================================Fonction base affichage=========================================================================================================================================================================
 
 void dessine_pixel_hex(int x, int y, int hex_couleur)
 {
@@ -224,7 +325,7 @@ void color(int couleurDuTexte, int couleurDuFond)
     SetConsoleTextAttribute(H, couleurDuFond * 16 + couleurDuTexte);
 }
 
-//=====================================================================================Fonction de base=====================================================================================
+//==========================================================================================================================================================================Fonction de base==========================================================================================================================================================================
 
 
 void plein_ecran(int s)
@@ -270,13 +371,13 @@ void cacher_curseur()
 }
 
 
-//=====================================================================================Fonction DEBUG=====================================================================================
+//==========================================================================================================================================================================Fonction DEBUG==========================================================================================================================================================================
 
 //aide pour positioner
 void afficher_grillage_ligne(int ligne)
 {
     positionner_curseur(ligne, 0);
-    for (int j = 0; j < 24; j++)
+    for (int j = 0; j < 48; j++)
     {
         for (int i = 0; i < 10; i++)
         {
@@ -289,7 +390,7 @@ void afficher_grillage_ligne(int ligne)
 void afficher_grillage_colonne(int colonne)
 {
     int k = 0;
-    for (int j = 0; j < 7; j++)
+    for (int j = 0; j < 8; j++)
     {
         for (int i = 0; i < 10; i++)
         {

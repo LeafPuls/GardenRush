@@ -31,7 +31,7 @@ debug_state = 1;//mettre à 1 pour activer les fonctions de debug 0 pour désactiv
 plein_ecran(6+debug_state);
 
 
-//==============================================================initialisation de base===========================================================
+//===================================================================================================================================================initialisation de base================================================================================================================================================
 
 S_joueur joueur[2];// data des joueurs
 S_jeu game;// data des variables du jeu
@@ -47,42 +47,56 @@ remplir_haie(&game);
 
 
 afficher_score(&game, joueur);
-afficher_plateau_joueur(&game, joueur, 0);
+afficher_plateau_joueur(&game, joueur, 9);
 afficher_plateau_joueur(&game, joueur, 1);
 afficher_marche(0);
+afficher_marche(1);
  
+
+
+
 int i, j;
+int cj = PLAT_C;
+int lg = PLAT_L;
 
 for (i = 0; i < 5; i++)
 {
     for (j = 0; j < 5; j++)
     {
-        joueur[0].plat[i][j] = 'C';
+        joueur[0].plat[i][j] = 'A';
     }
 }
+afficher_plateau_joueur(&game, joueur, 0);
 
-//while(1){
-//    positionner_curseur(0, 0);
-//    color(15, 0);
-//	printf("testestest");
-//    int t=clique_plateau(5,1,MARCHE_L, MARCHE_C);
-//	printf("  ligne %d  ", case_L(t));
-//	printf("  colonne %d  ", case_C(t));
-//}
+motif_aubergine(ROT, cj);
 
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+/*
 joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
 
-    afficher_score(&game, joueur);
 
-//======================================================================DEBUG==============================================================
+
+afficher_plateau_joueur(&game, joueur, 0);
+afficher_score(&game, joueur);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+afficher_plateau_joueur(&game, joueur, 0);
+afficher_score(&game, joueur);
+joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
+afficher_plateau_joueur(&game, joueur, 0);
+afficher_score(&game, joueur);
+
+*/
+
+//===========================================================================================================================================================DEBUG===================================================================================================================================================
 
 //=====Affichage=====
-//afficher_grillage_ligne(0);
-//afficher_grillage_colonne(0);
+afficher_grillage_ligne(20);
+afficher_grillage_colonne(0);
+//afficher_plateau_joueur(&game, joueur, 0);
+//afficher_score(&game, joueur);
 
 //====Data jeu=====
 debug_update(&game, joueur);// affiche toutes les données du jeu (pioche, haie, plateau) et le score des joueurs
+
 
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
@@ -153,5 +167,28 @@ positionner_curseur(150, 0);
                             .                  .%@@@@@@@@@@%*===+#%@@@@@@@+.
                              .    .=*%@@@@@@@@@%*===+*%@@@@@@@+.
                               .-#@@@#***#%%@@@@@+.
+
+
+
+
+____ ____ ____ ____ _    ___ ____
+|__/ |___ |    |  | |     |  |___
+|  \ |___ |___ |__| |___  |  |___
+
+
+JS Stick Letters
+ __   ___  __   __       ___  ___
+|__) |__  /  ` /  \ |     |  |__
+|  \ |___ \__, \__/ |___  |  |___
+
+
+Mini
+  _
+ |_)  _   _  _  | _|_  _
+ | \ (/_ (_ (_) |  |_ (/_
+
+
+
+
 
 */

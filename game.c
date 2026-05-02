@@ -83,7 +83,7 @@ void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
     }
 }
 
-//=====================================================================================Action de jeu=====================================================================================
+//==========================================================================================================================================================================Action de jeu==========================================================================================================================================================================
 
 /*
 int menu(S_jeu* game, S_joueur joueur[], int j) {
@@ -112,6 +112,7 @@ int menu(S_jeu* game, S_joueur joueur[], int j) {
     } while (choix != 0);
 }
 */
+
 int case_L(int c) { // convertit le numéro de la case en ligne (0 à 4)
     if (c < 1 || c > 25) return -1; // si PB (case hors limites)
     return (c - 1) / 5;   // 0 pour 1-5, 1 pour 6-10, 2 pour 11-15, 3 pour 16-20, 4 pour 21-25
@@ -160,7 +161,7 @@ int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne) {
     }
 }
 
-//=====================================================================================Fonction de jeu=====================================================================================
+//==========================================================================================================================================================================Fonction de jeu==========================================================================================================================================================================
 
 int recolter(S_jeu* game, S_joueur joueur[], int j)
 {
@@ -169,37 +170,41 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
     int rot;
     int l, c;
 	int lj, cj;
+	int marche_l, marche_c;
     int pos;
 
 	// position analyse clique selon joueur
 	if (j == 0) {
         lj = PLAT_L;
         cj = PLAT_C;
+		marche_l = MARCHE_L;
+		marche_c = MARCHE_C;
     }
     else {
         lj = PLAT2_L;
         cj = PLAT2_C;
+		marche_l = MARCHE2_L;
+        marche_c = MARCHE2_C;   
     }
 
-    choix=clique_plateau(5, 1, MARCHE_L, MARCHE_C);
+    choix=clique_plateau(5, 1, marche_l, marche_c)-1;//quel legume
 
     switch (choix)
     {
     case 0 : // ================= Carottes =================
 
-        // Demande la taille du motif (2 ou 4)
-        positionner_curseur(0,0);
-        color(15, 0);
-        printf("motif : ");
-        scanf_s("%d", &motif);
+        // Demande du motif 
+        motif_carotte(ROT, cj);
+		motif=clique_plateau(1, 2, ROT, cj);
+
+	
 
         //-------------------========== Motif 1 : Récolte d'une diag de 2 carottes ==========-------------------
         if (motif == 1) {
 
-            positionner_curseur(0, 0);
-            color(15, 0);
-            printf("rotation : ");
-            scanf_s("%d", &rot);
+            // Demande de la rot 
+            rot1_carotte(ROT, cj);
+            rot = clique_plateau(1, 2, ROT, cj);
 
             pos=clique_plateau(5,5,lj, cj);
 			l = case_L(pos);
@@ -250,14 +255,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 2 : Récolte d'une diag de 4 carottes ==========-------------------
         if (motif == 2) {
 
-            positionner_curseur(0,0);
-			color(15, 0);
-            printf("rotation : ");
+            rot2_carotte(ROT, cj);
+            rot = clique_plateau(1, 2, ROT, cj);
 
-            scanf_s("%d", &rot);
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
-
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
 
             //----------Rotation 1 : diagonale vers le Bas-Droite (+1 ligne, +1 colonne)----------
             if (rot == 1) {

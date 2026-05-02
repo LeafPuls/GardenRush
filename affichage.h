@@ -30,22 +30,24 @@
 #define VIOLET_FONCE  0x800080
 
 //=======Position jeux=======
-#define PLAT_L 20
+#define PLAT_L 14
 #define PLAT_C 40
 
-#define PLAT2_L 20
-#define PLAT2_C 350
+#define PLAT2_L 14
+#define PLAT2_C 267
 
 #define MARCHE_L PLAT_L
 #define MARCHE_C PLAT_C-38
 
 #define MARCHE2_L PLAT_L
-#define MARCHE2_C PLAT2_C+38
+#define MARCHE2_C PLAT2_C+38+136
+
+#define ROT 110
 
 //=======Position DEBUG=======
-#define DEBUG_J1_L 120
+#define DEBUG_J1_L 130
 #define DEBUG_J1_C 0
-#define DEBUG_J2_L 120
+#define DEBUG_J2_L 130
 #define DEBUG_J2_C 20
 
 extern int debug_state;
@@ -53,12 +55,18 @@ extern int debug_state;
 //=======Def AFFICHAGE=======
 void initialisation_affichage(S_jeu* game, S_joueur joueur[], int j);
 
-void cadre_ecran();
 void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur);
 void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j);
 void afficher_score(S_jeu* game, S_joueur joueur[]);
+void afficher_case(int l, int c, int nb, int couleur);
 
-void afficher_carotte(int ligne, int colonne);
+void motif_carotte(int l, int c);
+void rot1_carotte(int l, int c);
+void rot2_carotte(int l, int c);
+
+void motif_aubergine(int l, int c);
+void rot1_aubergine(int l, int c);
+
 //=======
 
 
