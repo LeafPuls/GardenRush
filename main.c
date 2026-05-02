@@ -36,6 +36,8 @@ plein_ecran(6+debug_state);
 S_joueur joueur[2];// data des joueurs
 S_jeu game;// data des variables du jeu
 
+InitialiserHandle();//souris activer
+
 initialisation_plateau(&joueur[0]);// remplit les matrices pour tout mettre à zéro
 initialisation_plateau(&joueur[1]);
 initialisation_pioche(&game);// met les pions dans la pioche
@@ -51,7 +53,9 @@ while (1) {
     positionner_curseur(0, 0);
     color(15, 0);
 	printf("testestest");
-    printf("%d\n", clique_plateau(PLAT_L, PLAT_C));
+    int t=clique_plateau(PLAT_L, PLAT_C);
+	printf("  ligne %d  ", case_L(t));
+	printf("  colonne %d  ", case_C(t));
 
 }
 

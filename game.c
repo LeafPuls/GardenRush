@@ -10,6 +10,12 @@
 
 //====================================================================================Initialisation du jeu===============================================================================
 
+void InitialiserHandle() {
+    hIn = GetStdHandle(STD_INPUT_HANDLE);
+    SetConsoleMode(hIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+}
+
+
 void initialisation_plateau(S_joueur *joueur) //tout à zéro
 {
     int i, j;
@@ -105,7 +111,7 @@ int menu(S_jeu* game, S_joueur joueur[], int j) {
 
     } while (choix != 0);
 }
-
+*/
 int case_L(int c) { // convertit le numéro de la case en ligne (0 à 4)
     if (c < 1 || c > 25) return -1; // si PB (case hors limites)
     return (c - 1) / 5;   // 0 pour 1-5, 1 pour 6-10, 2 pour 11-15, 3 pour 16-20, 4 pour 21-25
@@ -115,7 +121,7 @@ int case_C(int c) { // convertit le numéro de la case en colonne (0 à 4)
     if (c < 1 || c > 25) return -1; // si PB (case hors limites)
     return (c - 1) % 5;   // 0 pour 1,6,11,16,21 ; … ; 4 pour 5,10,15,20,25
 }
-*/
+
 
 int clique_plateau(int baseLigne, int baseColonne) {
     HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
@@ -124,34 +130,32 @@ int clique_plateau(int baseLigne, int baseColonne) {
 
     // Boucle infinie jusqu'à un clic valide
     while (1) {
-        // Attend un événement console
+
         if (!ReadConsoleInput(hIn, &ev, 1, &count))
             continue;
 
-        // Si l'événement est un clic gauche de la souris
+        // event est un clic gauche de la souris
         if (ev.EventType == MOUSE_EVENT &&
             (ev.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)) {
 
-            // Récupération des coordonnées (en nombre de caractères/lignes de la console)
-            int x = ev.Event.MouseEvent.dwMousePosition.X; // Colonne de la console
-            int y = ev.Event.MouseEvent.dwMousePosition.Y; // Ligne de la console
+            // recup des coord de la console
+            int c = ev.Event.MouseEvent.dwMousePosition.X; // Colonne
+            int l = ev.Event.MouseEvent.dwMousePosition.Y; // Ligne
 
-            int hauteur = 15;   // hauteur totale d'une case (incluant l'espace/bordure)
-            int largeur = 30;  // largeur totale d'une case (incluant l'espace/bordure)
+            int hauteur = 17;  // hauteur d'une case à analyser
+            int largeur = 34;  // largeur d'une case
 
-            // Clic hors du plateau 5x5 : on l'ignore silencieusement
-            // y doit être entre la base et (base + 5 fois la hauteur)
-            // x doit être entre la base et (base + 5 fois la largeur)
-            if (y < baseLigne || y >= baseLigne + 5 * hauteur ||
-                x < baseColonne || x >= baseColonne + 5 * largeur) {
+			// hors du plateau 5x5 => on ignore
+            if (l < baseLigne || l >= baseLigne + 5 * hauteur ||
+                c < baseColonne || c >= baseColonne + 5 * largeur) {
                 continue;
             }
 
-            // Calcul des indices du tableau (de 0 à 4)
-            int ligne = (y - baseLigne) / hauteur;
-            int colonne = (x - baseColonne) / largeur;
+            // Calcul ration selon tableu et case 
+            int ligne = (l - baseLigne) / hauteur;
+            int colonne = (c - baseColonne) / largeur;
 
-            // Retourne un ID de 1 à 25
+            // return numéro case
             return ligne * 5 + colonne + 1;
         }
     }
