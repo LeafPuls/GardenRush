@@ -19,6 +19,12 @@ void initialisation_pioche(S_jeu *game);
 void melanger_pioche(S_jeu *game);
 void initialiser_haie(S_jeu *game);
 
+//=====Action de jeu=====
+int menu(S_jeu* game, S_joueur joueur[], int j);
+int case_L(int c);
+int case_C(int c);
+int clique_plateau(int baseLigne, int baseColonne);
+
 //=====Fonction de jeu=====
 void remplir_haie(S_jeu *game);
 int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int l, int c);

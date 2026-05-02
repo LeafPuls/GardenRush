@@ -24,21 +24,33 @@
 #define CYAN          0x00FFFF
 #define MAGENTA       0xFF00FF
 #define ROSE          0xFFC0CB
+#define MARRON        0x654321
+#define BEIGE         0xE8D0AE
 
 //=======Position jeux=======
-#define PLAT_L 15
-#define PLAT_C 2
+#define PLAT_L 12
+#define PLAT_C 5
 
 //=======Position DEBUG=======
-#define DEBUG_J1_L 90
+#define DEBUG_J1_L 120
 #define DEBUG_J1_C 0
-#define DEBUG_J2_L 90
+#define DEBUG_J2_L 120
 #define DEBUG_J2_C 20
 
 extern int debug_state;
 
 //=======Def AFFICHAGE=======
+void initialisation_affichage(S_jeu* game, S_joueur joueur[], int j);
+
 void cadre_ecran();
+void afficher_carotte(int ligne, int colonne);
+void afficher_plateau_gauche(int  x, int y);
+void afficher_plateau_droite(int x, int y);
+void dessiner_case(int ligne, int colonne);
+void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur);
+void afficher_plateau_haut();
+void afficher_parcelles_terre(int x_start, int y_start);
+void afficher_jardin();
 //=======
 
 
@@ -61,7 +73,7 @@ void plein_ecran(int s);
 void afficher_grillage_ligne(int ligne);//aide graphique pour positioner
 void afficher_grillage_colonne(int colonne);//aide graphique pour positioner
 void debug_afficher_matrice(S_joueur p, int l, int c);
-void debug_afficher_pioche(S_jeu *game, int l, int c);
-void debug_afficher_haie(S_jeu *game, int l, int c);
-void debug_update(S_jeu *game, S_joueur joueur[]);
+void debug_afficher_pioche(S_jeu* game, int l, int c);
+void debug_afficher_haie(S_jeu* game, int l, int c);
+void debug_update(S_jeu* game, S_joueur joueur[]);
 //=======

@@ -28,12 +28,10 @@ debug_state = 1;//mettre à 1 pour activer les fonctions de debug 0 pour désactiv
 //================================================================================|
 
 
-plein_ecran(4+debug_state);
+plein_ecran(6+debug_state);
 
 
 //==============================================================initialisation de base===========================================================
-
-cadre_ecran();// permet de s'assurer qu'on voit tout le jeu pour éviter les bugs d'affichage
 
 S_joueur joueur[2];// data des joueurs
 S_jeu game;// data des variables du jeu
@@ -45,49 +43,17 @@ initialiser_haie(&game);// remplit de 0
 melanger_pioche(&game);
 remplir_haie(&game);
 
-int i, j;
 
-for (i = 0; i < 5; i++)
-{
-    for (j = 0; j < 5; j++)
-    {
-        joueur[0].plat[i][j] = 'B';
-    }
+afficher_plateau_haut();
+afficher_plateau_gauche(PLAT_L, PLAT_C);
+
+while (1) {
+    positionner_curseur(0, 0);
+    color(15, 0);
+	printf("testestest");
+    printf("%d\n", clique_plateau(PLAT_L, PLAT_C));
+
 }
-
-joueur[0].score= joueur[0].score + recolter(&game, joueur, 0);
-for (i = 0; i < 5; i++)
-{
-    for (j = 0; j < 5; j++)
-    {
-        joueur[0].plat[i][j] = 'B';
-    }
-}
-
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
-for (i = 0; i < 5; i++)
-{
-    for (j = 0; j < 5; j++)
-    {
-        joueur[0].plat[i][j] = 'B';
-    }
-}
-
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
-for (i = 0; i < 5; i++)
-{
-    for (j = 0; j < 5; j++)
-    {
-        joueur[0].plat[i][j] = 'B';
-    }
-}
-
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
-
-
-
-
-
 
 
 

@@ -12,6 +12,14 @@
 //=====Initialisation variable=====
 int debug_state;
 
+//=====================================================================================Initialisation AFFICHAGE=====================================================================================
+
+void initialisation_affichage(S_jeu* game, S_joueur joueur[], int j)
+{
+    //cadre_ecran();// permet de s'assurer qu'on voit tout le jeu pour éviter les bugs d'affichage
+    
+}
+
 
 //=====================================================================================Fonction AFFICHAGE=====================================================================================
 void cadre_ecran()
@@ -22,6 +30,92 @@ void cadre_ecran()
     dessiner_rectangle(87, 0, 1, 314, GRIS);
 }
 
+void afficher_carotte(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne + 4, 2, 1, VERT);
+    dessiner_rectangle(ligne + 1, colonne + 2, 2, 2, ORANGE);
+    dessiner_rectangle(ligne + 2, colonne, 2, 2, ORANGE);
+}
+/*void afficher_plateau_gauche(int ligne,int colonne){
+    dessiner_rectangle()
+
+}*/
+void dessiner_case(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 5, 10, 0xF4A460);
+
+
+}
+void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
+{
+    int largeur_rect = 6;
+    int hauteur_rect = 3;
+    int espace = 10;
+
+    for (int i = 0; i < nombre; i++)
+    {
+        int nouvelle_colonne = colonne + (i * (largeur_rect + espace));
+
+        dessiner_rectangle(ligne, nouvelle_colonne, hauteur_rect, largeur_rect, couleur);
+    }
+}
+
+void afficher_parcelles_terre(int x_start, int y_start)
+{
+    // --- Configuration du potager ---
+    int nb_lignes = 5;
+    int nb_cols = 5;
+
+    int largeur_parcelle = 15;
+    int hauteur_parcelle = 30;
+
+    // Espace entre les parcelles (l'herbe)
+    int espace_x = 2;
+    int espace_y = 4;
+
+    for (int l = 0; l < nb_lignes; l++)
+    {
+        for (int c = 0; c < nb_cols; c++)
+        {
+            // Calcul des positions en utilisant tes paramètres x et y
+            int x_pos = x_start + (c * (largeur_parcelle + espace_x));
+            int y_pos = y_start + (l * (hauteur_parcelle + espace_y));
+
+            dessiner_rectangle(x_pos, y_pos, largeur_parcelle, hauteur_parcelle, MARRON);
+        }
+    }
+}
+
+
+void afficher_plateau_haut() {
+    dessiner_ligne_score(2, 2, 22, GRIS);
+    dessiner_ligne_score(6, 2, 23, GRIS);
+
+}
+
+
+void afficher_plateau_gauche(int x, int y)
+{
+    afficher_parcelles_terre(x, y);
+
+}
+
+
+void afficher_plateau_droite(int x, int y)
+{
+    afficher_parcelles_terre(x, y);
+
+}
+
+
+void afficher_jardin()
+{
+    dessiner_rectangle(0, 0, 175, 630, 0x2439942);
+    afficher_plateau_haut();
+    afficher_plateau_gauche(40, 100);
+    afficher_plateau_droite(40, 350);
+
+}
 
 //====================================================================================Fonction base affichage====================================================================================
 

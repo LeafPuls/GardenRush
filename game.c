@@ -77,6 +77,86 @@ void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
     }
 }
 
+//=====================================================================================Action de jeu=====================================================================================
+
+/*
+int menu(S_jeu* game, S_joueur joueur[], int j) {
+
+    int choix;
+    do
+    {
+        //afficher menu base avec soit recolter soit planter soit arreter son tour
+        //choix = Clique menu
+        //cacher menu
+
+        //-----Recolter-----
+        if (choix = 1) {
+			joueur[j].score = joueur[j].score + recolter(game, joueur, j);
+        }
+
+		//-----Planter-----
+        if (choix = 2) {
+			int h, l, c;
+            int clique;
+            //clique plateau
+			//h = ligne, l = colonne, c = legume dans la haie
+			deplacer_haie_vers_plateau(game, joueur, j, h, l, c);
+        }
+
+    } while (choix != 0);
+}
+
+int case_L(int c) { // convertit le numéro de la case en ligne (0 à 4)
+    if (c < 1 || c > 25) return -1; // si PB (case hors limites)
+    return (c - 1) / 5;   // 0 pour 1-5, 1 pour 6-10, 2 pour 11-15, 3 pour 16-20, 4 pour 21-25
+}
+
+int case_C(int c) { // convertit le numéro de la case en colonne (0 à 4)
+    if (c < 1 || c > 25) return -1; // si PB (case hors limites)
+    return (c - 1) % 5;   // 0 pour 1,6,11,16,21 ; … ; 4 pour 5,10,15,20,25
+}
+*/
+
+int clique_plateau(int baseLigne, int baseColonne) {
+    HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD ev;
+    DWORD count;
+
+    // Boucle infinie jusqu'à un clic valide
+    while (1) {
+        // Attend un événement console
+        if (!ReadConsoleInput(hIn, &ev, 1, &count))
+            continue;
+
+        // Si l'événement est un clic gauche de la souris
+        if (ev.EventType == MOUSE_EVENT &&
+            (ev.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)) {
+
+            // Récupération des coordonnées (en nombre de caractères/lignes de la console)
+            int x = ev.Event.MouseEvent.dwMousePosition.X; // Colonne de la console
+            int y = ev.Event.MouseEvent.dwMousePosition.Y; // Ligne de la console
+
+            int hauteur = 15;   // hauteur totale d'une case (incluant l'espace/bordure)
+            int largeur = 30;  // largeur totale d'une case (incluant l'espace/bordure)
+
+            // Clic hors du plateau 5x5 : on l'ignore silencieusement
+            // y doit être entre la base et (base + 5 fois la hauteur)
+            // x doit être entre la base et (base + 5 fois la largeur)
+            if (y < baseLigne || y >= baseLigne + 5 * hauteur ||
+                x < baseColonne || x >= baseColonne + 5 * largeur) {
+                continue;
+            }
+
+            // Calcul des indices du tableau (de 0 à 4)
+            int ligne = (y - baseLigne) / hauteur;
+            int colonne = (x - baseColonne) / largeur;
+
+            // Retourne un ID de 1 à 25
+            return ligne * 5 + colonne + 1;
+        }
+    }
+}
+
 //=====================================================================================Fonction de jeu=====================================================================================
 
 int recolter(S_jeu* game, S_joueur joueur[], int j)
@@ -771,20 +851,20 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int
     // On prend le légume de la haie et on le met sur le plateau du joueur
     if ((l == 0 && c == 0) || (l == 0 && c == 4) || (l == 4 && c == 0) || (l == 4 && c == 4) || (h > 4) || (l >= 5) || (c >= 5)) {
         debug_update(game, joueur);
-        return 404;
+        return 404;//hors zone
     }
 
     if (game->haie[h] == '0') {
         debug_update(game, joueur);
-        return 5;
+        return 5;//haie vide ici
     }
 
     if (joueur[j].plat[l][c] != '0') {
         debug_update(game, joueur);
-        return 21;
+		return 21;//plateau deja occupé
     }
 
-    if (game->haie[h] != '0') {
+    if (game->haie[h] != '0') {//place legume
         if (l == h) {
             joueur[j].plat[l][c] = game->haie[h];
             game->haie[h] = '0';
