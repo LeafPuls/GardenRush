@@ -196,6 +196,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         // Demande du motif 
         motif_carotte(ROT, cj);
 		motif=clique_plateau(1, 2, ROT, cj);
+        afficher_case(ROT, cj, 4, NOIR);
 
 	
 
@@ -209,6 +210,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             pos=clique_plateau(5,5,lj, cj);
 			l = case_L(pos);
 			c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
            
             //----------Rotation 1 : Bas-Droite (+1 ligne, +1 colonne)----------
             if (rot == 1) {
@@ -261,6 +263,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             pos = clique_plateau(5, 5, lj, cj);
             l = case_L(pos);
             c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             //----------Rotation 1 : diagonale vers le Bas-Droite (+1 ligne, +1 colonne)----------
             if (rot == 1) {
@@ -320,21 +323,20 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
    case 1 : //======================================================Aubergines======================================================
 
-       positionner_curseur(0, 0);
-       color(15, 0);
-       printf("motif : ");
-       scanf_s("%d", &motif);
+       motif_aubergine(ROT, cj);
+       motif = clique_plateau(1, 3, ROT, cj);
+       afficher_case(ROT, cj, 4, NOIR);
 
        //-------------------========== Motif 1 : 2 Aubergines ==========-------------------
        if (motif == 1) {
 
-           positionner_curseur(0, 0);
-           color(15, 0);
-           printf("rotation : ");
+           rot1_aubergine(ROT, cj);
+           rot = clique_plateau(1, 2, ROT, cj);
 
-           scanf_s("%d", &rot);
-           scanf_s("%d", &l);
-           scanf_s("%d", &c);
+           pos = clique_plateau(5, 5, lj, cj);
+           l = case_L(pos);
+           c = case_C(pos);
+           afficher_case(ROT, cj, 4, NOIR);
 
            // Rotation 1 : 
            if (rot == 1) {
@@ -378,8 +380,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
        //-------------------========== Motif 2 : Carré de 2x2 Aubergines ==========-------------------
        else if (motif == 2) {
-           scanf_s("%d", &l);
-           scanf_s("%d", &c);
+
+           pos = clique_plateau(5, 5, lj, cj);
+           l = case_L(pos);
+           c = case_C(pos);
 
            //pas de rot car carré
            if (l >= 0 && l + 1 < 5 && c >= 0 && c + 1 < 5) {
@@ -407,13 +411,13 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
        //-------------------========== Motif 3 : Rectangle 2x3 ou 3x2 Aubergines ==========-------------------
        else if (motif == 3) {
 
-           positionner_curseur(0, 0);
-           color(15, 0);
-           printf("rotation : ");
+           rot3_aubergine(ROT, cj);
+           rot = clique_plateau(1, 2, ROT, cj);
 
-           scanf_s("%d", &rot);
-           scanf_s("%d", &l);
-           scanf_s("%d", &c);
+           pos = clique_plateau(5, 5, lj, cj);
+           l = case_L(pos);
+           c = case_C(pos);
+           afficher_case(ROT, cj, 4, NOIR);
 
            // Rotation 1 : 
            if (rot == 1) {
@@ -472,15 +476,17 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
     case 2 : //======================================================Tomates======================================================
 
-        positionner_curseur(0, 0);
-        color(15, 0);
-        printf("motif : ");
-        scanf_s("%d", &motif);
+        motif_tomate(ROT, cj);
+        motif = clique_plateau(1, 3, ROT, cj);
+        afficher_case(ROT, cj, 4, NOIR);
 
         //-------------------========== Motif 1 : Une seule Tomate (Pas de rotation) ==========-------------------
         if (motif == 1) {
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
+
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             // verif des limites tia capté comme d'hab
             if (l >= 0 && l < 5 && c >= 0 && c < 5 && !((l == 0 || l == 4) && (c == 0 || c == 4))) {
@@ -499,15 +505,16 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 2 : Chevron V ==========-------------------
         else if (motif == 2) {
 
-            positionner_curseur(0, 0);
-            color(15, 0);
-            printf("rotation : ");
-            scanf_s("%d", &rot);
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
+            rot2_tomate(ROT, cj);
+            rot = clique_plateau(1, 4, ROT, cj);
+
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             // Rotation 1 : *:
-            if (rot == 1) {
+            if (rot == 4) {
                 if (l - 1 >= 0 && l + 1 < 5 && c >= 0 && c + 1 < 5) {
                     if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c + 1 == 0 || c + 1 == 4)) && !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4))) {
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
@@ -526,7 +533,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 : .*.
-            else if (rot == 2) {
+            else if (rot == 1) {
                 if (l >= 0 && l + 1 < 5 && c - 1 >= 0 && c + 1 < 5) {
                     if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l + 1 == 0 || l + 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4))) {
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
@@ -545,7 +552,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 3 : :*
-            else if (rot == 3) {
+            else if (rot == 2) {
                 if (l - 1 >= 0 && l + 1 < 5 && c - 1 >= 0 && c < 5) {
                     if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l + 1 == 0 || l + 1 == 4) && (c - 1 == 0 || c - 1 == 4))) {
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
@@ -564,7 +571,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 4 : *.*
-            else if (rot == 4) {
+            else if (rot == 3) {
                 if (l - 1 >= 0 && l < 5 && c - 1 >= 0 && c + 1 < 5) {
                     if (!((l == 0 || l == 4) && (c == 0 || c == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c - 1 == 0 || c - 1 == 4)) && !((l - 1 == 0 || l - 1 == 4) && (c + 1 == 0 || c + 1 == 4))) {
                         if ((joueur[j].plat[l][c] == 'T' || joueur[j].plat[l][c] == 't') &&
@@ -587,12 +594,13 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 3 : Forme de 'W' ==========-------------------
         else if (motif == 3) {
 
-            positionner_curseur(0, 0);
-            color(15, 0);
-            printf("rotation : ");
-            scanf_s("%d", &rot);
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
+            rot3_tomate(ROT, cj);
+            rot = clique_plateau(1, 4, ROT, cj);
+
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             // Rotation 1 : W
             if (rot == 1) {
@@ -701,19 +709,17 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
     case 3://======================================================Brocoli======================================================
 
-        positionner_curseur(0, 0);
-        color(15, 0);
-        printf("motif : ");
-        scanf_s("%d", &motif);
+        motif_brocoli(ROT, cj);
+        motif = clique_plateau(1, 3, ROT, cj);
+        afficher_case(ROT, cj, 4, NOIR);
 
         //-------------------========== Motif 1 : Une seule Tomate ==========-------------------
         if (motif == 1) {
 
-            positionner_curseur(0, 0);
-            color(15, 0);
-            printf("rotation : ");
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             // verif des limites tia capté comme d'hab
             if (l >= 0 && l < 5 && c >= 0 && c < 5 && !((l == 0 || l == 4) && (c == 0 || c == 4))) {
@@ -732,12 +738,15 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 2 : L ==========-------------------
         else if (motif == 2) {
 
-            positionner_curseur(0, 0);
+            rot2_brocoli(ROT, cj);
+            rot = clique_plateau(1, 4, ROT, cj);
             color(15, 0);
-            printf("rotation : ");
-            scanf_s("%d", &rot);
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
+            printf("  %d  ", rot);
+
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             // Rotation 1 : |_
             if (rot == 1) {
@@ -826,8 +835,11 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
         //-------------------========== Motif 3 : La Croix (+) de 5 Brocolis ==========-------------------
         else if (motif == 3) {
-            scanf_s("%d", &l);
-            scanf_s("%d", &c);
+
+            pos = clique_plateau(5, 5, lj, cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            afficher_case(ROT, cj, 4, NOIR);
 
             if (l >= 1 && l <= 3 && c >= 1 && c <= 3) {
 

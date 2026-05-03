@@ -14,7 +14,7 @@
 
 
 //=====Initialisation=====
-HANDLE hIn;
+extern HANDLE hIn;
 void InitialiserHandle();
 void initialisation_plateau(S_joueur *joueur);
 void initialisation_pioche(S_jeu *game);

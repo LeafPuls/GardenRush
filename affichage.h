@@ -11,6 +11,7 @@
 #define NOIR          0x000000
 #define BLANC         0xFFFFFF
 #define GRIS          0x808080
+#define GRIS_FONCE    0x404040
 
 // Couleurs
 #define ROUGE         0xFF0000
@@ -19,11 +20,12 @@
 #define JAUNE         0xFFFF00
 #define VERT          0x00FF00
 #define VERT_FONCE    0x006400
+#define VERT_NOIR     0x003200
 #define BLEU          0x0000FF
 #define BLEU_CIEL     0x87CEEB
-#define CYAN          0x00FFFF
+#define CYAN          0x00E0FF
 #define MAGENTA       0xFF00FF
-#define ROSE          0xFFC0CB
+#define ROSE          0xFFB0B5
 #define MARRON        0x654321
 #define BEIGE         0xE8D0AE
 #define VIOLET        0xEE82EE
@@ -31,34 +33,40 @@
 
 //=======Position jeux=======
 #define PLAT_L 14
-#define PLAT_C 40
+#define PLAT_C 42
 
 #define PLAT2_L 14
-#define PLAT2_C 267
+#define PLAT2_C 266
+
+#define HAIE_L 14
+#define HAIE_C 222
 
 #define MARCHE_L PLAT_L
-#define MARCHE_C PLAT_C-38
+#define MARCHE_C PLAT_C-39
 
 #define MARCHE2_L PLAT_L
-#define MARCHE2_C PLAT2_C+38+136
+#define MARCHE2_C PLAT2_C+39+136
 
 #define ROT 110
 
 //=======Position DEBUG=======
-#define DEBUG_J1_L 130
+#define DEBUG_J1_L 133
 #define DEBUG_J1_C 0
-#define DEBUG_J2_L 130
+#define DEBUG_J2_L 133
 #define DEBUG_J2_C 20
 
 extern int debug_state;
 
 //=======Def AFFICHAGE=======
-void initialisation_affichage(S_jeu* game, S_joueur joueur[], int j);
+void initialisation_affichage();
 
 void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur);
 void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j);
+void afficher_marche(int j);
 void afficher_score(S_jeu* game, S_joueur joueur[]);
 void afficher_case(int l, int c, int nb, int couleur);
+void afficher_haie(S_jeu* game, S_joueur joueur[]);
+void afficher_trampoline(S_jeu* game, S_joueur joueur[]);
 
 void motif_carotte(int l, int c);
 void rot1_carotte(int l, int c);
@@ -66,6 +74,14 @@ void rot2_carotte(int l, int c);
 
 void motif_aubergine(int l, int c);
 void rot1_aubergine(int l, int c);
+void rot3_aubergine(int l, int c);
+
+void motif_tomate(int l, int c);
+void rot2_tomate(int l, int c);
+void rot3_tomate(int l, int c);
+
+void motif_brocoli(int l, int c);
+void rot2_brocoli(int l, int c);
 
 //=======
 

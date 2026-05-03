@@ -15,6 +15,7 @@ struct jeu
     char pioche[60];
     char haie[5];
     int nbr_pioches;
+	int nbr_tour;
 };
 typedef struct jeu S_jeu;
 

@@ -27,7 +27,7 @@ srand(time(NULL));
 debug_state = 1;//mettre à 1 pour activer les fonctions de debug 0 pour désactiver|
 //================================================================================|
 
-
+Sleep(100);
 plein_ecran(6+debug_state);
 
 
@@ -35,6 +35,12 @@ plein_ecran(6+debug_state);
 
 S_joueur joueur[2];// data des joueurs
 S_jeu game;// data des variables du jeu
+game.nbr_tour = 0;//tour de base à 1
+
+cacher_curseur();
+
+dessiner_rectangle(0, 1, 133, 472, NOIR);//fond de la console
+initialisation_affichage();//dessine le fond vert du plateau de jeu
 
 InitialiserHandle();//souris activer
 
@@ -47,11 +53,11 @@ remplir_haie(&game);
 
 
 afficher_score(&game, joueur);
-afficher_plateau_joueur(&game, joueur, 9);
+afficher_plateau_joueur(&game, joueur, 0);
 afficher_plateau_joueur(&game, joueur, 1);
 afficher_marche(0);
 afficher_marche(1);
- 
+afficher_haie(&game, joueur);
 
 
 
@@ -63,14 +69,13 @@ for (i = 0; i < 5; i++)
 {
     for (j = 0; j < 5; j++)
     {
-        joueur[0].plat[i][j] = 'A';
+        joueur[0].plat[i][j] = 'B';
     }
 }
 afficher_plateau_joueur(&game, joueur, 0);
 
-motif_aubergine(ROT, cj);
 
-/*
+/**/
 joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
 
 
@@ -84,12 +89,11 @@ joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
 afficher_plateau_joueur(&game, joueur, 0);
 afficher_score(&game, joueur);
 
-*/
 
 //===========================================================================================================================================================DEBUG===================================================================================================================================================
 
 //=====Affichage=====
-afficher_grillage_ligne(20);
+afficher_grillage_ligne(0);
 afficher_grillage_colonne(0);
 //afficher_plateau_joueur(&game, joueur, 0);
 //afficher_score(&game, joueur);
