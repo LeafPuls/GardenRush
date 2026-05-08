@@ -72,7 +72,7 @@ void afficher_score(S_jeu* game, S_joueur joueur[]);
 void afficher_case(int l, int c, int nb, int couleur);
 void afficher_haie(S_jeu* game, S_joueur joueur[]);
 void afficher_trampoline(S_jeu* game, S_joueur joueur[]);
-void afficher_menu(int j);
+int afficher_menu(int j);
 void effacer_menu(int t);
 void garder_case(int p);
 

@@ -28,7 +28,7 @@ int clique_plateau(int nbLignes, int nbColonnes, int baseLigne, int baseColonne)
 
 //=====Fonction de jeu=====
 void remplir_haie(S_jeu* game, S_joueur joueur[]);
-int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int l, int c);
+int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j);
 char soustraire_legume(char leg);
 int recolter(S_jeu* game, S_joueur joueur[], int j);
 void ordonner_haie(S_jeu* game, S_joueur joueur[]);

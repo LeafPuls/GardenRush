@@ -19,10 +19,10 @@ void initialisation_affichage()//juste de la décoration pour le plateau de jeu
 {
     // Plat 1
     dessiner_rectangle(PLAT_L - 3, PLAT_C - 5, 89, 176, MARRON);
-	dessiner_rectangle(PLAT_L-2, PLAT_C-3, 87, 172, VERT_FONCE);
+    dessiner_rectangle(PLAT_L-2, PLAT_C-3, 87, 172, VERT_FONCE);
 
     // Plat 2
-	dessiner_rectangle(PLAT2_L - 3, PLAT2_C - 5, 89, 176, MARRON);
+    dessiner_rectangle(PLAT2_L - 3, PLAT2_C - 5, 89, 176, MARRON);
     dessiner_rectangle(PLAT2_L - 2, PLAT2_C - 3, 87, 172, VERT_FONCE);
 
     // Score
@@ -30,7 +30,7 @@ void initialisation_affichage()//juste de la décoration pour le plateau de jeu
 
     // Haie
     dessiner_rectangle(HAIE_L - 5, HAIE_C - 6, 114, 42, GRIS);
-	dessiner_rectangle(HAIE_L-4, HAIE_C-4, 110, 38, VERT_NOIR);
+    dessiner_rectangle(HAIE_L-4, HAIE_C-4, 110, 38, VERT_NOIR);
 
     // Tremplin
     dessiner_rectangle(HAIE_L + 87, HAIE_C - 14, 29, 58, VERT_NOIR);
@@ -46,11 +46,13 @@ void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
 {
     int l, c;
 
-    if (j == 0) {
+    if (j == 0)
+    {
         l = PLAT_L;
         c = PLAT_C;
     }
-    else {
+    else
+    {
         l = PLAT2_L;
         c = PLAT2_C;
     }
@@ -70,7 +72,7 @@ void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
         {
             // --- EXCLUSION DES 4 COINS ---
             if ((lig == 0 && col == 0) || (lig == 0 && col == nb_cols - 1) ||
-                (lig == nb_lignes - 1 && col == 0) || (lig == nb_lignes - 1 && col == nb_cols - 1))
+                    (lig == nb_lignes - 1 && col == 0) || (lig == nb_lignes - 1 && col == nb_cols - 1))
             {
                 continue; // Saute cette itération, ne dessine rien
             }
@@ -83,7 +85,7 @@ void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
             switch (case_actuelle)
             {
             case 'C':
-				afficher_double_carotte(coord_l, coord_c);
+                afficher_double_carotte(coord_l, coord_c);
                 break;
 
             case 'c':
@@ -91,39 +93,40 @@ void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
                 break;
 
             case 'T':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, ROUGE);
+				afficher_double_tomate(coord_l, coord_c);
                 break;
 
             case 't':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, ROSE);
+				afficher_tomate(coord_l, coord_c);
                 break;
 
             case 'B':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VERT_NOIR);
+                afficher_double_brocolis(coord_l, coord_c);
                 break;
 
             case 'b':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VERT);
+                afficher_brocolis(coord_l, coord_c);
                 break;
 
             case 'A':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VIOLET_FONCE);
+                afficher_double_aubergine(coord_l, coord_c);
                 break;
 
             case 'a':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, VIOLET);
+                afficher_aubergine(coord_l, coord_c);
                 break;
 
             case 'P':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, OR);
+                afficher_double_pdt(coord_l, coord_c);
                 break;
 
             case 'p':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, JAUNE);
+                afficher_pdt(coord_l, coord_c);
                 break;
 
             case '0':
-            default:  dessiner_rectangle(coord_l, coord_c, l_case, c_case, MARRON);
+            default:
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, MARRON);
                 break;
             }
         }
@@ -135,47 +138,36 @@ void afficher_marche(int j)
 {
     int l, c;
 
-    if (j == 0) {
+    if (j == 0)
+    {
         l = MARCHE_L;
         c = MARCHE_C;
         dessiner_rectangle(l - 5, c - 2, 93, 36, GRIS);
         dessiner_rectangle(l-4, c-2, 91, 34, CYAN);
     }
-    else {
+    else
+    {
         l = MARCHE2_L;
         c = MARCHE2_C;
         dessiner_rectangle(l - 5, c - 4, 93, 36, GRIS);
         dessiner_rectangle(l-4, c-2, 91, 34, ROSE);
     }
 
-    int nb_lignes = 5;//taille plat
-    int nb_cols = 1;
-
-    int l_case = 15; // taille case
-    int c_case = 30;
-
-    int espace_ligne = 2;
-    int espace_colonne = 4;
-
-    for (int lig = 0; lig < nb_lignes; lig++)
-    {
-        for (int col = 0; col < nb_cols; col++)
-        {
-            // Calcul des coord
-            int coord_l = l + (lig * (l_case + espace_ligne));
-            int coord_c = c + (col * (c_case + espace_colonne));
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, BEIGE);
-        }
-    }
+	afficher_carotte(l, c);
+	afficher_aubergine(l + 17, c);
+	afficher_tomate(l + 34, c);
+	afficher_brocolis(l + 51, c);
+	afficher_pdt(l + 68, c);
 }
 
-void afficher_score(S_jeu* game, S_joueur joueur[]) {
-	int l = 3;
-	int c = 13;
+void afficher_score(S_jeu* game, S_joueur joueur[])
+{
+    int l = 3;
+    int c = 13;
 
     dessiner_ligne_score(l, c, 45, GRIS_FONCE);//base
 
-	dessiner_rectangle(l, c+(joueur[1].score * (6 + 4)), 3, 6, ROSE);//pion joueur 1
+    dessiner_rectangle(l, c+(joueur[1].score * (6 + 4)), 3, 6, ROSE);//pion joueur 1
     dessiner_rectangle(l, c+(joueur[0].score * (6 + 4)), 3, 6, BLEU);//pion joueur 2
 
     debug_update(game, joueur);
@@ -198,7 +190,7 @@ void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
 void afficher_haie(S_jeu* game, S_joueur joueur[])
 {
     debug_update(game, joueur);
-	afficher_trampoline(game, joueur);
+    afficher_trampoline(game, joueur);
     int l = HAIE_L;
     int c = HAIE_C;
 
@@ -221,19 +213,19 @@ void afficher_haie(S_jeu* game, S_joueur joueur[])
         switch (case_actuelle)
         {
         case 'C':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, ORANGE);
+            afficher_double_carotte(coord_l, coord_c);
             break;
         case 'T':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, ROUGE);
+            afficher_double_tomate(coord_l, coord_c);
             break;
         case 'B':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, VERT_FONCE);
+            afficher_double_brocolis(coord_l, coord_c);
             break;
         case 'A':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, VIOLET_FONCE);
+            afficher_double_aubergine(coord_l, coord_c);
             break;
         case 'P':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, JAUNE);
+            afficher_double_pdt(coord_l, coord_c);
             break;
         case '0':
         default:
@@ -268,19 +260,19 @@ void afficher_trampoline(S_jeu* game, S_joueur joueur[])
         switch (case_actuelle)
         {
         case 'C':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, ORANGE);
+            afficher_double_carotte(coord_l, coord_c);
             break;
         case 'T':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, ROUGE);
+            afficher_double_tomate(coord_l, coord_c);
             break;
         case 'B':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, VERT_FONCE);
+            afficher_double_brocolis(coord_l, coord_c);
             break;
         case 'A':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, VIOLET_FONCE);
+            afficher_double_aubergine(coord_l, coord_c);
             break;
         case 'P':
-            dessiner_rectangle(coord_l, coord_c, l_case, c_case, JAUNE);
+            afficher_double_pdt(coord_l, coord_c);
             break;
         case '0':
         default:
@@ -290,69 +282,71 @@ void afficher_trampoline(S_jeu* game, S_joueur joueur[])
     }
 }
 
-void afficher_menu(int j)
+int afficher_menu(int j)
 {
     int l;
     int c;
 
-    if (j == 0) {
+    if (j == 0)
+    {
         l = MENU_L;
         c = MENU1_C;
     }
-    else {
+    else
+    {
         l = MENU_L;
         c = MENU2_C;
     }
 
-	afficher_case(l, c, 2, BEIGE);
+    afficher_case(l, c, 2, BEIGE);
 
 
 //===panier===
-     dessiner_rectangle(l + 1, c + 11, 1, 8, MARRON);
+    dessiner_rectangle(l + 1, c + 11, 1, 8, MARRON);
 
-     dessiner_rectangle(l + 2, c + 9, 1, 2, MARRON);
-     dessiner_rectangle(l + 2, c + 19, 1, 2, MARRON);
+    dessiner_rectangle(l + 2, c + 9, 1, 2, MARRON);
+    dessiner_rectangle(l + 2, c + 19, 1, 2, MARRON);
 
-     dessiner_rectangle(l + 3, c + 8, 1, 1, MARRON);
-     dessiner_rectangle(l + 3, c + 21, 1, 1, MARRON);
+    dessiner_rectangle(l + 3, c + 8, 1, 1, MARRON);
+    dessiner_rectangle(l + 3, c + 21, 1, 1, MARRON);
 
-     dessiner_rectangle(l + 4, c + 7, 1, 1, MARRON);
-     dessiner_rectangle(l + 4, c + 22, 1, 1, MARRON);
+    dessiner_rectangle(l + 4, c + 7, 1, 1, MARRON);
+    dessiner_rectangle(l + 4, c + 22, 1, 1, MARRON);
 
-     dessiner_rectangle(l + 5, c + 6, 1, 1, MARRON);
-     dessiner_rectangle(l + 5, c + 23, 1, 1, MARRON);
-     dessiner_rectangle(l + 6, c + 6, 1, 2, MARRON);
-     dessiner_rectangle(l + 6, c + 22, 1, 2, MARRON);
+    dessiner_rectangle(l + 5, c + 6, 1, 1, MARRON);
+    dessiner_rectangle(l + 5, c + 23, 1, 1, MARRON);
+    dessiner_rectangle(l + 6, c + 6, 1, 2, MARRON);
+    dessiner_rectangle(l + 6, c + 22, 1, 2, MARRON);
 
-     dessiner_rectangle(l + 7, c + 4, 1, 4, MARRON); 
-     dessiner_rectangle(l + 7, c + 22, 1, 4, MARRON);
+    dessiner_rectangle(l + 7, c + 4, 1, 4, MARRON);
+    dessiner_rectangle(l + 7, c + 22, 1, 4, MARRON);
 
-     dessiner_rectangle(l + 8, c + 4, 1, 22, MARRON);
+    dessiner_rectangle(l + 8, c + 4, 1, 22, MARRON);
 
-     dessiner_rectangle(l + 9, c + 6, 2, 18, MARRON); 
-     dessiner_rectangle(l + 11, c + 8, 1, 14, MARRON); 
-     dessiner_rectangle(l + 12, c + 10, 1, 10, MARRON);
-     dessiner_rectangle(l + 13, c + 12, 1, 6, MARRON); 
-    
+    dessiner_rectangle(l + 9, c + 6, 2, 18, MARRON);
+    dessiner_rectangle(l + 11, c + 8, 1, 14, MARRON);
+    dessiner_rectangle(l + 12, c + 10, 1, 10, MARRON);
+    dessiner_rectangle(l + 13, c + 12, 1, 6, MARRON);
+
 
 //===pelle===
     dessiner_rectangle(l + 3,  c +34 + 25, 1, 2, GRIS_FONCE);
-                            
+
     dessiner_rectangle(l +  5, c +34 + 19, 2, 4, MARRON);
     dessiner_rectangle(l +  6, c +34 + 16, 2, 4, MARRON);
     dessiner_rectangle(l +  7, c +34 + 13, 2, 4, MARRON);
-                               
-    dessiner_rectangle(l +  8, c +34 + 8, 2, 6, GRIS); 
-    dessiner_rectangle(l +  9, c +34 + 6, 3, 8, GRIS); 
+
+    dessiner_rectangle(l +  8, c +34 + 8, 2, 6, GRIS);
+    dessiner_rectangle(l +  9, c +34 + 6, 3, 8, GRIS);
     dessiner_rectangle(l + 11, c +34 + 4, 2, 8, GRIS);
     dessiner_rectangle(l + 12, c +34 + 6, 1, 4, GRIS);
-                        
-    dessiner_rectangle(l + 4, c +34 + 21, 2, 4, MARRON); 
+
+    dessiner_rectangle(l + 4, c +34 + 21, 2, 4, MARRON);
 
     l = l+6;
     c = c - 45;
 
-	color(0, 14);
+    color(0, 14);
     positionner_curseur(l, c);
     printf(" __   ___  __   __        ___  ___  __  ");
     positionner_curseur(l + 1, c);
@@ -384,43 +378,62 @@ void afficher_menu(int j)
     printf("  \\_ | | (_| |_| (/_ |    (_| \\/ (/_ (_   | (_|   _> (_) |_| |  | _> ");
     positionner_curseur(l + 3, c);
     printf("           |                                                         ");
+
+    if (j == 0)
+    {
+        l = MENU_L;
+        c = MENU1_C;
+    }
+    else
+    {
+        l = MENU_L;
+        c = MENU2_C;
+    }
+    return (clique_plateau(1, 2, l, c));
 }
 
 
 void effacer_menu(int t)
 {
 
-    if (t == 0) {
+    if (t == 0)
+    {
         dessiner_rectangle(MENU_L, MENU1_C - 45, 16, 150, NOIR);
         dessiner_rectangle(MENU_L, MENU2_C - 45, 16, 150, NOIR);
     }
-    else {
+    else
+    {
         dessiner_rectangle(MENU_L, MENU1_C - 45, 22, 150, NOIR);
         dessiner_rectangle(MENU_L, MENU2_C - 45, 22, 150, NOIR);
     }
 
-    
+
 }
 
-void garder_case(int p) {
+void garder_case(int p)
+{
 
-    if(p!=1){
+    if(p!=1)
+    {
         afficher_case(ROT, PLAT_C, 1, NOIR);
         afficher_case(ROT, PLAT2_C + 34, 1, NOIR);
     }
-    if (p != 2) {
+    if (p != 2)
+    {
         afficher_case(ROT, PLAT_C+34, 1, NOIR);
         afficher_case(ROT, PLAT2_C+34 + 34, 1, NOIR);
     }
-    if (p != 3) {
+    if (p != 3)
+    {
         afficher_case(ROT, PLAT_C + 68, 1, NOIR);
         afficher_case(ROT, PLAT2_C + 68 + 34, 1, NOIR);
     }
-    if (p != 4) {
+    if (p != 4)
+    {
         afficher_case(ROT, PLAT_C + 102, 1, NOIR);
         afficher_case(ROT, PLAT2_C + 102 + 34, 1, NOIR);
     }
-        
+
 }
 
 //----------MOTIF----------
@@ -448,14 +461,15 @@ void afficher_case(int l, int c, int nb, int couleur)
     }
 }
 
-void motif_carotte(int l, int c) {
+void motif_carotte(int l, int c)
+{
     afficher_case(l, c, 2, BEIGE);
 
-	//motif 1 : diagonale de 2 carottes
+    //motif 1 : diagonale de 2 carottes
     dessiner_rectangle(l+2, c+4, 4, 8, GRIS);
     dessiner_rectangle(l + 6, c + 12, 4, 8, ORANGE);
 
-	//motif 2 : diagonale de 4 carottes
+    //motif 2 : diagonale de 4 carottes
     c = c + 30;
     dessiner_rectangle(l + 2, c + 6, 3, 6, GRIS);
     dessiner_rectangle(l + 5, c + 12, 3, 6, ORANGE);
@@ -464,7 +478,8 @@ void motif_carotte(int l, int c) {
 
 }
 
-void rot1_carotte(int l, int c) {
+void rot1_carotte(int l, int c)
+{
     afficher_case(l, c, 2, BEIGE);
 
     //rot 1
@@ -478,7 +493,8 @@ void rot1_carotte(int l, int c) {
 
 }
 
-void rot2_carotte(int l, int c) {
+void rot2_carotte(int l, int c)
+{
     afficher_case(l, c, 2, BEIGE);
 
     //rot 1
@@ -498,7 +514,8 @@ void rot2_carotte(int l, int c) {
 }
 
 
-void motif_aubergine(int l, int c) {
+void motif_aubergine(int l, int c)
+{
 
     afficher_case(l, c, 3, BEIGE);
 
@@ -525,7 +542,8 @@ void motif_aubergine(int l, int c) {
 
 }
 
-void rot1_aubergine(int l, int c) {
+void rot1_aubergine(int l, int c)
+{
 
     afficher_case(l, c, 2, BEIGE);
 
@@ -539,7 +557,8 @@ void rot1_aubergine(int l, int c) {
     dessiner_rectangle(l + 8, c + 9, 4, 8, VIOLET);
 }
 
-void rot3_aubergine(int l, int c) {
+void rot3_aubergine(int l, int c)
+{
 
     afficher_case(l, c, 2, BEIGE);
 
@@ -564,7 +583,8 @@ void rot3_aubergine(int l, int c) {
 
 }
 
-void motif_tomate(int l, int c) {
+void motif_tomate(int l, int c)
+{
 
     afficher_case(l, c, 3, BEIGE);
 
@@ -587,7 +607,8 @@ void motif_tomate(int l, int c) {
 
 }
 
-void rot2_tomate(int l, int c) {
+void rot2_tomate(int l, int c)
+{
 
     afficher_case(l, c, 4, BEIGE);
 
@@ -616,7 +637,8 @@ void rot2_tomate(int l, int c) {
 
 }
 
-void rot3_tomate(int l, int c) {
+void rot3_tomate(int l, int c)
+{
 
     afficher_case(l, c, 4, BEIGE);
 
@@ -655,7 +677,8 @@ void rot3_tomate(int l, int c) {
     dessiner_rectangle(l + 10, c + 12, 2, 4, ROUGE); // ex-Haut Gauche, passe en Bas Gauche
 }
 
-void motif_brocoli(int l, int c) {
+void motif_brocoli(int l, int c)
+{
 
     afficher_case(l, c, 3, BEIGE);
 
@@ -677,7 +700,8 @@ void motif_brocoli(int l, int c) {
     dessiner_rectangle(l + 8+2, c + 14, 3, 6, VERT);
 }
 
-void rot2_brocoli(int l, int c) {
+void rot2_brocoli(int l, int c)
+{
 
     afficher_case(l, c, 4, BEIGE);
 
@@ -707,7 +731,8 @@ void rot2_brocoli(int l, int c) {
 
 }
 
-void motif_patate(int l, int c) {
+void motif_patate(int l, int c)
+{
 
     afficher_case(l, c, 3, BEIGE);
 
@@ -730,7 +755,8 @@ void motif_patate(int l, int c) {
 
 }
 
-void rot2_patate(int l, int c) {
+void rot2_patate(int l, int c)
+{
 
     afficher_case(l, c, 2, BEIGE);
 
@@ -741,14 +767,15 @@ void rot2_patate(int l, int c) {
     dessiner_rectangle(l + 6, c + 22, 3, 6, OR);
 
     //rot 2 :
-	c = c + 34;
-    dessiner_rectangle(l + 2, c + 14, 3, 6, GRIS);  
+    c = c + 34;
+    dessiner_rectangle(l + 2, c + 14, 3, 6, GRIS);
     dessiner_rectangle(l + 6, c + 14, 3, 6, OR);
     dessiner_rectangle(l + 10, c + 14, 3, 6, OR);
 
 }
 
-void rot3_patate(int l, int c) {
+void rot3_patate(int l, int c)
+{
 
     afficher_case(l, c, 4, BEIGE);
 
@@ -763,77 +790,128 @@ void rot3_patate(int l, int c) {
     //rot 2 :
     c = c + 34;
     dessiner_rectangle(l + 2, c + 18, 3, 6, OR);
-    dessiner_rectangle(l + 6, c + 18, 3, 6, OR); 
-    dessiner_rectangle(l + 10, c + 18, 3, 6, OR); 
-    dessiner_rectangle(l + 2, c + 10, 3, 6, GRIS);  
-    dessiner_rectangle(l + 10, c + 10, 3, 6, OR); 
+    dessiner_rectangle(l + 6, c + 18, 3, 6, OR);
+    dessiner_rectangle(l + 10, c + 18, 3, 6, OR);
+    dessiner_rectangle(l + 2, c + 10, 3, 6, GRIS);
+    dessiner_rectangle(l + 10, c + 10, 3, 6, OR);
 
     //rot 3 :
     c = c + 34;
     dessiner_rectangle(l + 8, c + 22, 3, 6, OR);
-    dessiner_rectangle(l + 8, c + 14, 3, 6, OR);  
-    dessiner_rectangle(l + 8, c + 6, 3, 6, OR);   
-    dessiner_rectangle(l + 4, c + 22, 3, 6, OR);  
-    dessiner_rectangle(l + 4, c + 6, 3, 6, GRIS);   
+    dessiner_rectangle(l + 8, c + 14, 3, 6, OR);
+    dessiner_rectangle(l + 8, c + 6, 3, 6, OR);
+    dessiner_rectangle(l + 4, c + 22, 3, 6, OR);
+    dessiner_rectangle(l + 4, c + 6, 3, 6, GRIS);
 
     //rot 4 :
     c = c + 34;
     dessiner_rectangle(l + 10, c + 10, 3, 6, OR);
-    dessiner_rectangle(l + 6, c + 10, 3, 6, OR);  
-    dessiner_rectangle(l + 2, c + 10, 3, 6, GRIS);  
-    dessiner_rectangle(l + 10, c + 18, 3, 6, OR); 
-    dessiner_rectangle(l + 2, c + 18, 3, 6, OR);  
+    dessiner_rectangle(l + 6, c + 10, 3, 6, OR);
+    dessiner_rectangle(l + 2, c + 10, 3, 6, GRIS);
+    dessiner_rectangle(l + 10, c + 18, 3, 6, OR);
+    dessiner_rectangle(l + 2, c + 18, 3, 6, OR);
 }
 
 //=====Case Légume=====
 void afficher_carotte(int ligne, int colonne)
 {
-    dessiner_rectangle(ligne, colonne + 4, 2, 1, 0x00FF00);
-    dessiner_rectangle(ligne + 1, colonne + 2, 2, 2, 0xFFA500);
-    dessiner_rectangle(ligne + 2, colonne, 2, 2, 0xFFA500);
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 3, colonne + 16, 4, 3, 0x00FF00);
+    dessiner_rectangle(ligne + 5, colonne + 12, 4, 4, 0xFFA500);
+    dessiner_rectangle(ligne + 7, colonne + 10, 4, 4, 0xFFA500);
 }
-void afficher_double_carotte(int ligne, int colonne) {
-    afficher_carotte(ligne, colonne);
-    afficher_carotte(ligne + 1, colonne + 5);
+void afficher_double_carotte(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 3, colonne + 12, 4, 3, 0x00FF00);
+    dessiner_rectangle(ligne + 5, colonne + 8, 4, 4, 0xFFA500);
+    dessiner_rectangle(ligne + 7, colonne + 6, 4, 4, 0xFFA500);
+    dessiner_rectangle(ligne + 4, colonne + 20, 4, 3, 0x00FF00);
+    dessiner_rectangle(ligne + 6, colonne + 16, 4, 4, 0xFFA500);
+    dessiner_rectangle(ligne + 8, colonne + 14, 4, 4, 0xFFA500);
+
 }
-void afficher_pdt(int ligne, int colonne) {
-    dessiner_rectangle(ligne + 3, colonne + 1, 1, 3, 0xE7AC46);
-    dessiner_rectangle(ligne + 2, colonne, 1, 5, 0xE7AC46);
-    dessiner_rectangle(ligne + 1, colonne, 1, 5, 0xE7AC46);
-    dessiner_rectangle(ligne, colonne + 1, 1, 3, 0xE7AC46);
+void afficher_pdt(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 7, colonne + 12, 3, 5, 0xE7AC46);
+    dessiner_rectangle(ligne + 6, colonne + 10, 3, 9, 0xE7AC46);
+    dessiner_rectangle(ligne + 5, colonne + 10, 3, 9, 0xE7AC46);
+    dessiner_rectangle(ligne + 4, colonne + 12, 3, 5, 0xE7AC46);
 }
-void afficher_double_pdt(int ligne, int colonne) {
-    afficher_pdt(ligne, colonne);
-    afficher_pdt(ligne + 1, colonne + 5);
+void afficher_double_pdt(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    colonne = colonne + 1;
+    dessiner_rectangle(ligne + 7, colonne + 7, 3, 5, 0xE7AC46);
+    dessiner_rectangle(ligne + 6, colonne + 5, 3, 9, 0xE7AC46);
+    dessiner_rectangle(ligne + 5, colonne + 5, 3, 9, 0xE7AC46);
+    dessiner_rectangle(ligne + 4, colonne + 7, 3, 5, 0xE7AC46);
+    dessiner_rectangle(ligne + 8, colonne + 17, 3, 5, 0xE7AC46);
+    dessiner_rectangle(ligne + 7, colonne + 15, 3, 9, 0xE7AC46);
+    dessiner_rectangle(ligne + 6, colonne + 15, 3, 9, 0xE7AC46);
+    dessiner_rectangle(ligne + 5, colonne + 17, 3, 5, 0xE7AC46);
 }
-void afficher_tomate(int ligne, int colonne) {
-    dessiner_rectangle(ligne + 3, colonne + 1, 1, 4, 0xC21D17);
-    dessiner_rectangle(ligne + 2, colonne, 1, 6, 0xC21D17);
-    dessiner_rectangle(ligne + 1, colonne, 1, 6, 0xC21D17);
-    dessiner_rectangle(ligne, colonne + 1, 1, 4, 0xC21D17);
+
+void afficher_tomate(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 8, colonne + 10, 2, 10, 0xC21D17);
+    dessiner_rectangle(ligne + 7, colonne + 8, 2, 14, 0xC21D17);
+    dessiner_rectangle(ligne + 6, colonne + 8, 2, 14, 0xC21D17);
+    dessiner_rectangle(ligne + 5, colonne + 10, 2, 10, 0xC21D17);
 }
-void afficher_double_tomate(int ligne, int colonne) {
-    afficher_tomate(ligne, colonne);
-    afficher_tomate(ligne + 1, colonne + 6);
+void afficher_double_tomate(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 6, colonne + 5, 2, 10, 0xC21D17);
+    dessiner_rectangle(ligne + 5, colonne + 3, 2, 14, 0xC21D17);
+    dessiner_rectangle(ligne + 4, colonne + 3, 2, 14, 0xC21D17);
+    dessiner_rectangle(ligne + 3, colonne + 5, 2, 10, 0xC21D17);
+    dessiner_rectangle(ligne + 11, colonne + 16, 2, 10, 0xC21D17);
+    dessiner_rectangle(ligne + 10, colonne + 14, 2, 14, 0xC21D17);
+    dessiner_rectangle(ligne + 9, colonne + 14, 2, 14, 0xC21D17);
+    dessiner_rectangle(ligne + 8, colonne + 16, 2, 10, 0xC21D17);
 }
-void afficher_aubergine(int ligne, int colonne) {
-    dessiner_rectangle(ligne, colonne + 4, 2, 1, 0x168A12);
-    dessiner_rectangle(ligne + 1, colonne + 2, 2, 3, 0x261136);
-    dessiner_rectangle(ligne + 2, colonne, 2, 3, 0x261136);
+void afficher_aubergine(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 3, colonne + 16, 4, 3, 0x168A12);
+    dessiner_rectangle(ligne + 5, colonne + 12, 4, 5, 0x261136);
+    dessiner_rectangle(ligne + 7, colonne + 10, 4, 5, 0x261136);
 }
-void afficher_double_aubergine(int ligne, int colonne) {
-    afficher_aubergine(ligne, colonne);
-    afficher_aubergine(ligne + 1, colonne + 5);
+void afficher_double_aubergine(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    dessiner_rectangle(ligne + 3, colonne + 12, 4, 3, 0x168A12);
+    dessiner_rectangle(ligne + 5, colonne + 8, 4, 5, 0x261136);
+    dessiner_rectangle(ligne + 7, colonne + 6, 4, 5, 0x261136);
+    dessiner_rectangle(ligne + 4, colonne + 20, 4, 3, 0x168A12);
+    dessiner_rectangle(ligne + 6, colonne + 16, 4, 5, 0x261136);
+    dessiner_rectangle(ligne + 8, colonne + 14, 4, 5, 0x261136);
 }
-void afficher_brocolis(int ligne, int colonne) {
-    dessiner_rectangle(ligne, colonne + 4, 2, 2, 0x168A12);
-    dessiner_rectangle(ligne, colonne + 1, 2, 2, 0x168A12);
-    dessiner_rectangle(ligne + 1, colonne + 2, 2, 3, 0x0E4512);
-    dessiner_rectangle(ligne + 2, colonne + 2, 2, 3, 0x0E4512);
+void afficher_brocolis(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    colonne = colonne + 2;
+    dessiner_rectangle(ligne + 4, colonne + 14, 4, 4, 0x168A12);
+    dessiner_rectangle(ligne + 4, colonne + 9, 4, 4, 0x168A12);
+    dessiner_rectangle(ligne + 5, colonne + 11, 4, 5, 0x0E4512);
+    dessiner_rectangle(ligne + 6, colonne + 11, 4, 5, 0x0E4512);
 }
-void afficher_double_brocolis(int ligne, int colonne) {
-    afficher_brocolis(ligne, colonne);
-    afficher_brocolis(ligne + 1, colonne + 5);
+void afficher_double_brocolis(int ligne, int colonne)
+{
+    dessiner_rectangle(ligne, colonne, 15, 30, 0x541F13);
+    colonne = colonne + 1;
+    ligne = ligne + 1;
+    dessiner_rectangle(ligne + 2, colonne + 9, 4, 4, 0x168A12);
+    dessiner_rectangle(ligne + 2, colonne + 4, 4, 4, 0x168A12);
+    dessiner_rectangle(ligne + 3, colonne + 6, 4, 5, 0x0E4512);
+    dessiner_rectangle(ligne + 4, colonne + 6, 4, 5, 0x0E4512);
+    dessiner_rectangle(ligne + 5, colonne + 21, 4, 4, 0x168A12);
+    dessiner_rectangle(ligne + 5, colonne + 16, 4, 4, 0x168A12);
+    dessiner_rectangle(ligne + 6, colonne + 18, 4, 5, 0x0E4512);
+    dessiner_rectangle(ligne + 7, colonne + 18, 4, 5, 0x0E4512);
 }
 
 
@@ -885,7 +963,7 @@ void color(int couleurDuTexte, int couleurDuFond)
 
 void plein_ecran(int s)
 {
-	Sleep(100);
+    Sleep(100);
     // Basculer en plein écran
     keybd_event(VK_MENU, 0x38, 0, 0); // Appuie sur ALT
     keybd_event(VK_RETURN, 0x1C, 0, 0); // Appuie sur ENTREE
@@ -1020,8 +1098,9 @@ void debug_update(S_jeu *game, S_joueur joueur[])
         positionner_curseur(DEBUG_J1_L + 11, DEBUG_J1_C);
         printf("Tour : %d", game->nbr_tour);
         positionner_curseur(DEBUG_J1_L + 13, DEBUG_J1_C);
-		printf("Joueur courant : %d", pair(game->nbr_tour));
+        printf("Joueur courant : %d", pair(game->nbr_tour));
         printf("  Joueur adverse : %d", impair(game->nbr_tour));
     }
 }
 
+//
