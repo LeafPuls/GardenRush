@@ -32,7 +32,7 @@ int main()
 
 
     plein_ecran(6+debug_state);// ATTENTION CHANGER LA VALEUR SELON L'ECRAN, POUR S'AIDER OBSERVER LE FOND NOIR DE LA CONSOLE SE GENERER
-    intro();Sleep(5000);
+    intro();Sleep(4000);
     dessiner_rectangle(0, 1, 133, 472, NOIR);//fond de la console
 
 
@@ -152,7 +152,7 @@ retour:// si on rate la récolte alors on remet le menu du même joueur pour qu'il
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
 
-
+	Sleep(1000);
     positionner_curseur(150, 0);
     return 0;
 }

@@ -344,19 +344,19 @@ int afficher_menu(int j)
     dessiner_rectangle(l + 4, c +34 + 21, 2, 4, MARRON);
 
     l = l+6;
-    c = c - 45;
+    c = c - 44;
 
     color(0, 14);
     positionner_curseur(l, c);
-    printf(" __   ___  __   __        ___  ___  __  ");
+    printf(" __   ___  __   __       ___  ___  __  ");
     positionner_curseur(l + 1, c);
-    printf("|__) |__  /  ` /  \\ |      |  |__  |__) ");
+    printf("|__) |__  /  ` /  \\ |     |  |__  |__) ");
     positionner_curseur(l + 2, c);
-    printf("|  \\ |___ \\__, \\__/ |___   |  |___ |  \\ ");
+    printf("|  \\ |___ \\__, \\__/ |___  |  |___ |  \\ ");
     positionner_curseur(l + 3, c);
-    printf("                                        ");
+    printf("                                       ");
 
-    c = c + 45+69;
+    c = c + 44+69;
 
     positionner_curseur(l, c);
     printf(" __                 ___  ___  __  ");

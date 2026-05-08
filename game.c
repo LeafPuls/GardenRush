@@ -434,7 +434,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 3 : Rectangle 2x3 ou 3x2 Aubergines ==========-------------------
         else if (motif == 3)
         {
-
+            effacer_menu(0);
             rot3_aubergine(ROT, cj);
             rot_a = 0;
             Sleep(200);
