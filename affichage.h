@@ -47,7 +47,12 @@
 #define MARCHE2_L PLAT_L
 #define MARCHE2_C PLAT2_C+39+136
 
-#define ROT 110
+#define MENU_L 108
+#define MENU1_C 76
+#define MENU2_C 76+258
+
+#define ROT 108
+//(ligne)
 
 //=======Position DEBUG=======
 #define DEBUG_J1_L 133
@@ -67,6 +72,8 @@ void afficher_score(S_jeu* game, S_joueur joueur[]);
 void afficher_case(int l, int c, int nb, int couleur);
 void afficher_haie(S_jeu* game, S_joueur joueur[]);
 void afficher_trampoline(S_jeu* game, S_joueur joueur[]);
+void afficher_menu(int j);
+void effacer_menu(int t);
 
 void motif_carotte(int l, int c);
 void rot1_carotte(int l, int c);
@@ -82,6 +89,21 @@ void rot3_tomate(int l, int c);
 
 void motif_brocoli(int l, int c);
 void rot2_brocoli(int l, int c);
+
+void motif_patate(int l, int c);
+void rot2_patate(int l, int c);
+void rot3_patate(int l, int c);
+
+void afficher_carotte(int ligne, int colonne);
+void afficher_double_carotte(int ligne, int colonne);
+void afficher_pdt(int ligne, int colonne);
+void afficher_double_pdt(int ligne, int colonne);
+void afficher_tomate(int ligne, int colonne);
+void afficher_double_tomate(int ligne, int colonne);
+void afficher_aubergine(int ligne, int colonne);
+void afficher_double_aubergine(int ligne, int colonne);
+void afficher_brocolis(int ligne, int colonne);
+void afficher_double_brocolis(int ligne, int colonne);
 
 //=======
 
