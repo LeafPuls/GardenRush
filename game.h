@@ -22,7 +22,6 @@ void melanger_pioche(S_jeu *game);
 void initialiser_haie(S_jeu *game);
 
 //=====Action de jeu=====
-int menu(S_jeu* game, S_joueur joueur[], int j);
 int case_L(int c);
 int case_C(int c);
 int clique_plateau(int nbLignes, int nbColonnes, int baseLigne, int baseColonne);
@@ -33,5 +32,7 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int
 char soustraire_legume(char leg);
 int recolter(S_jeu* game, S_joueur joueur[], int j);
 void ordonner_haie(S_jeu* game, S_joueur joueur[]);
+int pair(int p);
+int impair(int p);
 
 #endif

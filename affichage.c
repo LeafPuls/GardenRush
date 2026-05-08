@@ -44,7 +44,6 @@ void initialisation_affichage()//juste de la décoration pour le plateau de jeu
 
 void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
 {
-    debug_update(game, joueur);
     int l, c;
 
     if (j == 0) {
@@ -116,11 +115,11 @@ void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
                 break;
 
             case 'P':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, JAUNE);
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, OR);
                 break;
 
             case 'p':
-                dessiner_rectangle(coord_l, coord_c, l_case, c_case, BEIGE);
+                dessiner_rectangle(coord_l, coord_c, l_case, c_case, JAUNE);
                 break;
 
             case '0':
@@ -129,6 +128,7 @@ void afficher_plateau_joueur(S_jeu* game, S_joueur joueur[], int j)
             }
         }
     }
+    debug_update(game, joueur);
 }
 
 void afficher_marche(int j)
@@ -400,6 +400,27 @@ void effacer_menu(int t)
     }
 
     
+}
+
+void garder_case(int p) {
+
+    if(p!=1){
+        afficher_case(ROT, PLAT_C, 1, NOIR);
+        afficher_case(ROT, PLAT2_C + 34, 1, NOIR);
+    }
+    if (p != 2) {
+        afficher_case(ROT, PLAT_C+34, 1, NOIR);
+        afficher_case(ROT, PLAT2_C+34 + 34, 1, NOIR);
+    }
+    if (p != 3) {
+        afficher_case(ROT, PLAT_C + 68, 1, NOIR);
+        afficher_case(ROT, PLAT2_C + 68 + 34, 1, NOIR);
+    }
+    if (p != 4) {
+        afficher_case(ROT, PLAT_C + 102, 1, NOIR);
+        afficher_case(ROT, PLAT2_C + 102 + 34, 1, NOIR);
+    }
+        
 }
 
 //----------MOTIF----------
@@ -691,16 +712,16 @@ void motif_patate(int l, int c) {
     afficher_case(l, c, 3, BEIGE);
 
     //motif 1 :
-    dessiner_rectangle(l + 4, c + 9, 6, 12, JAUNE);
+    dessiner_rectangle(l + 4, c + 9, 6, 12, OR);
 
     //motif 2 :
-    c = c + 33;
+    c = c + 32;
     dessiner_rectangle(l + 6, c + 6, 3, 6, GRIS);
-    dessiner_rectangle(l + 6, c + 14, 3, 6, JAUNE);
-    dessiner_rectangle(l + 6, c + 22, 3, 6, JAUNE);
+    dessiner_rectangle(l + 6, c + 14, 3, 6, OR);
+    dessiner_rectangle(l + 6, c + 22, 3, 6, OR);
 
     //motif 3 :
-    c = c + 33;
+    c = c + 34;
     dessiner_rectangle(l + 4, c + 6, 3, 6, GRIS);
     dessiner_rectangle(l + 4, c + 14, 3, 6, OR);
     dessiner_rectangle(l + 4, c + 22, 3, 6, OR);
@@ -741,25 +762,25 @@ void rot3_patate(int l, int c) {
 
     //rot 2 :
     c = c + 34;
-    dessiner_rectangle(l + 2, c + 18, 3, 6, GRIS);
+    dessiner_rectangle(l + 2, c + 18, 3, 6, OR);
     dessiner_rectangle(l + 6, c + 18, 3, 6, OR); 
     dessiner_rectangle(l + 10, c + 18, 3, 6, OR); 
-    dessiner_rectangle(l + 2, c + 10, 3, 6, OR);  
+    dessiner_rectangle(l + 2, c + 10, 3, 6, GRIS);  
     dessiner_rectangle(l + 10, c + 10, 3, 6, OR); 
 
     //rot 3 :
     c = c + 34;
-    dessiner_rectangle(l + 8, c + 22, 3, 6, GRIS);
+    dessiner_rectangle(l + 8, c + 22, 3, 6, OR);
     dessiner_rectangle(l + 8, c + 14, 3, 6, OR);  
     dessiner_rectangle(l + 8, c + 6, 3, 6, OR);   
     dessiner_rectangle(l + 4, c + 22, 3, 6, OR);  
-    dessiner_rectangle(l + 4, c + 6, 3, 6, OR);   
+    dessiner_rectangle(l + 4, c + 6, 3, 6, GRIS);   
 
     //rot 4 :
     c = c + 34;
-    dessiner_rectangle(l + 10, c + 10, 3, 6, GRIS);
+    dessiner_rectangle(l + 10, c + 10, 3, 6, OR);
     dessiner_rectangle(l + 6, c + 10, 3, 6, OR);  
-    dessiner_rectangle(l + 2, c + 10, 3, 6, OR);  
+    dessiner_rectangle(l + 2, c + 10, 3, 6, GRIS);  
     dessiner_rectangle(l + 10, c + 18, 3, 6, OR); 
     dessiner_rectangle(l + 2, c + 18, 3, 6, OR);  
 }
@@ -998,6 +1019,9 @@ void debug_update(S_jeu *game, S_joueur joueur[])
 
         positionner_curseur(DEBUG_J1_L + 11, DEBUG_J1_C);
         printf("Tour : %d", game->nbr_tour);
+        positionner_curseur(DEBUG_J1_L + 13, DEBUG_J1_C);
+		printf("Joueur courant : %d", pair(game->nbr_tour));
+        printf("  Joueur adverse : %d", impair(game->nbr_tour));
     }
 }
 

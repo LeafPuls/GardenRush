@@ -74,6 +74,7 @@ void afficher_haie(S_jeu* game, S_joueur joueur[]);
 void afficher_trampoline(S_jeu* game, S_joueur joueur[]);
 void afficher_menu(int j);
 void effacer_menu(int t);
+void garder_case(int p);
 
 void motif_carotte(int l, int c);
 void rot1_carotte(int l, int c);

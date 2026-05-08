@@ -85,34 +85,6 @@ void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
 
 //==========================================================================================================================================================================Action de jeu==========================================================================================================================================================================
 
-/*
-int menu(S_jeu* game, S_joueur joueur[], int j) {
-
-    int choix;
-    do
-    {
-        //afficher menu base avec soit recolter soit planter soit arreter son tour
-        //choix = Clique menu
-        //cacher menu
-
-        //-----Recolter-----
-        if (choix = 1) {
-			joueur[j].score = joueur[j].score + recolter(game, joueur, j);
-        }
-
-		//-----Planter-----
-        if (choix = 2) {
-			int h, l, c;
-            int clique;
-            //clique plateau
-			//h = ligne, l = colonne, c = legume dans la haie
-			deplacer_haie_vers_plateau(game, joueur, j, h, l, c);
-        }
-
-    } while (choix != 0);
-}
-*/
-
 int case_L(int c) { // convertit le numéro de la case en ligne (0 à 4)
     if (c < 1 || c > 25) return -1; // si PB (case hors limites)
     return (c - 1) / 5;   // 0 pour 1-5, 1 pour 6-10, 2 pour 11-15, 3 pour 16-20, 4 pour 21-25
@@ -126,13 +98,12 @@ int case_C(int c) { // convertit le numéro de la case en colonne (0 à 4)
 
 // Ajout de nbLignes et nbColonnes en paramètres
 int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne) {
-
+    Sleep(500);//pour éviter les clics fantomes
     INPUT_RECORD ev;
     DWORD count;
 
     int hauteur = 17; // taille case
     int largeur = 34; // taille case
-    Sleep(200);//pour éviter les clics fantomes (j'ai faillit péter un plomb du pk du commment ça return pas le bon truc dans mes rotations de motif)
     // Boucle infinie jusqu'à un clic valide
     while (1) {
         if (!ReadConsoleInput(hIn, &ev, 1, &count))
@@ -171,25 +142,28 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
     int motif;
     int rot;
     int l, c;
-	int lj, cj;
+    int lj, cj; 
+    int clique_cj;
 	int marche_l, marche_c;
     int pos;
 
-	// position analyse clique selon joueur
+	// def les constantes selon qui joue
 	if (j == 0) {
         lj = PLAT_L;
         cj = PLAT_C;
+        clique_cj = PLAT_C;
 		marche_l = MARCHE_L;
 		marche_c = MARCHE_C;
     }
     else {
         lj = PLAT2_L;
-        cj = PLAT2_C;
+        cj = PLAT2_C+34;
+        clique_cj = PLAT2_C;
 		marche_l = MARCHE2_L;
         marche_c = MARCHE2_C;   
     }
 
-    choix=clique_plateau(5, 1, marche_l, marche_c)-1;//quel legume
+	choix = clique_plateau(5, 1, marche_l, marche_c) - 1;//quel legume on veut recolter dans le marché
 
     switch (choix)
     {
@@ -205,30 +179,31 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 1 : Récolte d'une diag de 2 carottes ==========-------------------
         if (motif == 1) {
 
-            // Demande de la rot 
-            rot1_carotte(ROT, cj);
-            rot = clique_plateau(1, 2, ROT, cj);
+            // Demande de la rotation du motif 
+            rot1_carotte(ROT, cj);//affiche les options de rot
+            rot = clique_plateau(1, 2, ROT, cj);// input de quel rot
+            garder_case(rot);// met en valeur quelle rot on choisi
 
-            pos=clique_plateau(5,5,lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);// input de l'épicentre du motif
 			l = case_L(pos);
 			c = case_C(pos);
-            effacer_menu(0);
+
            
             //----------Rotation 1 : Bas-Droite (+1 ligne, +1 colonne)----------
             if (rot == 1) {
-                // On vérifie que la 2ème case ne sort pas du plateau 5x5
+                // On vérifie que le motif ne sort pas du plateau 5x5
                 if (l + 1 < 5 && c + 1 < 5) {
-                    // L'épicentre ou la 2ème case ne doivent pas être dans les coins (0,0 ou 4,4)
+                    // L'épicentre doit pas être dans les coins (0,0 ou 4,4)
                     if (!((l == 0 && c == 0) || (l + 1 == 4 && c + 1 == 4))) {
                         // verif C ou c
                         if ((joueur[j].plat[l][c] == 'C' || joueur[j].plat[l][c] == 'c') &&
                             (joueur[j].plat[l + 1][c + 1] == 'C' || joueur[j].plat[l + 1][c + 1] == 'c'))
 
-                        {// supp                        
+                        {// supp le légume du plateau                        
                             joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
                             joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
 
-                            return 2;
+							return 2;// retourne le nombre de légumes récoltés pour le score
                             debug_update(game, joueur);
                         }
                     }
@@ -236,9 +211,9 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             }
             //----------Rotation 2 : Bas-Gauche (+1 ligne, -1 colonne)----------
             else if (rot == 2) {
-                // On vérifie que la 2ème case ne sort pas du plateau 5x5
+                // verif taille rentre
                 if (l + 1 < 5 && c - 1 >= 0) {
-                    //L'épicentre ou la 2ème case ne doivent pas être dans les coins (0,0 ou 4,4)
+                    
                     if (!((l == 0 && c == 4) || (l + 1 == 4 && c - 1 == 0))) {
                         // verif C ou c
                         if ((joueur[j].plat[l][c] == 'C' || joueur[j].plat[l][c] == 'c') &&
@@ -261,11 +236,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
             rot2_carotte(ROT, cj);
             rot = clique_plateau(1, 2, ROT, cj);
+            garder_case(rot);
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
-            effacer_menu(0);
+
 
             //----------Rotation 1 : diagonale vers le Bas-Droite (+1 ligne, +1 colonne)----------
             if (rot == 1) {
@@ -334,11 +310,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
            rot1_aubergine(ROT, cj);
            rot = clique_plateau(1, 2, ROT, cj);
+           garder_case(rot);
 
-           pos = clique_plateau(5, 5, lj, cj);
+           pos=clique_plateau(5,5,lj, clique_cj);
            l = case_L(pos);
            c = case_C(pos);
-           effacer_menu(0);
+
 
            // Rotation 1 : 
            if (rot == 1) {
@@ -383,7 +360,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
        //-------------------========== Motif 2 : Carré de 2x2 Aubergines ==========-------------------
        else if (motif == 2) {
 
-           pos = clique_plateau(5, 5, lj, cj);
+           pos=clique_plateau(5,5,lj, clique_cj);
            l = case_L(pos);
            c = case_C(pos);
 
@@ -415,11 +392,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
            rot3_aubergine(ROT, cj);
            rot = clique_plateau(1, 2, ROT, cj);
+           garder_case(rot);
 
-           pos = clique_plateau(5, 5, lj, cj);
+           pos=clique_plateau(5,5,lj, clique_cj);
            l = case_L(pos);
            c = case_C(pos);
-           effacer_menu(0);
+
 
            // Rotation 1 : 
            if (rot == 1) {
@@ -485,7 +463,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 1 : Une seule Tomate (Pas de rotation) ==========-------------------
         if (motif == 1) {
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
             effacer_menu(0);
@@ -509,11 +487,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
             rot2_tomate(ROT, cj);
             rot = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot);
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
-            effacer_menu(0);
+
 
             // Rotation 1 : *:
             if (rot == 4) {
@@ -598,11 +577,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
             rot3_tomate(ROT, cj);
             rot = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot);
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
-            effacer_menu(0);
+
 
             // Rotation 1 : W
             if (rot == 1) {
@@ -718,7 +698,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 1 : Une seule Tomate ==========-------------------
         if (motif == 1) {
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
             effacer_menu(0);
@@ -742,13 +722,12 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
             rot2_brocoli(ROT, cj);
             rot = clique_plateau(1, 4, ROT, cj);
-            color(15, 0);
-            printf("  %d  ", rot);
+            garder_case(rot);
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
-            effacer_menu(0);
+
 
             // Rotation 1 : |_
             if (rot == 1) {
@@ -838,7 +817,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 3 : La Croix (+) de 5 Brocolis ==========-------------------
         else if (motif == 3) {
 
-            pos = clique_plateau(5, 5, lj, cj);
+            pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
             effacer_menu(0);
@@ -864,10 +843,208 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         }
         break;
 
-    case 4 :
+    case 4: //======================================================Patates======================================================
+
+        motif_patate(ROT, cj);
+        motif = clique_plateau(1, 3, ROT, cj);
+        effacer_menu(0);
+
+        //-------------------========== Motif 1 : Une seule Patate ==========-------------------
+        if (motif == 1) {
+
+            pos=clique_plateau(5,5,lj, clique_cj);
+            l = case_L(pos);
+            c = case_C(pos);
+            effacer_menu(0);
+
+            if (l >= 0 && l < 5 && c >= 0 && c < 5 && !((l == 0 || l == 4) && (c == 0 || c == 4))) {
+                if (joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') {
+
+                    joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+
+                    debug_update(game, joueur);
+                    return 1;
+                }
+            }
+        }
+
+        //-------------------========== Motif 2 : Ligne de 3 (1x3 ou 3x1) ==========-------------------
+        else if (motif == 2) {
+
+            rot2_patate(ROT, cj);
+            rot = clique_plateau(1, 2, ROT, cj);
+            garder_case(rot);
+
+            pos=clique_plateau(5,5,lj, clique_cj);
+            l = case_L(pos);
+            c = case_C(pos);
 
 
+            // Rotation 1 : -
+            if (rot == 1) {
+                if (l >= 0 && l < 5 && c >= 0 && c + 2 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) &&
+                        !((l == 0 || l == 4) && (c + 1 == 0 || c + 1 == 4)) &&
+                        !((l == 0 || l == 4) && (c + 2 == 0 || c + 2 == 4))) {
 
+                        if ((joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') &&
+                            (joueur[j].plat[l][c + 1] == 'P' || joueur[j].plat[l][c + 1] == 'p') &&
+                            (joueur[j].plat[l][c + 2] == 'P' || joueur[j].plat[l][c + 2] == 'p'))
+                        {
+                            joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                            joueur[j].plat[l][c + 2] = soustraire_legume(joueur[j].plat[l][c + 2]);
+
+                            debug_update(game, joueur);
+                            return 3;
+                        }
+                    }
+                }
+            }
+            // Rotation 2 : |
+            else if (rot == 2) {
+                if (l >= 0 && l + 2 < 5 && c >= 0 && c < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 2 == 0 || l + 2 == 4) && (c == 0 || c == 4))) {
+
+                        if ((joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') &&
+                            (joueur[j].plat[l + 1][c] == 'P' || joueur[j].plat[l + 1][c] == 'p') &&
+                            (joueur[j].plat[l + 2][c] == 'P' || joueur[j].plat[l + 2][c] == 'p'))
+                        {
+                            joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                            joueur[j].plat[l + 2][c] = soustraire_legume(joueur[j].plat[l + 2][c]);
+
+                            debug_update(game, joueur);
+                            return 3;
+                        }
+                    }
+                }
+            }
+        }
+
+        //-------------------========== Motif 3 : Forme de 'U' (5 Patates) ==========-------------------
+        else if (motif == 3) {
+
+            rot3_patate(ROT, cj);
+            rot = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot);
+
+            pos=clique_plateau(5,5,lj, clique_cj);
+            l = case_L(pos);
+            c = case_C(pos);
+
+
+            // Rotation 1 : π
+            if (rot == 1) {
+                if (l >= 0 && l + 1 < 5 && c >= 0 && c + 2 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) &&
+                        !((l == 0 || l == 4) && (c + 1 == 0 || c + 1 == 4)) &&
+                        !((l == 0 || l == 4) && (c + 2 == 0 || c + 2 == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c + 2 == 0 || c + 2 == 4))) {
+
+                        if ((joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') &&
+                            (joueur[j].plat[l][c + 1] == 'P' || joueur[j].plat[l][c + 1] == 'p') &&
+                            (joueur[j].plat[l][c + 2] == 'P' || joueur[j].plat[l][c + 2] == 'p') &&
+                            (joueur[j].plat[l + 1][c] == 'P' || joueur[j].plat[l + 1][c] == 'p') &&
+                            (joueur[j].plat[l + 1][c + 2] == 'P' || joueur[j].plat[l + 1][c + 2] == 'p'))
+                        {
+                            joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                            joueur[j].plat[l][c + 2] = soustraire_legume(joueur[j].plat[l][c + 2]);
+                            joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                            joueur[j].plat[l + 1][c + 2] = soustraire_legume(joueur[j].plat[l + 1][c + 2]);
+
+                            debug_update(game, joueur);
+                            return 5;
+                        }
+                    }
+                }
+            }
+            // Rotation 2 : ]
+            else if (rot == 2) {
+                if (l >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) &&
+                        !((l == 0 || l == 4) && (c + 1 == 0 || c + 1 == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4)) &&
+                        !((l + 2 == 0 || l + 2 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 2 == 0 || l + 2 == 4) && (c + 1 == 0 || c + 1 == 4))) {
+
+                        if ((joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') &&
+                            (joueur[j].plat[l][c + 1] == 'P' || joueur[j].plat[l][c + 1] == 'p') &&
+                            (joueur[j].plat[l + 1][c + 1] == 'P' || joueur[j].plat[l + 1][c + 1] == 'p') &&
+                            (joueur[j].plat[l + 2][c] == 'P' || joueur[j].plat[l + 2][c] == 'p') &&
+                            (joueur[j].plat[l + 2][c + 1] == 'P' || joueur[j].plat[l + 2][c + 1] == 'p'))
+                        {
+                            joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                            joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
+                            joueur[j].plat[l + 2][c] = soustraire_legume(joueur[j].plat[l + 2][c]);
+                            joueur[j].plat[l + 2][c + 1] = soustraire_legume(joueur[j].plat[l + 2][c + 1]);
+
+                            debug_update(game, joueur);
+                            return 5;
+                        }
+                    }
+                }
+            }
+            // Rotation 3 : u
+            else if (rot == 3) {
+                if (l >= 0 && l + 1 < 5 && c >= 0 && c + 2 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) &&
+                        !((l == 0 || l == 4) && (c + 2 == 0 || c + 2 == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c + 1 == 0 || c + 1 == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c + 2 == 0 || c + 2 == 4))) {
+
+                        if ((joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') &&
+                            (joueur[j].plat[l][c + 2] == 'P' || joueur[j].plat[l][c + 2] == 'p') &&
+                            (joueur[j].plat[l + 1][c] == 'P' || joueur[j].plat[l + 1][c] == 'p') &&
+                            (joueur[j].plat[l + 1][c + 1] == 'P' || joueur[j].plat[l + 1][c + 1] == 'p') &&
+                            (joueur[j].plat[l + 1][c + 2] == 'P' || joueur[j].plat[l + 1][c + 2] == 'p'))
+                        {
+                            joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l][c + 2] = soustraire_legume(joueur[j].plat[l][c + 2]);
+                            joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                            joueur[j].plat[l + 1][c + 1] = soustraire_legume(joueur[j].plat[l + 1][c + 1]);
+                            joueur[j].plat[l + 1][c + 2] = soustraire_legume(joueur[j].plat[l + 1][c + 2]);
+
+                            debug_update(game, joueur);
+                            return 5;
+                        }
+                    }
+                }
+            }
+            // Rotation 4 : [
+            else if (rot == 4) {
+                if (l >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5) {
+                    if (!((l == 0 || l == 4) && (c == 0 || c == 4)) &&
+                        !((l == 0 || l == 4) && (c + 1 == 0 || c + 1 == 4)) &&
+                        !((l + 1 == 0 || l + 1 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 2 == 0 || l + 2 == 4) && (c == 0 || c == 4)) &&
+                        !((l + 2 == 0 || l + 2 == 4) && (c + 1 == 0 || c + 1 == 4))) {
+
+                        if ((joueur[j].plat[l][c] == 'P' || joueur[j].plat[l][c] == 'p') &&
+                            (joueur[j].plat[l][c + 1] == 'P' || joueur[j].plat[l][c + 1] == 'p') &&
+                            (joueur[j].plat[l + 1][c] == 'P' || joueur[j].plat[l + 1][c] == 'p') &&
+                            (joueur[j].plat[l + 2][c] == 'P' || joueur[j].plat[l + 2][c] == 'p') &&
+                            (joueur[j].plat[l + 2][c + 1] == 'P' || joueur[j].plat[l + 2][c + 1] == 'p'))
+                        {
+                            joueur[j].plat[l][c] = soustraire_legume(joueur[j].plat[l][c]);
+                            joueur[j].plat[l][c + 1] = soustraire_legume(joueur[j].plat[l][c + 1]);
+                            joueur[j].plat[l + 1][c] = soustraire_legume(joueur[j].plat[l + 1][c]);
+                            joueur[j].plat[l + 2][c] = soustraire_legume(joueur[j].plat[l + 2][c]);
+                            joueur[j].plat[l + 2][c + 1] = soustraire_legume(joueur[j].plat[l + 2][c + 1]);
+
+                            debug_update(game, joueur);
+                            return 5;
+                        }
+                    }
+                }
+            }
+        }
         break;
     }
 
@@ -914,7 +1091,7 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j, int h, int
     }
     debug_update(game, joueur); 
     return 404;
-}
+}// le int me permet juste de debugger plus facilement les erreurs, il sert a rien
 
 char soustraire_legume(char leg)
 {
@@ -968,4 +1145,12 @@ void ordonner_haie(S_jeu* game, S_joueur joueur[])
             }
         }
     }
+}
+
+int pair(int p) {// permet d'alertner le joueur en cours
+    return p % 2;
+}
+
+int impair(int p) {// permet d'alertner l'adversaire en cours
+    return (p % 2) == 0;
 }

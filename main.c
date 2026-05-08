@@ -22,36 +22,39 @@
 
 int main()
 {
+cacher_curseur();
 srand(time(NULL));
+
+
 //================================================================================|
-debug_state = 1;//mettre à 1 pour activer les fonctions de debug 0 pour désactiver|
+debug_state = 0;//mettre à 1 pour activer les fonctions de debug 0 pour désactiver|
 //================================================================================|
 
-Sleep(100);
-plein_ecran(6+debug_state);
+
+plein_ecran(6+debug_state);// ATTENTION CHANGER LA VALEUR SELON L'ECRAN, POUR S'AIDER OBSERVER LE FOND NOIR DE LA CONSOLE SE GENERER
+dessiner_rectangle(0, 1, 133, 472, NOIR);//fond de la console
 
 
 //===================================================================================================================================================initialisation de base================================================================================================================================================
 
 S_joueur joueur[2];// data des joueurs
 S_jeu game;// data des variables du jeu
-game.nbr_tour = 0;//tour de base à 1
+game.nbr_tour = 0;
 
-cacher_curseur();
-
-//dessiner_rectangle(0, 1, 133, 472, NOIR);//fond de la console
 initialisation_affichage();//dessine le fond vert du plateau de jeu
 
 InitialiserHandle();//souris activer
 
 initialisation_plateau(&joueur[0]);// remplit les matrices pour tout mettre à zéro
 initialisation_plateau(&joueur[1]);
+
 initialisation_pioche(&game);// met les pions dans la pioche
-initialiser_haie(&game);// remplit de 0
 melanger_pioche(&game);
+
+initialiser_haie(&game);// remplit de 0
 remplir_haie(&game, joueur);
 
-
+// 1er affichage avant boucle de jeu
 afficher_score(&game, joueur);
 afficher_plateau_joueur(&game, joueur, 0);
 afficher_plateau_joueur(&game, joueur, 1);
@@ -59,51 +62,25 @@ afficher_marche(0);
 afficher_marche(1);
 afficher_haie(&game, joueur);
 
+//===================================================================================================================================================== BOUCLE DE JEU ================================================================================================================================================
 
-
-
-int i, j;
-int cj = PLAT_C;
-int lg = PLAT_L;
-
-for (i = 0; i < 5; i++)
+while(joueur[0].score < 45 && joueur[1].score < 45 && game.nbr_pioches=!0)//tant que personne a gagné
 {
-    for (j = 0; j < 5; j++)
-    {
-        joueur[0].plat[i][j] = 'c';
-    }
+
 }
-afficher_plateau_joueur(&game, joueur, 0);
-
-rot3_patate(ROT, cj);
-
-
-/*
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
-
-
-
-afficher_plateau_joueur(&game, joueur, 0);
-afficher_score(&game, joueur);
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
-afficher_plateau_joueur(&game, joueur, 0);
-afficher_score(&game, joueur);
-joueur[0].score = joueur[0].score + recolter(&game, joueur, 0);
-afficher_plateau_joueur(&game, joueur, 0);
-afficher_score(&game, joueur);
-*/
 
 //===========================================================================================================================================================DEBUG===================================================================================================================================================
 
 //=====Affichage=====
-afficher_grillage_ligne(0);
-afficher_grillage_colonne(0);
+//afficher_grillage_ligne(0);
+//afficher_grillage_colonne(0);
+
 //afficher_plateau_joueur(&game, joueur, 0);
 //afficher_score(&game, joueur);
+//afficher_haie(&game, joueur);
 
 //====Data jeu=====
 debug_update(&game, joueur);// affiche toutes les données du jeu (pioche, haie, plateau) et le score des joueurs
-
 
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
@@ -176,40 +153,5 @@ positionner_curseur(150, 0);
                                       .-#@@@#***#%%@@@@@+.
         
         
-        
-        
-
-____ ____ ____ ____ _    ___ ____
-|__/ |___ |    |  | |     |  |___
-|  \ |___ |___ |__| |___  |  |___
-
-
-JS Stick Letters
- __   ___  __   __       ___  ___
-|__) |__  /  ` /  \ |     |  |__
-|  \ |___ \__, \__/ |___  |  |___
-
- __                 ___  ___  __
-|__) |     /\  |\ |  |  |__  |__)
-|    |___ /~~\ | \|  |  |___ |  \
-
- __          __        ___  __
-/  ` |    | /  \ |  | |__  |__)
-\__, |___ | \__X \__/ |___ |  \
-
-
-Mini
-
- _
-/  | o  _.      _  ._    _.     _   _   |  _.    _  _      ._ o  _
-\_ | | (_| |_| (/_ |    (_| \/ (/_ (_   | (_|   _> (_) |_| |  | _>
-          |
-  _
- |_)  _   _  _  | _|_  _
- | \ (/_ (_ (_) |  |_ (/_
-
-
-
-
 
 */
