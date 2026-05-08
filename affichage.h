@@ -106,6 +106,8 @@ void afficher_double_aubergine(int ligne, int colonne);
 void afficher_brocolis(int ligne, int colonne);
 void afficher_double_brocolis(int ligne, int colonne);
 
+void intro();
+
 //=======
 
 

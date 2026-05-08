@@ -147,7 +147,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
     effacer_menu(0);
     int choix;
     int motif;
-    int rot;
+	int rot_c, rot_a, rot_t, rot_b, rot_p;// variable de la rotation choisie pour chaque légume
     int l, c;
     int lj, cj;
     int clique_cj;
@@ -191,8 +191,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
             // Demande de la rotation du motif
             rot1_carotte(ROT, cj);//affiche les options de rot
-            rot = clique_plateau(1, 2, ROT, cj);// input de quel rot
-            garder_case(rot);// met en valeur quelle rot on choisi
+            rot_c = 0;
+            Sleep(200);
+            rot_c = clique_plateau(1, 2, ROT, cj);// input de quel rot
+            garder_case(rot_c);// met en valeur quelle rot on choisi
 
             pos=clique_plateau(5,5,lj, clique_cj);// input de l'épicentre du motif
             l = case_L(pos);
@@ -200,7 +202,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             //----------Rotation 1 : Bas-Droite (+1 ligne, +1 colonne)----------
-            if (rot == 1)
+            if (rot_c == 1)
             {
                 // On vérifie que le motif ne sort pas du plateau 5x5
                 if (l + 1 < 5 && c + 1 < 5)
@@ -224,7 +226,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             //----------Rotation 2 : Bas-Gauche (+1 ligne, -1 colonne)----------
-            else if (rot == 2)
+            else if (rot_c == 2)
             {
                 // verif taille rentre
                 if (l + 1 < 5 && c - 1 >= 0)
@@ -254,8 +256,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
 
             rot2_carotte(ROT, cj);
-            rot = clique_plateau(1, 2, ROT, cj);
-            garder_case(rot);
+            rot_c = 0;
+            Sleep(200);
+            rot_c = clique_plateau(1, 2, ROT, cj);
+            garder_case(rot_c);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -263,7 +267,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             //----------Rotation 1 : diagonale vers le Bas-Droite (+1 ligne, +1 colonne)----------
-            if (rot == 1)
+            if (rot_c == 1)
             {
                 // verif que tout rentre dans le plat, genre on prend la taille max via les position recu + taille motif et on s'embete meme pas a faire si c'est en dehors
                 if (l + 3 < 5 && c + 3 < 5)
@@ -294,7 +298,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             //----------Rotation 2 : Diagonale vers le Bas-Gauche (+1 ligne, -1 colonne)----------
-            else if (rot == 2)
+            else if (rot_c == 2)
             {
                 // verif que la ligne ne dépasse pas 4 en bas, la colonne ne dépasse pas 0 à gauche
                 if (l + 3 < 5 && c - 3 >= 0)
@@ -330,15 +334,17 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
         motif_aubergine(ROT, cj);
         motif = clique_plateau(1, 3, ROT, cj);
-        effacer_menu(0);
+        
 
         //-------------------========== Motif 1 : 2 Aubergines ==========-------------------
         if (motif == 1)
         {
-
+            effacer_menu(0);
             rot1_aubergine(ROT, cj);
-            rot = clique_plateau(1, 2, ROT, cj);
-            garder_case(rot);
+            rot_a = 0;
+            Sleep(200);
+            rot_a = clique_plateau(1, 2, ROT, cj);
+            garder_case(rot_a);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -346,7 +352,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 :
-            if (rot == 1)
+            if (rot_a == 1)
             {
                 // Limites strictes
                 if (l >= 0 && l < 5 && c >= 0 && c + 1 < 5)
@@ -369,7 +375,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 :
-            else if (rot == 2)
+            else if (rot_a == 2)
             {
                 if (l >= 0 && l + 1 < 5 && c >= 0 && c < 5)
                 {
@@ -394,10 +400,11 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         //-------------------========== Motif 2 : Carré de 2x2 Aubergines ==========-------------------
         else if (motif == 2)
         {
-
+            garder_case(2);
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
             c = case_C(pos);
+            effacer_menu(0);
 
             //pas de rot car carré
             if (l >= 0 && l + 1 < 5 && c >= 0 && c + 1 < 5)
@@ -429,8 +436,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
 
             rot3_aubergine(ROT, cj);
-            rot = clique_plateau(1, 2, ROT, cj);
-            garder_case(rot);
+            rot_a = 0;
+            Sleep(200);
+            rot_a = clique_plateau(1, 2, ROT, cj);
+            garder_case(rot_a);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -438,7 +447,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 :
-            if (rot == 1)
+            if (rot_a == 1)
             {
                 if (l >= 0 && l + 1 < 5 && c >= 0 && c + 2 < 5)  //verif que c'est bien dedans
                 {
@@ -467,7 +476,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2
-            else if (rot == 2)
+            else if (rot_a == 2)
             {
                 if (l >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -533,8 +542,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
 
             rot2_tomate(ROT, cj);
-            rot = clique_plateau(1, 4, ROT, cj);
-            garder_case(rot);
+            rot_t = 0;
+            Sleep(200);
+            rot_t = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot_t);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -542,7 +553,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 : *:
-            if (rot == 4)
+            if (rot_t == 4)
             {
                 if (l - 1 >= 0 && l + 1 < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -564,7 +575,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 : .*.
-            else if (rot == 1)
+            else if (rot_t == 1)
             {
                 if (l >= 0 && l + 1 < 5 && c - 1 >= 0 && c + 1 < 5)
                 {
@@ -586,7 +597,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 3 : :*
-            else if (rot == 2)
+            else if (rot_t == 2)
             {
                 if (l - 1 >= 0 && l + 1 < 5 && c - 1 >= 0 && c < 5)
                 {
@@ -608,7 +619,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 4 : *.*
-            else if (rot == 3)
+            else if (rot_t == 3)
             {
                 if (l - 1 >= 0 && l < 5 && c - 1 >= 0 && c + 1 < 5)
                 {
@@ -636,8 +647,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
 
             rot3_tomate(ROT, cj);
-            rot = clique_plateau(1, 4, ROT, cj);
-            garder_case(rot);
+            rot_t = 0;
+            Sleep(200);
+            rot_t = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot_t);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -645,7 +658,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 : W
-            if (rot == 1)
+            if (rot_t == 1)
             {
 
                 if (l >= 0 && l + 1 < 5 && c - 2 >= 0 && c + 2 < 5)
@@ -674,7 +687,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 : Σ
-            else if (rot == 2)
+            else if (rot_t == 2)
             {
 
                 if (l - 2 >= 0 && l + 2 < 5 && c - 1 >= 0 && c < 5)
@@ -703,7 +716,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 3 : M
-            else if (rot == 3)
+            else if (rot_t == 3)
             {
                 if (l - 1 >= 0 && l < 5 && c - 2 >= 0 && c + 2 < 5)
                 {
@@ -731,7 +744,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 4 : ∃
-            else if (rot == 4)
+            else if (rot_t == 4)
             {
                 if (l - 2 >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -796,8 +809,10 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
             effacer_menu(0);
             rot2_brocoli(ROT, cj);
-            rot = clique_plateau(1, 4, ROT, cj);
-            garder_case(rot);
+            rot_b = 0;
+            Sleep(200);
+            rot_b = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot_b);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -805,7 +820,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 : |_
-            if (rot == 1)
+            if (rot_b == 1)
             {
                 if (l - 1 >= 0 && l < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -829,7 +844,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 : |^
-            else if (rot == 2)
+            else if (rot_b == 2)
             {
                 if (l >= 0 && l + 1 < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -853,7 +868,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 3 : ^|
-            else if (rot == 3)
+            else if (rot_b == 3)
             {
                 if (l >= 0 && l + 1 < 5 && c - 1 >= 0 && c < 5)
                 {
@@ -877,7 +892,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 4 : _|
-            else if (rot == 4)
+            else if (rot_b == 4)
             {
                 if (l - 1 >= 0 && l < 5 && c - 1 >= 0 && c < 5)
                 {
@@ -937,7 +952,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
         motif_patate(ROT, cj);
         motif = clique_plateau(1, 3, ROT, cj);
-        
+
 
         //-------------------========== Motif 1 : Une seule Patate ==========-------------------
         if (motif == 1)
@@ -966,8 +981,8 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
             effacer_menu(0);
             rot2_patate(ROT, cj);
-            rot = clique_plateau(1, 2, ROT, cj);
-            garder_case(rot);
+            rot_p = clique_plateau(1, 2, ROT, cj);
+            garder_case(rot_p);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -975,7 +990,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 : -
-            if (rot == 1)
+            if (rot_p == 1)
             {
                 if (l >= 0 && l < 5 && c >= 0 && c + 2 < 5)
                 {
@@ -999,7 +1014,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 : |
-            else if (rot == 2)
+            else if (rot_p == 2)
             {
                 if (l >= 0 && l + 2 < 5 && c >= 0 && c < 5)
                 {
@@ -1029,8 +1044,8 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
             effacer_menu(0);
             rot3_patate(ROT, cj);
-            rot = clique_plateau(1, 4, ROT, cj);
-            garder_case(rot);
+            rot_p = clique_plateau(1, 4, ROT, cj);
+            garder_case(rot_p);
 
             pos=clique_plateau(5,5,lj, clique_cj);
             l = case_L(pos);
@@ -1038,7 +1053,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
 
             // Rotation 1 : π
-            if (rot == 1)
+            if (rot_p == 1)
             {
                 if (l >= 0 && l + 1 < 5 && c >= 0 && c + 2 < 5)
                 {
@@ -1068,7 +1083,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 2 : ]
-            else if (rot == 2)
+            else if (rot_p == 2)
             {
                 if (l >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -1098,7 +1113,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 3 : u
-            else if (rot == 3)
+            else if (rot_p == 3)
             {
                 if (l >= 0 && l + 1 < 5 && c >= 0 && c + 2 < 5)
                 {
@@ -1128,7 +1143,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                 }
             }
             // Rotation 4 : [
-            else if (rot == 4)
+            else if (rot_p == 4)
             {
                 if (l >= 0 && l + 2 < 5 && c >= 0 && c + 1 < 5)
                 {
@@ -1223,7 +1238,7 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j)// deplacer
             game->haie[h] = '0';
 
             debug_update(game, joueur);
-			return 0;// marche
+            return 0;// marche
         }
     }
     debug_update(game, joueur);
@@ -1267,23 +1282,24 @@ void remplir_haie(S_jeu* game, S_joueur joueur[]) //permet de remplir la haie av
 
 void ordonner_haie(S_jeu* game, S_joueur joueur[])
 {
-    if (game->nbr_pioches!=0){
-    // On fait glisser les '0' vers la droite en comparant les cases adjacentes
-    for (int i = 0; i < 4; i++)
+    if (game->nbr_pioches >0)
     {
-        for (int j = 0; j < 4 - i; j++)
+        // On fait glisser les '0' vers la droite en comparant les cases adjacentes
+        for (int i = 0; i < 4; i++)
         {
-            // Si la case actuelle est vide et la suivante contient un légume, on inverse
-            if (game->haie[j] == '0' && game->haie[j + 1] != '0')
+            for (int j = 0; j < 4 - i; j++)
             {
-                char temp = game->haie[j];
-                game->haie[j] = game->haie[j + 1];
-                game->haie[j + 1] = temp;
-                debug_update(game, joueur);
+                // Si la case actuelle est vide et la suivante contient un légume, on inverse
+                if (game->haie[j] == '0' && game->haie[j + 1] != '0')
+                {
+                    char temp = game->haie[j];
+                    game->haie[j] = game->haie[j + 1];
+                    game->haie[j + 1] = temp;
+                    debug_update(game, joueur);
+                }
             }
         }
     }
-}
 }
 
 int pair(int p)  // permet d'alertner le joueur en cours
