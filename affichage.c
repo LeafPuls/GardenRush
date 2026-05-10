@@ -11,7 +11,7 @@
 
 //=====Initialisation variable=====
 int debug_state;
-HANDLE hIn;
+HANDLE hIn;// data souris
 
 //=====================================================================================================================================================================Initialisation AFFICHAGE==========================================================================================================================================================================
 
@@ -173,7 +173,7 @@ void afficher_score(S_jeu* game, S_joueur joueur[])
     debug_update(game, joueur);
 }
 
-void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)
+void dessiner_ligne_score(int ligne, int colonne, int nombre, int couleur)// generateut de carre en ligne
 {
     int largeur_rect = 6;
     int hauteur_rect = 3;
@@ -202,7 +202,7 @@ void afficher_haie(S_jeu* game, S_joueur joueur[])
     int espace_ligne = 2;
 
 
-    for (int lig = 0; lig < nb_lignes; lig++)
+	for (int lig = 0; lig < nb_lignes; lig++)// meme base de generatrice modulaire pour faire tous les trucs à case
     {
 
         int coord_l = l + (lig * (l_case + espace_ligne));
@@ -249,7 +249,7 @@ void afficher_trampoline(S_jeu* game, S_joueur joueur[])
     int espace_ligne = 2;
 
 
-    for (int lig = 0; lig < nb_lignes; lig++)
+    for (int lig = 0; lig < nb_lignes; lig++)// utilise toujours le meme base generatrice modulaire pour faire tous les trucs à case
     {
 
         int coord_l = l + (lig * (l_case + espace_ligne));
@@ -257,7 +257,7 @@ void afficher_trampoline(S_jeu* game, S_joueur joueur[])
 
         char case_actuelle = game->pioche[game->nbr_pioches - 1];
 
-        switch (case_actuelle)
+        switch (case_actuelle)// affiche le legume associe a la struct game.haie
         {
         case 'C':
             afficher_double_carotte(coord_l, coord_c);
@@ -346,6 +346,7 @@ int afficher_menu(int j)
     l = l+6;
     c = c - 44;
 
+    // texte menu
     color(0, 14);
     positionner_curseur(l, c);
     printf(" __   ___  __   __       ___  ___  __  ");
@@ -393,7 +394,7 @@ int afficher_menu(int j)
 }
 
 
-void effacer_menu(int t)
+void effacer_menu(int t)// efface le menu, 0 juste le choix et 1 le txt avec cliquer avec la souris
 {
 
     if (t == 0)
@@ -412,7 +413,7 @@ void effacer_menu(int t)
 
 void garder_case(int p)
 {
-
+	// permet de choisir quelle case garder en fonction de la position du clic, et d'effacer les autres cases du menu pour mettre en valeur la case choisie / motif
     if(p!=1)
     {
         afficher_case(ROT, PLAT_C, 1, NOIR);
@@ -652,29 +653,29 @@ void rot3_tomate(int l, int c)
 
     //rot 2 :
     c = c + 33;
-    dessiner_rectangle(l + 2, c + 16, 2, 4, ROUGE); // ex-Haut Gauche, passe en Haut Droite
+    dessiner_rectangle(l + 2, c + 16, 2, 4, ROUGE); 
     dessiner_rectangle(l + 4, c + 12, 2, 4, ROUGE);
-    dessiner_rectangle(l + 6, c + 16, 2, 4, GRIS);  // Pointe Centrale Droite
+    dessiner_rectangle(l + 6, c + 16, 2, 4, GRIS);  
     dessiner_rectangle(l + 8, c + 12, 2, 4, ROUGE);
-    dessiner_rectangle(l + 10, c + 16, 2, 4, ROUGE); // ex-Haut Droite, passe en Bas Droite
+    dessiner_rectangle(l + 10, c + 16, 2, 4, ROUGE);
 
 
     //rot 3 :
     c = c + 35;
-    dessiner_rectangle(l + 8, c + 6, 2, 4, ROUGE); // ex-Haut Droite, passe en Bas Gauche
+    dessiner_rectangle(l + 8, c + 6, 2, 4, ROUGE); 
     dessiner_rectangle(l + 6, c + 10, 2, 4, ROUGE);
-    dessiner_rectangle(l + 8, c + 14, 2, 4, GRIS);  // Pointe Centrale Basse
+    dessiner_rectangle(l + 8, c + 14, 2, 4, GRIS);  
     dessiner_rectangle(l + 6, c + 18, 2, 4, ROUGE);
-    dessiner_rectangle(l + 8, c + 22, 2, 4, ROUGE); // ex-Haut Gauche, passe en Bas Droite
+    dessiner_rectangle(l + 8, c + 22, 2, 4, ROUGE); 
 
 
     //rot 4 :
     c = c + 34;
-    dessiner_rectangle(l + 2, c + 12, 2, 4, ROUGE); // ex-Haut Droite, passe en Haut Gauche
+    dessiner_rectangle(l + 2, c + 12, 2, 4, ROUGE); 
     dessiner_rectangle(l + 4, c + 16, 2, 4, ROUGE);
-    dessiner_rectangle(l + 6, c + 12, 2, 4, GRIS);  // Pointe Centrale Gauche
+    dessiner_rectangle(l + 6, c + 12, 2, 4, GRIS);  
     dessiner_rectangle(l + 8, c + 16, 2, 4, ROUGE);
-    dessiner_rectangle(l + 10, c + 12, 2, 4, ROUGE); // ex-Haut Gauche, passe en Bas Gauche
+    dessiner_rectangle(l + 10, c + 12, 2, 4, ROUGE);
 }
 
 void motif_brocoli(int l, int c)
