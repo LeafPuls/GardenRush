@@ -1257,7 +1257,7 @@ char soustraire_legume(char leg)
         return '0'; // deja minuscule ou vide -> devient vide
     }
 
-    return '0'; // Par sécurité pour tout autre caractère (comme ton 'X' de pioche vide)
+    return '0'; // Par sécu pour tout autre caractère (comme ton 'X' de pioche vide)
 }
 
 void remplir_haie(S_jeu* game, S_joueur joueur[]) //permet de remplir la haie avec les 5 prochains légumes de la pioche
