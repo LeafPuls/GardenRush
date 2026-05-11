@@ -10,14 +10,14 @@
 
 //====================================================================================Initialisation du jeu===============================================================================
 
-void InitialiserHandle()
+void InitialiserHandle()// permet d'initialiser le "handle" pour la gestion des clics souris dans la console
 {
     hIn = GetStdHandle(STD_INPUT_HANDLE);
     SetConsoleMode(hIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
 }
 
 
-void initialisation_plateau(S_joueur *joueur) //tout à zéro
+void initialisation_plateau(S_joueur *joueur) // tout à zéro (0 terre)
 {
     int i, j;
     for (i = 0; i < 5; i++)
@@ -27,39 +27,39 @@ void initialisation_plateau(S_joueur *joueur) //tout à zéro
             joueur->plat[i][j] = '0';
         }
     }
-    joueur->score = 0; //score de base à 0
+    joueur->score = 0; // score de base à 0
 }
 
-void initialisation_pioche(S_jeu *game) //remplissage de la pioche
+void initialisation_pioche(S_jeu *game) // remplissage de la pioche
 {
     int i;
     int k = 0;
     for (i = 0; i < 12; i++)
     {
-        game->pioche[k] = 'C'; //on remplit la pioche de 12 carottes
+        game->pioche[k] = 'C'; // on remplit la pioche de 12 carottes
         k++;
     }
     for (i = 0; i < 12; i++)
     {
-        game->pioche[k] = 'P'; //on remplit la pioche de 12 patates
+        game->pioche[k] = 'P'; // on remplit la pioche de 12 patates
         k++;
     }
     for (i = 0; i < 12; i++)
     {
-        game->pioche[k] = 'B'; //on remplit la pioche de 12 brocolis
+        game->pioche[k] = 'B'; // on remplit la pioche de 12 brocolis
         k++;
     }
     for (i = 0; i < 12; i++)
     {
-        game->pioche[k] = 'A'; //on remplit la pioche de 12 aubergines
+        game->pioche[k] = 'A'; // on remplit la pioche de 12 aubergines
         k++;
     }
     for (i = 0; i < 12; i++)
     {
-        game->pioche[k] = 'T'; //on remplit la pioche de 12 tomates
+        game->pioche[k] = 'T'; // on remplit la pioche de 12 tomates
         k++;
     }
-    game->nbr_pioches = 60; //nombre de légumes dans la pioche
+    game->nbr_pioches = 60; // nombre de légumes dans la pioche
 }
 
 void melanger_pioche(S_jeu *game)
@@ -75,7 +75,7 @@ void melanger_pioche(S_jeu *game)
     }
 }
 
-void initialiser_haie(S_jeu *game) //permet de mettre la haie à zéro
+void initialiser_haie(S_jeu *game) // permet de mettre la haie à zéro
 {
     int i;
     for (i = 0; i < 5; i++)
@@ -102,12 +102,13 @@ int case_C(int c)   // convertit le numéro de la case en colonne (0 à 4)
 // Ajout de nbLignes et nbColonnes en paramètres
 int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne)
 {
-    Sleep(500);//pour éviter les clics fantomes
+    Sleep(500);//pour éviter les clics fantomes genre si il y a un autre clic apres on evite le double input
     INPUT_RECORD ev;
     DWORD count;
 
     int hauteur = 17; // taille case
     int largeur = 34; // taille case
+
     // Boucle infinie jusqu'à un clic valide
     while (1)
     {
@@ -170,7 +171,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         clique_cj = PLAT2_C;
         marche_l = MARCHE2_L;
         marche_c = MARCHE2_C;
-    }
+	}// a posteriori au lieu de faire un if pour def les positions selon qui joue, on aurait pu integrer les positions au sein même de la structure du joueur, pour recup les positions directement via joueur[j].lj, joueur[j].cj, etc... mais bon c'est pas grave hein prochaine fois
 
     choix = clique_plateau(5, 1, marche_l, marche_c) - 1;//quel legume on veut recolter dans le marché
 
@@ -190,7 +191,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         {
 
             // Demande de la rotation du motif
-            rot1_carotte(ROT, cj);//affiche les options de rot
+            rot1_carotte(ROT, cj);// affiche les options de rot
             rot_c = 0;
             Sleep(200);
             rot_c = clique_plateau(1, 2, ROT, cj);// input de quel rot
@@ -1184,9 +1185,9 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j)// deplacer_haie_vers_plateau(&game, joueurs, num joueur, h, l, c);
 {
     int lj, cj;
-    int h= clique_plateau(5, 1, HAIE_L, HAIE_C)-1;// demande qui ont veut déplacer
+    int h = clique_plateau(5, 1, HAIE_L, HAIE_C)-1;// demande qui ont veut déplacer
 
-    if (j == 0)
+	if (j == 0)// selon joueur on utilise les coord du plateau 1 ou 2
     {
         lj = PLAT_L;
         cj = PLAT_C;
@@ -1197,11 +1198,12 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j)// deplacer
         cj = PLAT2_C;
     }
 
-    int case_plat = clique_plateau(5, 5, lj, cj);
+	int case_plat = clique_plateau(5, 5, lj, cj);// ou on veut le placer sur le plateau
 
     int l = case_L(case_plat);
     int c = case_C(case_plat);
 
+    // le int me permet juste de savoir si l'action est valide ou pas (le nbr du int genre 404 ou 21 ou 5 ou 0 me dit juste ce qui a pas marché ou pas pour debug), si diff de 0 echec donc revient en arriere et le joueur ne perds pas son tour
     if ((l == 0 && c == 0) || (l == 0 && c == 4) || (l == 4 && c == 0) || (l == 4 && c == 4) || (h > 4) || (l >= 5) || (c >= 5))
     {
         debug_update(game, joueur);
@@ -1243,7 +1245,7 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j)// deplacer
     }
     debug_update(game, joueur);
     return 404;
-}// le int me permet juste de debugger plus facilement les erreurs, il sert a rien
+}
 
 char soustraire_legume(char leg)
 {

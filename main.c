@@ -31,7 +31,7 @@ int main()
 //====================================================================================|
 
 
-    plein_ecran(6+debug_state);// ATTENTION CHANGER LA VALEUR SELON L'ECRAN, POUR S'AIDER OBSERVER LE FOND NOIR DE LA CONSOLE SE GENERER
+    plein_ecran(8+debug_state);// ATTENTION CHANGER LA VALEUR SELON L'ECRAN, POUR S'AIDER OBSERVER LE FOND NOIR DE LA CONSOLE SE GENERER
     intro();Sleep(4000);
     dessiner_rectangle(0, 1, 133, 472, NOIR);//fond de la console
 
