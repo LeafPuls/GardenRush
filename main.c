@@ -18,6 +18,29 @@
  \  `-'`   | |  _( )_  ||  | \ `'   /|  (_.\.' /  \  `-'    /|  (_,_)\  |        |  | \ `'   /| (_ (_) _)\    `-'  ||( ' ) |   |
   \        / \ (_ o _) /|  |  \    / |       .'    \       / |  |    |  |        |  |  \    /  \ /  . \ / \       / (_{;}_)|   |
    `'-...-'   '.(_,_).' ''-'   `'-'  '-----'`       `'-..-'  '--'    '--'        ''-'   `'-'    ``-'`-''   `-...-'  '(_,_) '---'
+
+
+
+   Le jeu se joue à la souris, une fois le menu du joueur actif affiché, il suffit de cliquer sur l'action choisie (planter ou récolter)
+   Si on choisit récolter il faut cliquer sur les légumes dans le marché pour choisir celui que l'on veut récolter.
+   Puis sélectionner le motif et sa rotation pour enfin cliquer sur le plateau. La case grise du motif représente la case de référence. Si l'action est invalide le joueur ne perd pas son tour.
+   Planter fonctionne de la même manière sauf qu'il faut cliquer sur les légumes dans la haie pour les planter sur le plateau du joueur actif. Pareil, si l'action est invalide le joueur ne perd pas son tour.
+
+   Le code s'organise en fichiers principaux selon l'affichage et la logique de jeu, accompagnés de leurs .h. Chaque fichier est aussi segmenté pour mieux organiser chaque catégorie. (//==== XXX ====)
+   Comme par exemple dans l'affichage, on retrouve l'initialisation, fonction d'affichage... jusqu'aux fonctions d'affichage de debug.
+
+
+   === SOMMAIRE DES FICHIERS : ===
+
+   main.c : contient l'initialisation, la boucle de jeu qui détermine le déroulement d'un tour et les conditions de victoire
+
+   affichage.c : contient toutes les fonctions d'affichage du jeu, du menu, du plateau, de la haie, du score... ainsi que les fonctions d'affichage de debug
+
+   game.c : contient les algorithmes de reconnaissance de motif, les actions des joueurs comme les clics et fonctions de récolte / plantation, ainsi que les fonctions de gestion de la pioche et de la haie
+
+   .h : contient les déclarations de toutes les fonctions et structures utilisées dans le projet
+
+
 */
 
 int main()
@@ -31,8 +54,9 @@ int main()
 //====================================================================================|
 
 
-    plein_ecran(8+debug_state);// ATTENTION CHANGER LA VALEUR SELON L'ECRAN, POUR S'AIDER OBSERVER LE FOND NOIR DE LA CONSOLE SE GENERER
-    intro();Sleep(4000);
+    plein_ecran(6+debug_state);// ATTENTION CHANGER LA VALEUR SELON L'ECRAN, POUR S'AIDER OBSERVER LE FOND NOIR DE LA CONSOLE SE GENERER
+    intro();
+    Sleep(4000);
     dessiner_rectangle(0, 1, 133, 472, NOIR);//fond de la console
 
 
@@ -77,7 +101,7 @@ retour:// si on rate la récolte alors on remet le menu du même joueur pour qu'il
         action = afficher_menu(j1);//affiche le menu du joueur actif et récupère son choix d'action
         effacer_menu(0);
 
-        if (action == 1)//---============================== RECOLTE ==============================---
+        if (action == 1)//---============================== RECOLTER ==============================---
         {
             int temp_score = recolter(&game, joueur, j1);//si le joueur choisit de récolter, on execute la fonction de récolte et on stocke le score gagné dans une variable temporaire
             joueur[j1].score = joueur[j1].score + temp_score;
@@ -103,7 +127,7 @@ retour:// si on rate la récolte alors on remet le menu du même joueur pour qu'il
             }
         }
 
-        if (action == 2)//---============================== PLANTE ==============================---
+        if (action == 2)//---============================== PLANTER ==============================---
         {
             //si le joueur choisit de planter, on execute la fonction de planter qui deplace le legume choisi de la haie vers le plateau du joueur actif
 
@@ -136,7 +160,7 @@ retour:// si on rate la récolte alors on remet le menu du même joueur pour qu'il
         victoire();
     }
 
-//===========================================================================================================================================================DEBUG===================================================================================================================================================
+//========================================================================================================================================================== DEBUG ==================================================================================================================================================
 
 //=====Affichage=====
 //afficher_grillage_ligne(0);
@@ -152,7 +176,7 @@ retour:// si on rate la récolte alors on remet le menu du même joueur pour qu'il
 //debug_afficher_matrice(joueur[0], DEBUG_J1_L, DEBUG_J1_C);
 //debug_afficher_matrice(joueur[1], DEBUG_J2_L, DEBUG_J2_C);
 
-	Sleep(1000);
+    Sleep(1000);
     positionner_curseur(150, 0);
     return 0;
 }

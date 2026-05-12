@@ -89,25 +89,26 @@ void initialiser_haie(S_jeu *game) // permet de mettre la haie à zéro
 int case_L(int c)   // convertit le numéro de la case en ligne (0 à 4)
 {
     if (c < 1 || c > 25) return -1; // si PB (case hors limites)
-    return (c - 1) / 5;   // 0 pour 1-5, 1 pour 6-10, 2 pour 11-15, 3 pour 16-20, 4 pour 21-25
+    return (c - 1) / 5;
 }
 
 int case_C(int c)   // convertit le numéro de la case en colonne (0 à 4)
 {
     if (c < 1 || c > 25) return -1; // si PB (case hors limites)
-    return (c - 1) % 5;   // 0 pour 1,6,11,16,21 ; … ; 4 pour 5,10,15,20,25
+    return (c - 1) % 5;
 }
 
 
-// Ajout de nbLignes et nbColonnes en paramètres
-int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne)
+int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne)// permet de recup le clic souris et de return le num de la case, modulable selon la forme du plateau et la taille des cases.
 {
-    Sleep(500);//pour éviter les clics fantomes genre si il y a un autre clic apres on evite le double input
+    Sleep(100);//pour éviter les clics fantomes genre si il y a un autre clic apres on evite le double input
     INPUT_RECORD ev;
     DWORD count;
 
     int hauteur = 17; // taille case
     int largeur = 34; // taille case
+
+    FlushConsoleInputBuffer(hIn);// vide le cache pour éviter les bug double input
 
     // Boucle infinie jusqu'à un clic valide
     while (1)
@@ -124,14 +125,14 @@ int clique_plateau(int nbLignes,int nbColonnes,int baseLigne, int baseColonne)
             int c = ev.Event.MouseEvent.dwMousePosition.X;
             int l = ev.Event.MouseEvent.dwMousePosition.Y;
 
-            // Clic hors du plateau dynamique => on ignore
+            // verif que le clic est dans les limites du plateau
             if (l < baseLigne || l >= baseLigne + (nbLignes * hauteur) ||
                     c < baseColonne || c >= baseColonne + (nbColonnes * largeur))
             {
-                continue;
+                continue;// clic invalide on relance la boucle dans le while pour attendre un nouveau clic valide
             }
 
-            // Calcul ratio
+            // Calcul ratio pour return la case
             int ligne = (l - baseLigne) / hauteur;
             int colonne = (c - baseColonne) / largeur;
 
@@ -148,7 +149,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
     effacer_menu(0);
     int choix;
     int motif;
-	int rot_c, rot_a, rot_t, rot_b, rot_p;// variable de la rotation choisie pour chaque légume
+    int rot_c, rot_a, rot_t, rot_b, rot_p;// variable de la rotation choisie pour chaque légume
     int l, c;
     int lj, cj;
     int clique_cj;
@@ -171,7 +172,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
         clique_cj = PLAT2_C;
         marche_l = MARCHE2_L;
         marche_c = MARCHE2_C;
-	}// a posteriori au lieu de faire un if pour def les positions selon qui joue, on aurait pu integrer les positions au sein même de la structure du joueur, pour recup les positions directement via joueur[j].lj, joueur[j].cj, etc... mais bon c'est pas grave hein prochaine fois
+    }// a posteriori au lieu de faire un if pour def les positions selon qui joue, on aurait pu integrer les positions au sein même de la structure du joueur, pour recup les positions directement via joueur[j].lj, joueur[j].cj, etc... mais bon c'est pas grave hein prochaine fois
 
     choix = clique_plateau(5, 1, marche_l, marche_c) - 1;//quel legume on veut recolter dans le marché
 
@@ -202,7 +203,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             c = case_C(pos);
 
 
-            //----------Rotation 1 : Bas-Droite (+1 ligne, +1 colonne)----------
+            //---------- Rotation 1 : ----------
             if (rot_c == 1)
             {
                 // On vérifie que le motif ne sort pas du plateau 5x5
@@ -226,7 +227,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
                     }
                 }
             }
-            //----------Rotation 2 : Bas-Gauche (+1 ligne, -1 colonne)----------
+            //---------- Rotation 2 : ----------
             else if (rot_c == 2)
             {
                 // verif taille rentre
@@ -267,7 +268,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             c = case_C(pos);
 
 
-            //----------Rotation 1 : diagonale vers le Bas-Droite (+1 ligne, +1 colonne)----------
+            //---------- Rotation 1 : ----------
             if (rot_c == 1)
             {
                 // verif que tout rentre dans le plat, genre on prend la taille max via les position recu + taille motif et on s'embete meme pas a faire si c'est en dehors
@@ -298,7 +299,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
             }
 
 
-            //----------Rotation 2 : Diagonale vers le Bas-Gauche (+1 ligne, -1 colonne)----------
+            //---------- Rotation 2 : ----------
             else if (rot_c == 2)
             {
                 // verif que la ligne ne dépasse pas 4 en bas, la colonne ne dépasse pas 0 à gauche
@@ -335,7 +336,7 @@ int recolter(S_jeu* game, S_joueur joueur[], int j)
 
         motif_aubergine(ROT, cj);
         motif = clique_plateau(1, 3, ROT, cj);
-        
+
 
         //-------------------========== Motif 1 : 2 Aubergines ==========-------------------
         if (motif == 1)
@@ -1187,7 +1188,7 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j)// deplacer
     int lj, cj;
     int h = clique_plateau(5, 1, HAIE_L, HAIE_C)-1;// demande qui ont veut déplacer
 
-	if (j == 0)// selon joueur on utilise les coord du plateau 1 ou 2
+    if (j == 0)// selon joueur on utilise les coord du plateau 1 ou 2
     {
         lj = PLAT_L;
         cj = PLAT_C;
@@ -1198,7 +1199,7 @@ int deplacer_haie_vers_plateau(S_jeu* game, S_joueur joueur[], int j)// deplacer
         cj = PLAT2_C;
     }
 
-	int case_plat = clique_plateau(5, 5, lj, cj);// ou on veut le placer sur le plateau
+    int case_plat = clique_plateau(5, 5, lj, cj);// ou on veut le placer sur le plateau
 
     int l = case_L(case_plat);
     int c = case_C(case_plat);
@@ -1265,7 +1266,7 @@ char soustraire_legume(char leg)
 void remplir_haie(S_jeu* game, S_joueur joueur[]) //permet de remplir la haie avec les 5 prochains légumes de la pioche
 {
     ordonner_haie(game, joueur); // orga pour remplir du cote trampoline
-    Sleep(200);//sinon ça bug ché pas pourquoi va savoirrrr
+    Sleep(200);//sinon ça bug ché pas pourquoi va savoirrrr clique phantome
 
     int i;
     for (i = 0; i < 5; i++)
